@@ -15,14 +15,17 @@ ROOT_URLCONF = '%s.urls' % PROJECT_MODULE
 INSTALLED_APPS = list(INSTALLED_APPS) + [
     # Application base, containing global templates.
     '%s.base' % PROJECT_MODULE,
-    # Example code. Can (and should) be removed for actual projects.
-    '%s.examples' % PROJECT_MODULE,
+    'django.contrib.admin',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rna',
+    'south',
 ]
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
 # make sure it comes BEFORE `django_nose`.
-#INSTALLED_APPS.remove('django_nose')
-#INSTALLED_APPS.append('django_nose')
+INSTALLED_APPS.remove('django_nose')
+INSTALLED_APPS.append('django_nose')
 
 
 LOCALE_PATHS = (
@@ -34,6 +37,8 @@ LOCALE_PATHS = (
 JINGO_EXCLUDE_APPS = [
     'admin',
     'registration',
+    'rest_framework',
+    'rna',
 ]
 
 # BrowserID configuration
@@ -84,3 +89,6 @@ DOMAIN_METHODS['messages'] = [
 # ]
 
 LOGGING = dict(loggers=dict(playdoh = {'level': logging.DEBUG}))
+
+MIDDLEWARE_CLASSES = get_middleware(
+    exclude=['funfactory.middleware.LocaleURLMiddleware'])

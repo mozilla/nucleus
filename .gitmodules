@@ -1,3 +1,12 @@
 [submodule "vendor"]
 	path = vendor
 	url = git://github.com/mozilla/playdoh-lib.git
+[submodule "vendor-local/src/rna"]
+	path = vendor-local/src/rna
+	url = git@github.com:jgmize/rna.git
+[submodule "vendor-local/src/django-rest-framework"]
+	path = vendor-local/src/django-rest-framework
+	url = https://github.com/tomchristie/django-rest-framework.git
+[submodule "vendor-local/src/markdown"]
+	path = vendor-local/src/markdown
+	url = https://github.com/waylan/Python-Markdown.git
