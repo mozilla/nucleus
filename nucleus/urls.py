@@ -14,7 +14,10 @@ urlpatterns = patterns('',
     # Example:
     (r'', include(urls)),
     
-    # Generate a robots.txt
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'),
+    url(r'^rna', include('rna.urls')),
+
     (r'^robots\.txt$', 
         lambda r: HttpResponse(
             "User-agent: *\n%s: /" % 'Allow' if settings.ENGAGE_ROBOTS else 'Disallow' ,
@@ -22,8 +25,6 @@ urlpatterns = patterns('',
         )
     ),
 
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^rna', include('rna.urls')),
 )
 
 ## In DEBUG mode, serve media files through Django.
