@@ -1,3 +1,4 @@
 src/django-rest-framework
+src/dj-database-url
 src/rna
 src/markdown
