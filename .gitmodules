@@ -10,3 +10,6 @@
 [submodule "vendor-local/src/markdown"]
 	path = vendor-local/src/markdown
 	url = https://github.com/waylan/Python-Markdown.git
+[submodule "vendor-local/src/dj-database-url"]
+	path = vendor-local/src/dj-database-url
+	url = https://github.com/kennethreitz/dj-database-url.git

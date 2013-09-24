@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'),
-    url(r'^rna', include('rna.urls')),
+    url(r'^rna/', include('rna.urls')),
 
     (r'^robots\.txt$', 
         lambda r: HttpResponse(
