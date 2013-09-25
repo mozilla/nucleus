@@ -26,6 +26,7 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
     # Application base, containing global templates.
     '%s.base' % PROJECT_MODULE,
     'django.contrib.admin',
+    'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
     'rna',
