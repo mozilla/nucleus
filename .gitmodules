@@ -16,3 +16,6 @@
 [submodule "vendor-local/src/django-extensions"]
 	path = vendor-local/src/django-extensions
 	url = https://github.com/django-extensions/django-extensions.git
+[submodule "vendor-local/src/django-filter"]
+	path = vendor-local/src/django-filter
+	url = https://github.com/alex/django-filter.git
