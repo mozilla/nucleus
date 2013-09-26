@@ -3,3 +3,4 @@ src/dj-database-url
 src/rna
 src/markdown
 src/django-extensions
+src/django-filter
