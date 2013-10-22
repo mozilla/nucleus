@@ -13,6 +13,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 HMAC_KEYS = {'2013-09-24': os.environ.get('DJANGO_HMAC_KEY', '')}
 DEBUG = os.environ.get('DJANGO_DEBUG', False)
 
+RNA = {
+    'BASE_URL': os.environ.get(
+        'RNA_BASE_URL', 'https://nucleus-pg.paas.allizom.org/rna/'),
+    'LEGACY_API': os.environ.get('RNA_LEGACY_API', False)
+}
+
 # Name of the top-level module where you put all your apps.
 # If you did not install Playdoh with the funfactory installer script
 # you may need to edit this value. See the docs about installing from a
@@ -122,3 +128,6 @@ REST_FRAMEWORK = {
 
     'DEFAULT_FILTER_BACKENDS': ('rna.filters.TimestampedFilterBackend',)
 }
+
+# needed for request.is_secure to work with stackato
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PORT', '443')
