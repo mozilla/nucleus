@@ -1,7 +1,23 @@
 # This is your project's main settings file that can be committed to your
 # repo. If you need to override a setting locally, use settings_local.py
 
+import os
+
 from funfactory.settings_base import *
+import dj_database_url
+
+
+DATABASES = {'default': dj_database_url.config()}
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
+HMAC_KEYS = {'2013-09-24': os.environ.get('DJANGO_HMAC_KEY', '')}
+DEBUG = os.environ.get('DJANGO_DEBUG', False)
+
+RNA = {
+    'BASE_URL': os.environ.get(
+        'RNA_BASE_URL', 'https://nucleus-pg.paas.allizom.org/rna/'),
+    'LEGACY_API': os.environ.get('RNA_LEGACY_API', False)
+}
 
 # Name of the top-level module where you put all your apps.
 # If you did not install Playdoh with the funfactory installer script
@@ -15,14 +31,18 @@ ROOT_URLCONF = '%s.urls' % PROJECT_MODULE
 INSTALLED_APPS = list(INSTALLED_APPS) + [
     # Application base, containing global templates.
     '%s.base' % PROJECT_MODULE,
-    # Example code. Can (and should) be removed for actual projects.
-    '%s.examples' % PROJECT_MODULE,
+    'django.contrib.admin',
+    'django_extensions',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rna',
+    'south',
 ]
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
 # make sure it comes BEFORE `django_nose`.
-#INSTALLED_APPS.remove('django_nose')
-#INSTALLED_APPS.append('django_nose')
+INSTALLED_APPS.remove('django_nose')
+INSTALLED_APPS.append('django_nose')
 
 
 LOCALE_PATHS = (
@@ -34,6 +54,8 @@ LOCALE_PATHS = (
 JINGO_EXCLUDE_APPS = [
     'admin',
     'registration',
+    'rest_framework',
+    'rna',
 ]
 
 # BrowserID configuration
@@ -84,3 +106,28 @@ DOMAIN_METHODS['messages'] = [
 # ]
 
 LOGGING = dict(loggers=dict(playdoh = {'level': logging.DEBUG}))
+
+MIDDLEWARE_CLASSES = get_middleware(
+    exclude=['funfactory.middleware.LocaleURLMiddleware'])
+
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rna.serializers.HyperlinkedModelSerializerWithPkField',
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+
+    'DEFAULT_FILTER_BACKENDS': ('rna.filters.TimestampedFilterBackend',)
+}
+
+# needed for request.is_secure to work with stackato
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PORT', '443')
