@@ -1,114 +1,109 @@
 # This is your project's main settings file that can be committed to your
-# repo. If you need to override a setting locally, use settings_local.py
+# repo. If you need to override a setting locally, use local.py
 
-import os
-
-from funfactory.settings_base import *
 import dj_database_url
+from funfactory.settings_base import *
 
 
-DATABASES = {'default': dj_database_url.config()}
+# Django Settings
+##############################################################################
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
-HMAC_KEYS = {'2013-09-24': os.environ.get('DJANGO_HMAC_KEY', '')}
+ROOT_URLCONF = 'nucleus.urls'
+
+# Whether the app should run in debug-mode.
 DEBUG = os.environ.get('DJANGO_DEBUG', False)
 
-RNA = {
-    'BASE_URL': os.environ.get(
-        'RNA_BASE_URL', 'https://nucleus-pg.paas.allizom.org/rna/'),
-    'LEGACY_API': os.environ.get('RNA_LEGACY_API', False)
-}
+# Configure database from DATABASE_URL environment variable.
+DATABASES = {'default': dj_database_url.config()}
 
-# Name of the top-level module where you put all your apps.
-# If you did not install Playdoh with the funfactory installer script
-# you may need to edit this value. See the docs about installing from a
-# clone.
-PROJECT_MODULE = 'nucleus'
+# Pull secret keys from environment.
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
+HMAC_KEYS = {'hmac_key': os.environ.get('DJANGO_HMAC_KEY', '')}
 
-# Defines the views served for root URLs.
-ROOT_URLCONF = '%s.urls' % PROJECT_MODULE
+INSTALLED_APPS = [
+    # Nucleus and API apps.
+    'nucleus.base',
+    'rna',
 
-INSTALLED_APPS = list(INSTALLED_APPS) + [
-    # Application base, containing global templates.
-    '%s.base' % PROJECT_MODULE,
+    # Django contrib apps.
     'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.staticfiles',
+
+    # Third-party apps, patches, fixes.
+    'south',  # Must come before django_nose.
+    'commonware.response.cookies',
+    'django_browserid',
     'django_extensions',
+    'django_nose',
+    'funfactory',
     'rest_framework',
     'rest_framework.authtoken',
-    'rna',
-    'south',
+    'session_csrf',
 ]
 
-# Note! If you intend to add `south` to INSTALLED_APPS,
-# make sure it comes BEFORE `django_nose`.
-INSTALLED_APPS.remove('django_nose')
-INSTALLED_APPS.append('django_nose')
-
-
-LOCALE_PATHS = (
-    os.path.join(ROOT, PROJECT_MODULE, 'locale'),
-)
-
-# Because Jinja2 is the default template loader, add any non-Jinja templated
-# apps here:
-JINGO_EXCLUDE_APPS = [
-    'admin',
-    'registration',
-    'rest_framework',
-    'rna',
-]
-
-# BrowserID configuration
 AUTHENTICATION_BACKENDS = [
     'django_browserid.auth.BrowserIDBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'session_csrf.context_processor',
+    'django.contrib.messages.context_processors.messages',
+    'funfactory.context_processors.globals',
+    'django_browserid.context_processors.browserid_form',
+)
+
+MIDDLEWARE_CLASSES = (
+    'multidb.middleware.PinningRouterMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'session_csrf.CsrfMiddleware',  # Must be after auth middleware.
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'commonware.middleware.FrameOptionsHeader',
+)
+
+LOGGING = {
+    'loggers': {
+        'playdoh': {
+            'level': logging.DEBUG
+        }
+    }
+}
+
+# Needed for request.is_secure to work with stackato.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PORT', '443')
+
+
+# Third-party Libary Settings
+##############################################################################
+
+# Testing configuration.
+NOSE_ARGS = ['--logging-clear-handlers', '--logging-filter=-south']
+
+# Template paths that contain non-Jinja templates.
+JINGO_EXCLUDE_APPS = (
+    'admin',
+    'registration',
+    'rest_framework',
+    'rna',
+)
+
+# django-browserid Configuration
 SITE_URL = 'http://127.0.0.1:8000'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = 'examples.home'
 LOGIN_REDIRECT_URL_FAILURE = 'examples.home'
 
-TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS) + [
-    'django_browserid.context_processors.browserid_form',
-]
-
-# Should robots.txt deny everything or disallow a calculated list of URLs we
-# don't want to be crawled?  Default is false, disallow everything.
-# Also see http://www.google.com/support/webmasters/bin/answer.py?answer=93710
-ENGAGE_ROBOTS = False
-
 # Always generate a CSRF token for anonymous users.
 ANON_ALWAYS = True
-
-# Tells the extract script what files to look for L10n in and what function
-# handles the extraction. The Tower library expects this.
-DOMAIN_METHODS['messages'] = [
-    ('%s/**.py' % PROJECT_MODULE,
-        'tower.management.commands.extract.extract_tower_python'),
-    ('%s/**/templates/**.html' % PROJECT_MODULE,
-        'tower.management.commands.extract.extract_tower_template'),
-    ('templates/**.html',
-        'tower.management.commands.extract.extract_tower_template'),
-]
-
-# # Use this if you have localizable HTML files:
-# DOMAIN_METHODS['lhtml'] = [
-#    ('**/templates/**.lhtml',
-#        'tower.management.commands.extract.extract_tower_template'),
-# ]
-
-# # Use this if you have localizable JS files:
-# DOMAIN_METHODS['javascript'] = [
-#    # Make sure that this won't pull in strings from external libraries you
-#    # may use.
-#    ('media/js/**.js', 'javascript'),
-# ]
-
-LOGGING = dict(loggers=dict(playdoh = {'level': logging.DEBUG}))
-
-MIDDLEWARE_CLASSES = get_middleware(
-    exclude=['funfactory.middleware.LocaleURLMiddleware'])
 
 REST_FRAMEWORK = {
     # Use hyperlinked styles by default.
@@ -129,5 +124,17 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rna.filters.TimestampedFilterBackend',)
 }
 
-# needed for request.is_secure to work with stackato
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PORT', '443')
+
+# Nucleus-specific Settings
+##############################################################################
+
+# Should robots.txt deny everything or disallow a calculated list of URLs we
+# don't want to be crawled?  Default is false, disallow everything.
+ENGAGE_ROBOTS = False
+
+# RNA (Release Notes) Configuration
+RNA = {
+    'BASE_URL': os.environ.get(
+        'RNA_BASE_URL', 'https://nucleus.paas.allizom.org/rna/'),
+    'LEGACY_API': os.environ.get('RNA_LEGACY_API', False)
+}
