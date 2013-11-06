@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <h1>Nucleus</h1>
+  <p>Welcome to Nucleus!</p>
+  <ul>
+    <li><a href="{{ url('api-root') }}">Release Notes API</a></li>
+    <li><a href="{{ url('admin:index') }}">Admin Interface</a></li>
+  </ul>
+{% endblock %}
