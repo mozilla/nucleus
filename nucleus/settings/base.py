@@ -57,7 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'session_csrf.context_processor',
     'django.contrib.messages.context_processors.messages',
     'funfactory.context_processors.globals',
-    'django_browserid.context_processors.browserid_form',
+    'django_browserid.context_processors.browserid',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,13 +94,8 @@ JINGO_EXCLUDE_APPS = (
     'registration',
     'rest_framework',
     'rna',
+    'browserid',
 )
-
-# django-browserid Configuration
-SITE_URL = 'http://127.0.0.1:8000'
-LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = 'examples.home'
-LOGIN_REDIRECT_URL_FAILURE = 'examples.home'
 
 # Always generate a CSRF token for anonymous users.
 ANON_ALWAYS = True
@@ -123,6 +118,9 @@ REST_FRAMEWORK = {
 
     'DEFAULT_FILTER_BACKENDS': ('rna.filters.TimestampedFilterBackend',)
 }
+
+# django-browserid
+BROWSERID_AUDIENCES = os.environ.get('BROWSERID_AUDIENCES', 'http://localhost:8000').split()
 
 
 # Nucleus-specific Settings

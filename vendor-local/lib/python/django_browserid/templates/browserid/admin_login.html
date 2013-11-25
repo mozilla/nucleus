@@ -1,0 +1,26 @@
+{% extends 'admin/login.html' %}
+{% load admin_static browserid %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  {% browserid_css %}
+  <style>
+      a.persona-button:link,
+      a.persona-button:visited {
+          color: #FFF;
+      }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% if include_password_form %}
+    {{ block.super }}
+  {% endif %}
+
+  <div class="submit-row">
+    <label>&nbsp;</label>{% browserid_login text='Sign in with email' color='dark' next=app_path %}
+  </div>
+
+  <script src="{% static 'browserid/jquery-1.10.2.min.js' %}"></script>
+  {% browserid_js %}
+{% endblock %}
