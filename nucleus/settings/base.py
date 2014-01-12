@@ -79,7 +79,7 @@ LOGGING = {
 }
 
 # Needed for request.is_secure to work with stackato.
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PORT', '443')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Third-party Libary Settings
