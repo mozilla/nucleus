@@ -17,3 +17,5 @@ build
 tmp/*
 *~
 *.mo
+nucleus/base/static/*revision.txt
+static
