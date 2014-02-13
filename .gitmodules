@@ -19,3 +19,6 @@
 [submodule "vendor-local/src/rna"]
 	path = vendor-local/src/rna
 	url = git@github.com:mozilla/rna.git
+[submodule "vendor-local/src/django-pagedown"]
+	path = vendor-local/src/django-pagedown
+	url = https://timmyomahony@github.com/timmyomahony/django-pagedown.git
