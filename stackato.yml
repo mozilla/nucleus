@@ -9,18 +9,20 @@ env:
   DJANGO_HMAC_KEY: ${random-word}
   DJANGO_SERVE_STATIC: true
   DJANGO_DEBUG: false
+  BROWSERID_AUDIENCES: https://nucleus.mozilla.org
 requirements:
   pypm:
     # These should be kept in sync with requirements/compiled.txt
     - MySQL-python==1.2.3
     - jinja2==2.5.5
     - py-bcrypt==0.3
+    - ipython
 min_version:
   client: 1.4.5
 services:
   ${name}-db: mysql
   ${name}-memcache: memcached
-  media: filesystem
+  ${name}-media: filesystem
 hooks:
   post-staging:
     - python manage.py syncdb --noinput
