@@ -1,6 +1,7 @@
 src/dj-database-url
 src/django-extensions
 src/django-filter
+src/django-pagedown
 src/django-rest-framework
 src/markdown
 src/rna

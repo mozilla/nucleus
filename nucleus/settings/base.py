@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_nose',
     'funfactory',
+    'pagedown',
     'rest_framework',
     'rest_framework.authtoken',
     'session_csrf',
