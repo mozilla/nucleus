@@ -1,12 +1,17 @@
 # This is your project's main settings file that can be committed to your
 # repo. If you need to override a setting locally, use local.py
-
 import dj_database_url
 from funfactory.settings_base import *
 
 
 # Django Settings
 ##############################################################################
+
+# Note: be sure not to put any spaces in the env var
+ADMINS = [('admin', email) for email in
+          os.environ.get('ADMIN_EMAILS', '').split(',')]
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+SERVER_EMAIL= os.environ.get('SERVER_EMAIL', 'root@localhost')
 
 ROOT_URLCONF = 'nucleus.urls'
 
@@ -119,8 +124,9 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rna.filters.TimestampedFilterBackend',)
 }
 
-# django-browserid
-BROWSERID_AUDIENCES = os.environ.get('BROWSERID_AUDIENCES', 'http://localhost:8000').split()
+# django-browserid -- no spaces allowed in stackato env vars
+BROWSERID_AUDIENCES = os.environ.get('BROWSERID_AUDIENCES',
+                                     'http://localhost:8000').split(',')
 
 
 # Nucleus-specific Settings
