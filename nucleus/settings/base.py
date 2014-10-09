@@ -84,6 +84,8 @@ LOGGING = {
     }
 }
 
+USE_TZ = True
+
 # Needed for request.is_secure to work with stackato.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
