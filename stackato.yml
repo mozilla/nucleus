@@ -15,6 +15,7 @@ requirements:
     - MySQL-python==1.2.3
     - jinja2==2.5.5
     - py-bcrypt==0.3
+    - newrelic
 min_version:
   client: 1.4.5
 services:
@@ -22,11 +23,14 @@ services:
   ${name}-memcache: memcached
   media: filesystem
 hooks:
+  pre-push:
+    - bin/save_revision.sh
   post-staging:
     - python manage.py syncdb --noinput
     - python manage.py migrate authtoken --noinput
     - python manage.py migrate rna --noinput
     - python manage.py collectstatic --noinput
+    - python manage.py ping_newrelic
 processes:
     web: $STACKATO_UWSGI --static-map /static=$HOME/static
 ignores:
