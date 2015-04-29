@@ -1,0 +1,21 @@
+{
+    "name": "Nucleus",
+    "description": "Manage the Firefox (Desktop & Mobile) and Thunderbird release notes",
+    "repository": {
+        "url": "https://github.com/mozilla/nucleus",
+        "license": "BSD 3-Clause"
+    },
+    "bugs": {
+        "list": "https://bugzilla.mozilla.org/buglist.cgi?product=Websites&component=Nucleus&resolution=---",
+        "report": "https://bugzilla.mozilla.org/enter_bug.cgi?product=Websites&component=Nucleus"
+    },
+    "urls": {
+        "prod": "http://nucleus.mozilla.org/",
+    },
+    "keywords": [
+        "django",
+        "python",
+        "javascript",
+        "release
+    ]
+}
