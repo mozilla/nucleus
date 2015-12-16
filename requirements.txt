@@ -7,3 +7,4 @@ py-bcrypt==0.3
 psycopg2==2.6.1
 whitenoise==2.0.4
 gunicorn==19.3.0
+django-sslify==0.2.7
