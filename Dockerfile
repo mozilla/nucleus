@@ -19,5 +19,5 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 RUN DEBUG=False DJANGO_SECRET_KEY=foo ALLOWED_HOSTS=localhost, DATABASE_URL= ./manage.py collectstatic --noinput -c
-#RUN chown webdev.webdev -R .
-#USER webdev
+RUN chown webdev.webdev -R .
+USER webdev
