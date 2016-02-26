@@ -1,0 +1,5 @@
+[run]
+source = nucleus
+
+[report]
+omit = */migrations/*

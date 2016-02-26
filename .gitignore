@@ -1,0 +1,10 @@
+.env
+*.pyc
+.DS_Store
+docs/_build
+.tox/
+MANIFEST
+.coverage
+__pycache__
+*.db
+static

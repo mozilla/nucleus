@@ -1,0 +1,9 @@
+{
+  "name": "nucleus",
+  "description": "publishing for mozilla.org",
+  "repository": {
+    "url": "https://github.com/mozilla/{{ cookiecutter.project_name|lower|replace(' ', '') }}/",
+    "license": "MPL 2.0",
+    "tests": "https://travis-ci.org/mozilla/{{ cookiecutter.project_name|lower|replace(' ', '') }}/"
+  }
+}
