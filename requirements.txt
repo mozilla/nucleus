@@ -61,7 +61,7 @@ django-browserid==2.0.0 \
     --hash=sha256:f8ead6f1fe05ed80974480e253c3cbdc02bf301999db725acec80b5dc9ff4a57 \
     --hash=sha256:5ef995f50de09c5a5ae3a6531a21d2c66549310e6ef94ec174bbc7bbad49e880
 https://github.com/pmclanahan/rna/archive/django-1.8-drf-upgrade.tar.gz#egg=django-mozilla-rna==2.0 \
-    --hash=sha256:5086adc9b8a626149e0a2a86aacf89a3098d63a8d0f48fc792c741b26a5b9301
+    --hash=sha256:226755f1aea0baa2d6088172ad387cd325b13d79caa21b4efc736a059e7c0b20
 django-pagedown==0.1.1 \
     --hash=sha256:898df5457d480c37ccd85c5211bdcf1bb75191d4c6b351db9eba8148458ea50e
 djangorestframework==3.3.2 \
@@ -102,6 +102,6 @@ django_cache_url==1.0.0 \
     --hash=sha256:3583ca1c9b43b08b9dc71463a5c02fdae6ebebdee812a67198e2a7e429c54210 \
     --hash=sha256:71506c127aba566ab1b9b77bf09ccd3119a387aeb76df1b34f2541ce4764901c
 https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz#egg=django-synctool==1.1.0 \
-    --hash=sha256:7ba1e29526c715914a680c0ec6d2393621324635e6550df8955a26facd5c6454
+    --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
 django-sslify==0.2.5 \
     --hash=sha256:8018f2364ef5b1ee125eed88a18a635c5cb1ced91d7b234353d8a07def32c613
