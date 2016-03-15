@@ -60,8 +60,9 @@ markdown==2.6.4 \
 django-browserid==2.0.0 \
     --hash=sha256:f8ead6f1fe05ed80974480e253c3cbdc02bf301999db725acec80b5dc9ff4a57 \
     --hash=sha256:5ef995f50de09c5a5ae3a6531a21d2c66549310e6ef94ec174bbc7bbad49e880
-https://github.com/pmclanahan/rna/archive/django-1.8-drf-upgrade.tar.gz#egg=django-mozilla-rna==2.0 \
-    --hash=sha256:226755f1aea0baa2d6088172ad387cd325b13d79caa21b4efc736a059e7c0b20
+django-mozilla-rna==2.0 \
+    --hash=sha256:208b554849b5b66522121cd54d0aabf67e8b339e668d22d3c63cc1d368f7ec04 \
+    --hash=sha256:1125dd039075095807fee87201744e8feb0e762974de0b66885c10067c654e58
 django-pagedown==0.1.1 \
     --hash=sha256:898df5457d480c37ccd85c5211bdcf1bb75191d4c6b351db9eba8148458ea50e
 djangorestframework==3.3.2 \
