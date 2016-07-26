@@ -50,9 +50,9 @@ django-filter==0.13.0 \
 django-browserid==2.0.0 \
     --hash=sha256:f8ead6f1fe05ed80974480e253c3cbdc02bf301999db725acec80b5dc9ff4a57 \
     --hash=sha256:5ef995f50de09c5a5ae3a6531a21d2c66549310e6ef94ec174bbc7bbad49e880
-django-mozilla-rna==2.0 \
-    --hash=sha256:208b554849b5b66522121cd54d0aabf67e8b339e668d22d3c63cc1d368f7ec04 \
-    --hash=sha256:1125dd039075095807fee87201744e8feb0e762974de0b66885c10067c654e58
+django-mozilla-rna==2.0.1 \
+    --hash=sha256:8a9253d87c50cd8043b4caad38196d868a5df43884f0344bf56ab6d5cddf6010 \
+    --hash=sha256:5053bc657f9d9cdf9b4c269c85b3e82a8fbb094a9121e1c7df4e6210b5704777
 django-pagedown==0.1.1 \
     --hash=sha256:898df5457d480c37ccd85c5211bdcf1bb75191d4c6b351db9eba8148458ea50e
 djangorestframework==3.3.3 \
