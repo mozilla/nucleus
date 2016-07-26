@@ -1,8 +1,7 @@
 from django.conf.urls import url
-
-from nucleus.base import views
+from django.views.generic import RedirectView
 
 
 urlpatterns = (
-    url(r'^/?$', views.home, name='base.home'),
+    url(r'^/?$', RedirectView.as_view(url='/rna/', permanent=True), name='base.home'),
 )
