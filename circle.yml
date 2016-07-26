@@ -16,6 +16,8 @@ machine:
     # Django
     SECRET_KEY: ssssssssshhhhhhhhhhhhh
     DEBUG: False
+    SESSION_COOKIE_SECURE: False
+    DISABLE_SSL: True
     ALLOWED_HOSTS: "*"
     DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_USER}"
 
