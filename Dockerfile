@@ -8,7 +8,7 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        build-essential python python-dev python-pip python-setuptools \
+        build-essential bash python python-dev python-pip python-setuptools \
         libpq-dev postgresql-client python-psycopg2 gettext && \
     rm -rf /var/lib/apt/lists/*
 
