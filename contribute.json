@@ -1,9 +1,18 @@
 {
   "name": "nucleus",
-  "description": "publishing for mozilla.org",
+  "description": "product release notes publishing for mozilla.org",
   "repository": {
-    "url": "https://github.com/mozilla/{{ cookiecutter.project_name|lower|replace(' ', '') }}/",
+    "url": "https://github.com/mozilla/nucleus/",
     "license": "MPL 2.0",
-    "tests": "https://travis-ci.org/mozilla/{{ cookiecutter.project_name|lower|replace(' ', '') }}/"
-  }
+    "tests": "https://circleci.com/gh/mozilla/nucleus/",
+  },
+  "participate": {
+    "home": "https://github.com/mozilla/nucleus/",
+    "irc": "irc://irc.mozilla.org/#nucleus",
+    "irc-contacts": ["pmac", "jgmize"]
+  },
+  "keywords": [
+    "django",
+    "python"
+  ]
 }
