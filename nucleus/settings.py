@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
+    'raven.contrib.django.raven_compat',
     'django_browserid',
     'django_jinja',
     'django_extensions',
@@ -224,6 +225,10 @@ BROWSERID_AUDIENCES = config('BROWSERID_AUDIENCES',
                              default='https://nucleus-prod.us-west.moz.works,'
                                      'https://nucleus.mozilla.org',
                              cast=Csv())
+RAVEN_CONFIG = {
+    'dsn': config('SENTRY_DSN', None),
+    'release': config('GIT_SHA', None),
+}
 
 LOGGING = {
     'version': 1,

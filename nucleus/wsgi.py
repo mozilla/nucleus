@@ -13,14 +13,16 @@ from django.core.wsgi import get_wsgi_application
 
 from decouple import config
 
+
+application = get_wsgi_application()
+
+if config('SENTRY_DSN', None):
+    from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
+    application = Sentry(application)
+
 newrelic_ini = config('NEW_RELIC_CONFIG_FILE', default='newrelic.ini')
 newrelic_license_key = config('NEW_RELIC_LICENSE_KEY', default=None)
 if newrelic_ini and newrelic_license_key:
     import newrelic.agent
     newrelic.agent.initialize(newrelic_ini)
-
-
-application = get_wsgi_application()
-
-if newrelic_ini and newrelic_license_key:
     application = newrelic.agent.WSGIApplicationWrapper(application)
