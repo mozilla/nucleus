@@ -31,6 +31,8 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+ENGAGE_ROBOTS = config('ENGAGE_ROBOTS', cast=bool,
+                       default='nucleus.mozilla.org' in ALLOWED_HOSTS)
 
 # Application definition
 

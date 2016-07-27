@@ -19,10 +19,6 @@ urlpatterns = [
     url(r'^rna/', include('rna.urls')),
 
     url(r'^robots\.txt$', lambda r: HttpResponse(
-        "User-agent: *\n%s: /" % 'Allow' if settings.ENGAGE_ROBOTS else 'Disallow',
-        mimetype="text/plain")),
-
-    # contribute.json url
-    url(r'^(?P<path>contribute\.json)$', 'django.views.static.serve',
-        {'document_root': settings.ROOT}),
+        "User-agent: *\n%s: /" % ('Allow' if settings.ENGAGE_ROBOTS else 'Disallow'),
+        content_type="text/plain")),
 ]
