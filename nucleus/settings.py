@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 import os
+import platform
 
 import dj_database_url
 import django_cache_url
@@ -66,6 +67,7 @@ AUTHENTICATION_BACKENDS = (
 
 MIDDLEWARE_CLASSES = (
     'sslify.middleware.SSLifyMiddleware',
+    'nucleus.base.middleware.HostnameMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -210,11 +212,16 @@ CSP_STYLE_SRC = (
     'https://*.mozilla.net',
 )
 
+HOSTNAME = platform.node()
+DEIS_APP = config('DEIS_APP', default=None)
+DEIS_DOMAIN = config('DEIS_DOMAIN', default=None)
+DEIS_RELEASE = config('DEIS_RELEASE', default=None)
+
 SSLIFY_DISABLE = config('DISABLE_SSL', default=DEBUG, cast=bool)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 BROWSERID_AUDIENCES = config('BROWSERID_AUDIENCES',
-                             default='https://nucleus-sugar.us-west.moz.works,'
+                             default='https://nucleus-prod.us-west.moz.works,'
                                      'https://nucleus.mozilla.org',
                              cast=Csv())
 
