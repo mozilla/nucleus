@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from django.views.generic import RedirectView
-
+from django.views.generic import TemplateView
 
 urlpatterns = (
-    url(r'^/?$', RedirectView.as_view(url='/rna/', permanent=True), name='base.home'),
+    url(r'^/?$', TemplateView.as_view(template_name='base/home.html'), name='base.home'),
 )

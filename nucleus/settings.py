@@ -137,7 +137,8 @@ TEMPLATES = [
         'BACKEND': 'django_jinja.backend.Jinja2',
         'APP_DIRS': True,
         'OPTIONS': {
-            'match_extension': '.jinja',
+            'app_dirname': 'jinja',
+            'match_extension': '',
             'newstyle_gettext': True,
             'context_processors': [
                 'nucleus.base.context_processors.settings',
