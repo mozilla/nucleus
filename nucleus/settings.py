@@ -38,6 +38,11 @@ ENGAGE_ROBOTS = config('ENGAGE_ROBOTS', cast=bool,
 # Application definition
 
 INSTALLED_APPS = [
+    # Project specific apps
+    'nucleus.base',
+    'nucleus.saml',
+    'rna',
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,10 +60,6 @@ INSTALLED_APPS = [
     'pagedown',
     'rest_framework',
     'rest_framework.authtoken',
-
-    # Project specific apps
-    'nucleus.base',
-    'rna',
 ]
 
 for app in config('EXTRA_APPS', default='', cast=Csv()):
@@ -152,6 +153,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'nucleus.base.context_processors.settings',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
@@ -254,3 +256,7 @@ LOGGING = {
         },
     },
 }
+
+SAML_ENABLE = config('SAML_ENABLE', default=False, cast=bool)
+if SAML_ENABLE:
+    from nucleus.saml.settings import *  # noqa

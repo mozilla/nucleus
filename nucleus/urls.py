@@ -22,3 +22,6 @@ urlpatterns = [
         "User-agent: *\n%s: /" % ('Allow' if settings.ENGAGE_ROBOTS else 'Disallow'),
         content_type="text/plain")),
 ]
+
+if settings.SAML_ENABLE:
+    urlpatterns.append(url(r'^saml2/', include('nucleus.saml.urls')))
