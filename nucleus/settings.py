@@ -54,7 +54,6 @@ INSTALLED_APPS = [
 
     # Third party apps
     'raven.contrib.django.raven_compat',
-    'django_browserid',
     'django_jinja',
     'django_extensions',
     'pagedown',
@@ -64,11 +63,6 @@ INSTALLED_APPS = [
 
 for app in config('EXTRA_APPS', default='', cast=Csv()):
     INSTALLED_APPS.append(app)
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'django_browserid.auth.BrowserIDBackend',
-)
 
 MIDDLEWARE_CLASSES = (
     'sslify.middleware.SSLifyMiddleware',
@@ -105,8 +99,6 @@ CACHES = {
                       default='locmem://',
                       cast=django_cache_url.parse),
 }
-
-BROWSERID_CREATE_USER = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -227,10 +219,6 @@ DEIS_RELEASE = config('DEIS_RELEASE', default=None)
 SSLIFY_DISABLE = config('DISABLE_SSL', default=DEBUG, cast=bool)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
-BROWSERID_AUDIENCES = config('BROWSERID_AUDIENCES',
-                             default='https://nucleus-prod.us-west.moz.works,'
-                                     'https://nucleus.mozilla.org',
-                             cast=Csv())
 RAVEN_CONFIG = {
     'dsn': config('SENTRY_DSN', None),
     'release': config('GIT_SHA', None),
@@ -247,10 +235,6 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-        },
-        'django_browserid': {
             'handlers': ['console'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },

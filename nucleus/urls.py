@@ -3,17 +3,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import HttpResponse
 
-from django_browserid.admin import site as browserid_admin
-
 
 admin.autodiscover()  # Discover admin.py files for the admin interface.
 
-browserid_admin.copy_registry(admin.site)
-
 urlpatterns = [
     url(r'', include('nucleus.base.urls')),
-    url(r'', include('django_browserid.urls')),
-    url(r'^admin/', include(browserid_admin.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^api-token-auth/',
         'rest_framework.authtoken.views.obtain_auth_token'),
     url(r'^rna/', include('rna.urls')),
