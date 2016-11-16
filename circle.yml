@@ -4,6 +4,7 @@ machine:
   environment:
     # Deis
     DEIS_PROD_APP: nucleus-prod
+    DEIS_STAGE_APP: nucleus-stage
     DEIS_USERNAME: circleci
     # Docker
     DOCKER_REPOSITORY: quay.io/mozmar/nucleus
@@ -44,8 +45,13 @@ test:
     - docker run --env-file .env --link db -v "$CIRCLE_TEST_REPORTS/django:/app/test-results" "$DOCKER_IMAGE_TAG" bin/run-tests.sh
 
 deployment:
-  prod:
+  stage:
     branch: master
+    owner: mozilla
+    commands:
+      - bin/deploy.sh stage
+  prod:
+    tag: /\d{4}-\d{2}-\d{2}(\.\d)?/
     owner: mozilla
     commands:
       - bin/deploy.sh prod
