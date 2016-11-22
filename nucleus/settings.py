@@ -38,6 +38,11 @@ ENGAGE_ROBOTS = config('ENGAGE_ROBOTS', cast=bool,
 # Application definition
 
 INSTALLED_APPS = [
+    # Project specific apps
+    'nucleus.base',
+    'nucleus.saml',
+    'rna',
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,25 +54,15 @@ INSTALLED_APPS = [
 
     # Third party apps
     'raven.contrib.django.raven_compat',
-    'django_browserid',
     'django_jinja',
     'django_extensions',
     'pagedown',
     'rest_framework',
     'rest_framework.authtoken',
-
-    # Project specific apps
-    'nucleus.base',
-    'rna',
 ]
 
 for app in config('EXTRA_APPS', default='', cast=Csv()):
     INSTALLED_APPS.append(app)
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'django_browserid.auth.BrowserIDBackend',
-)
 
 MIDDLEWARE_CLASSES = (
     'sslify.middleware.SSLifyMiddleware',
@@ -104,8 +99,6 @@ CACHES = {
                       default='locmem://',
                       cast=django_cache_url.parse),
 }
-
-BROWSERID_CREATE_USER = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -152,6 +145,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'nucleus.base.context_processors.settings',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
@@ -225,10 +219,6 @@ DEIS_RELEASE = config('DEIS_RELEASE', default=None)
 SSLIFY_DISABLE = config('DISABLE_SSL', default=DEBUG, cast=bool)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
-BROWSERID_AUDIENCES = config('BROWSERID_AUDIENCES',
-                             default='https://nucleus-prod.us-west.moz.works,'
-                                     'https://nucleus.mozilla.org',
-                             cast=Csv())
 RAVEN_CONFIG = {
     'dsn': config('SENTRY_DSN', None),
     'release': config('GIT_SHA', None),
@@ -248,9 +238,9 @@ LOGGING = {
             'handlers': ['console'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
-        'django_browserid': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-        },
     },
 }
+
+SAML_ENABLE = config('SAML_ENABLE', default=False, cast=bool)
+if SAML_ENABLE:
+    from nucleus.saml.settings import *  # noqa

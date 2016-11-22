@@ -32,7 +32,7 @@ dependencies:
     - echo "ENV GIT_SHA ${CIRCLE_SHA1}" >> Dockerfile
     - docker build -t "$DOCKER_IMAGE_TAG" --pull=true .
     - docker pull postgres:9.4
-    - mkdir -p ~/docker; docker save -o ~/docker/image.tar "$DOCKER_REPOSITORY" quay.io/mozmar/ubuntu-slim-python postgres:9.4
+    - mkdir -p ~/docker; docker save -o ~/docker/image.tar "$DOCKER_REPOSITORY" quay.io/mozmar/base postgres:9.4
     - bin/deis-cli-install.sh
 
 test:
