@@ -2,10 +2,10 @@
 
 # included in the repo because it's only available over http from deis.io
 
-# install current version unless overridden by first command-line argument
 cd ~/docker
 
-VERSION=${1:-1.13.2}
+# install current version unless overridden by first command-line argument
+VERSION=${1:-1.13.3}
 
 if [[ -x ./deis ]]; then
   if [[ "$VERSION" == $(./deis version) ]]; then
@@ -21,7 +21,7 @@ set -e
 # determine from whence to download the installer
 PLATFORM=`uname | tr '[:upper:]' '[:lower:]'`
 DEIS_INSTALLER=${DEIS_INSTALLER:-deis-cli-$VERSION-$PLATFORM-amd64.run}
-DEIS_BASE_URL=${DEIS_BASE_URL:-https://s3-us-west-2.amazonaws.com/get-deis}
+DEIS_BASE_URL=${DEIS_BASE_URL:-https://getdeis.blob.core.windows.net/get-deis}
 INSTALLER_URL=$DEIS_BASE_URL/$DEIS_INSTALLER
 
 # download the installer archive to /tmp

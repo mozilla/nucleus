@@ -217,7 +217,9 @@ DEIS_DOMAIN = config('DEIS_DOMAIN', default=None)
 DEIS_RELEASE = config('DEIS_RELEASE', default=None)
 
 SSLIFY_DISABLE = config('DISABLE_SSL', default=DEBUG, cast=bool)
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if not SSLIFY_DISABLE:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 USE_X_FORWARDED_HOST = True
 RAVEN_CONFIG = {
     'dsn': config('SENTRY_DSN', None),
