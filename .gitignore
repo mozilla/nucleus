@@ -8,3 +8,4 @@ MANIFEST
 __pycache__
 *.db
 static
+Dockerfile.jenkins

@@ -37,7 +37,7 @@ SAML_CONFIG = {
         'sp': {
             # Allow Okta to initiate the login.
             'allow_unsolicited': 'true',
-            'name': 'Basket SP',
+            'name': 'Nucleus SP',
             'endpoints': {
                 'assertion_consumer_service': [
                     (SAML_SSO_URL, saml2.BINDING_HTTP_POST),

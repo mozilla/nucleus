@@ -1,0 +1,5 @@
+require_tag: true
+regions:
+  - frankfurt
+apps:
+  - nucleus-prod
