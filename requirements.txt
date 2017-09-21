@@ -95,3 +95,5 @@ raven==5.23.0 \
 contextlib2==0.5.3 \
     --hash=sha256:888a280f24dcff2cc55ac0e51fc764484b284f91ff711a219e459a6d5f76de2b \
     --hash=sha256:30e500f13921c73c96f49a6dd2adfbdd92bc3fae12183e91b06b2e4583486206
+psycopg2==2.5.4 \
+    --hash=sha256:24ba3f328aba08d8d505bc2a8f68a94ebe24a85e8483640b667221bc0efd3b1e
