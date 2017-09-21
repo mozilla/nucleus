@@ -9,3 +9,4 @@ __pycache__
 *.db
 static
 Dockerfile.jenkins
+json_export
