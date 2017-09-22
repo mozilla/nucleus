@@ -2,15 +2,9 @@ machine:
   services:
     - docker
   environment:
-    # Deis
-    DEIS_PROD_APP: nucleus-prod
-    DEIS_STAGE_APP: nucleus-stage
-    DEIS_USERNAME: circleci
     # Docker
     DOCKER_REPOSITORY: mozmeao/nucleus
     DOCKER_IMAGE_TAG: "${DOCKER_REPOSITORY}:${CIRCLE_SHA1}"
-    DOCKER_EMAIL: mozmar@example.com
-    DOCKER_USERNAME: mozmar+circleci
     # MySQL
     POSTGRES_USER: nucleus
     POSTGRES_PASSWORD: nucleuspass
@@ -33,7 +27,6 @@ dependencies:
     - docker build -t "$DOCKER_IMAGE_TAG" --pull=true .
     - docker pull postgres:9.4
     - mkdir -p ~/docker; docker save -o ~/docker/image.tar "$DOCKER_REPOSITORY" postgres:9.4
-    - bin/deis-cli-install.sh
 
 test:
   pre:
@@ -43,15 +36,3 @@ test:
     - docker run -d --name db -e POSTGRES_USER -e POSTGRES_PASSWORD postgres:9.4
     - docker run "$DOCKER_IMAGE_TAG" flake8 nucleus
     - docker run --env-file .env --link db -v "$CIRCLE_TEST_REPORTS/django:/app/test-results" "$DOCKER_IMAGE_TAG" bin/run-tests.sh
-
-deployment:
-  stage:
-    branch: master
-    owner: mozilla
-    commands:
-      - bin/deploy.sh stage
-  prod:
-    tag: /\d{4}-\d{2}-\d{2}(\.\d)?/
-    owner: mozilla
-    commands:
-      - bin/deploy.sh prod
