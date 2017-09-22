@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='nucleus',
-    version='0.1dev',
+    version='1.0',
     description='This is https://github.com/mozilla/nucleus',
     author='Mozilla Foundation',
     author_email='',
