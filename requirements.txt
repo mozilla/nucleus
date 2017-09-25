@@ -47,9 +47,9 @@ django-extensions==1.5.9 \
 django-filter==0.13.0 \
     --hash=sha256:b4c1614576fe696d1a91d08f100caeffcbc084d93181b3df26f5d4fc0131f0fc \
     --hash=sha256:f5e10bea3b30e43a9b0b7efdca8e91cb0c1d5bf4d316e8fb6c0c22300d30c7dd
-django-mozilla-rna==2.1.0 \
-    --hash=sha256:6fc60cab5175b7549c1dc36863f31ad5ef415efcbd590b445ac6ca67b9ce6edf \
-    --hash=sha256:06bdc7473f329a940bae5d4f04288c781d43eef480af4a97f2810258c38347b0
+django-mozilla-rna==2.0.1 \
+    --hash=sha256:8a9253d87c50cd8043b4caad38196d868a5df43884f0344bf56ab6d5cddf6010 \
+    --hash=sha256:5053bc657f9d9cdf9b4c269c85b3e82a8fbb094a9121e1c7df4e6210b5704777
 django-pagedown==0.1.1 \
     --hash=sha256:898df5457d480c37ccd85c5211bdcf1bb75191d4c6b351db9eba8148458ea50e
 djangorestframework==3.3.3 \
@@ -97,3 +97,16 @@ contextlib2==0.5.3 \
     --hash=sha256:30e500f13921c73c96f49a6dd2adfbdd92bc3fae12183e91b06b2e4583486206
 psycopg2==2.5.4 \
     --hash=sha256:24ba3f328aba08d8d505bc2a8f68a94ebe24a85e8483640b667221bc0efd3b1e
+mozilla-django-oidc==0.3.1 \
+    --hash=sha256:59abd3941ba3471a7baef18a0f704868821cc48ccedd6469fa9e1d08fdc737f3 \
+    --hash=sha256:f906d4ea1879ee588da4a4369013ade19101624516b977fc96b271144123b446
+python-jose==1.4.0 \
+    --hash=sha256:18e19f200f37a8ee6247921572807cc63ee034abdbf6854df1ae7c1f505cabcc \
+    --hash=sha256:fed56224664af0ebc3947853f1bed23b5609f90c7b02e3dce5ef5757d0301664
+ecdsa==0.13 \
+    --hash=sha256:40d002cf360d0e035cf2cb985e1308d41aaa087cbfc135b2dc2d844296ea546c \
+    --hash=sha256:64cf1ee26d1cde3c73c6d7d107f835fed7c6a2904aef9eac223d57ad800c43fa
+future==0.16.0 \
+    --hash=sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb
+pycrypto==2.6.1 \
+    --hash=sha256:f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c
