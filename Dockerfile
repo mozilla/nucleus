@@ -5,12 +5,10 @@ CMD ["./bin/run-prod.sh"]
 WORKDIR /app
 ENV DJANGO_SETTINGS_MODULE=nucleus.settings
 
-RUN apt-install build-essential libpq-dev postgresql-client python-psycopg2 gettext xmlsec1 libffi-dev libssl-dev
+RUN apt-install build-essential libpq-dev postgresql-client python-psycopg2 gettext libxslt1.1 libxml2 libxml2-dev libxslt1-dev
 
-COPY requirements.txt requirements-saml.txt /app/
-RUN pip install --require-hashes --no-cache-dir \
-                -r requirements.txt \
-                -r requirements-saml.txt
+COPY requirements.txt /app/
+RUN pip install --require-hashes --no-cache-dir -r requirements.txt
 
 COPY . /app
 RUN DEBUG=False SECRET_KEY=foo ALLOWED_HOSTS=localhost, DATABASE_URL=sqlite:// ./manage.py collectstatic --noinput

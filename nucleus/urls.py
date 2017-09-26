@@ -18,5 +18,5 @@ urlpatterns = [
         content_type="text/plain")),
 ]
 
-if settings.SAML_ENABLE:
-    urlpatterns.append(url(r'^saml2/', include('nucleus.saml.urls')))
+if settings.OIDC_ENABLE:
+    urlpatterns.append(url(r'^oidc/', include('mozilla_django_oidc.urls')))
