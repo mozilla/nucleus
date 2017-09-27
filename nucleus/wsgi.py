@@ -15,7 +15,7 @@ from django.core.wsgi import get_wsgi_application
 from decouple import config
 
 
-IS_HTTPS = config('HTTPS', default='off') == 'on'
+IS_HTTPS = config('HTTPS', default='off', cast=bool)
 
 
 class WSGIHTTPSRequest(WSGIRequest):
