@@ -24,7 +24,7 @@ The `.travis.yml` file will also run [coveralls](https://coveralls.io) by
 default.
 
 If you want to benefit from Travis and Coveralls, you will need to activate
-them both for your project.
+both of them in your project.
 
 Oh, and you might want to change the "Build Status" and "Coverage Status" links
 at the top of this file to point to your own travis and coveralls accounts.
