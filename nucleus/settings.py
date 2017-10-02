@@ -65,7 +65,7 @@ for app in config('EXTRA_APPS', default='', cast=Csv()):
     INSTALLED_APPS.append(app)
 
 MIDDLEWARE_CLASSES = (
-    'sslify.middleware.SSLifyMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'nucleus.base.middleware.HostnameMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,6 +82,17 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'nucleus.urls'
 
 WSGI_APPLICATION = 'nucleus.wsgi.application'
+
+# legacy setting
+DISABLE_SSL = config('DISABLE_SSL', default=DEBUG, cast=bool)
+# SecurityMiddleware settings
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default='0', cast=int)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_BROWSER_XSS_FILTER = config('SECURE_BROWSER_XSS_FILTER', default=True, cast=bool)
+SECURE_CONTENT_TYPE_NOSNIFF = config('SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=bool)
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=not DISABLE_SSL, cast=bool)
+if config('USE_SECURE_PROXY_HEADER', default=SECURE_SSL_REDIRECT, cast=bool):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Database
@@ -217,10 +228,6 @@ HOSTNAME = platform.node()
 DEIS_APP = config('DEIS_APP', default=None)
 DEIS_DOMAIN = config('DEIS_DOMAIN', default=None)
 DEIS_RELEASE = config('DEIS_RELEASE', default=None)
-
-SSLIFY_DISABLE = config('DISABLE_SSL', default=DEBUG, cast=bool)
-if not SSLIFY_DISABLE:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 USE_X_FORWARDED_HOST = True
 RAVEN_CONFIG = {
