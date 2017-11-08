@@ -1,5 +1,5 @@
 #!/bin/bash -ex
 
-urlwait
+flake8 nucleus
 bin/post-deploy.sh
 python manage.py test
