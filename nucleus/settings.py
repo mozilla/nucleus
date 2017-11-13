@@ -137,6 +137,7 @@ SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=not DEBUG, cast=
 CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 
 RNA = {'BASE_URL': config('RNA_BASE_URL', default='https://nucleus.mozilla.org/rna/')}
+RNA_JSON_CACHE_TIME = config('RNA_JSON_CACHE_TIME', default='600', cast=int)
 
 TEMPLATES = [
     {
