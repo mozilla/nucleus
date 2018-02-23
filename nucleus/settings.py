@@ -31,6 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_CIDR_NETS = config('ALLOWED_CIDR_NETS', default='', cast=Csv())
 
 ENGAGE_ROBOTS = config('ENGAGE_ROBOTS', cast=bool,
                        default='nucleus.mozilla.org' in ALLOWED_HOSTS)
@@ -65,6 +66,7 @@ for app in config('EXTRA_APPS', default='', cast=Csv()):
     INSTALLED_APPS.append(app)
 
 MIDDLEWARE_CLASSES = (
+    'allow_cidr.middleware.AllowCIDRMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'nucleus.base.middleware.HostnameMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -91,9 +93,12 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_BROWSER_XSS_FILTER = config('SECURE_BROWSER_XSS_FILTER', default=True, cast=bool)
 SECURE_CONTENT_TYPE_NOSNIFF = config('SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=bool)
 SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=not DISABLE_SSL, cast=bool)
+SECURE_REDIRECT_EXEMPT = [
+    r'^healthz/$',
+    r'^readiness/$',
+]
 if config('USE_SECURE_PROXY_HEADER', default=SECURE_SSL_REDIRECT, cast=bool):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
