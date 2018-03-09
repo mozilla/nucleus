@@ -3,6 +3,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import HttpResponse
 
+from watchman import views as watchman_views
+
 
 admin.autodiscover()  # Discover admin.py files for the admin interface.
 
@@ -16,6 +18,8 @@ urlpatterns = [
     url(r'^robots\.txt$', lambda r: HttpResponse(
         "User-agent: *\n%s: /" % ('Allow' if settings.ENGAGE_ROBOTS else 'Disallow'),
         content_type="text/plain")),
+    url(r'^healthz/$', watchman_views.ping, name="watchman.ping"),
+    url(r'^readiness/$', watchman_views.status, name="watchman.status"),
 ]
 
 if settings.OIDC_ENABLE:
