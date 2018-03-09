@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'pagedown',
     'rest_framework',
     'rest_framework.authtoken',
+    'watchman',
 ]
 
 for app in config('EXTRA_APPS', default='', cast=Csv()):
@@ -100,8 +101,12 @@ SECURE_REDIRECT_EXEMPT = [
 if config('USE_SECURE_PROXY_HEADER', default=SECURE_SSL_REDIRECT, cast=bool):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# watchman
+WATCHMAN_DISABLE_APM = True
+WATCHMAN_CHECKS = (
+    'watchman.checks.caches',
+    'watchman.checks.databases',
+)
 
 DATABASES = {
     'default': config(
