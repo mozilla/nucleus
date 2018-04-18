@@ -41,7 +41,7 @@ ENGAGE_ROBOTS = config('ENGAGE_ROBOTS', cast=bool,
 INSTALLED_APPS = [
     # Project specific apps
     'nucleus.base',
-    'rna',
+    'nucleus.rna',
 
     # Django apps
     'django.contrib.admin',
@@ -66,7 +66,7 @@ INSTALLED_APPS = [
 for app in config('EXTRA_APPS', default='', cast=Csv()):
     INSTALLED_APPS.append(app)
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'allow_cidr.middleware.AllowCIDRMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'nucleus.base.middleware.HostnameMiddleware',
@@ -79,7 +79,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
-    'rna.middleware.PatchOverrideMiddleware',
+    'nucleus.rna.middleware.PatchOverrideMiddleware',
 )
 
 ROOT_URLCONF = 'nucleus.urls'
@@ -186,7 +186,7 @@ REST_FRAMEWORK = {
     # Use hyperlinked styles by default.
     # Only used if the `serializer_class` attribute is not set on a view.
     'DEFAULT_MODEL_SERIALIZER_CLASS':
-        'rna.serializers.HyperlinkedModelSerializerWithPkField',
+        'nucleus.rna.serializers.HyperlinkedModelSerializerWithPkField',
 
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -198,7 +198,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
 
-    'DEFAULT_FILTER_BACKENDS': ('rna.filters.TimestampedFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('nucleus.rna.filters.TimestampedFilterBackend',)
 }
 
 # Django-CSP
@@ -276,6 +276,6 @@ if OIDC_ENABLE:
     OIDC_RP_CLIENT_ID = config('OIDC_RP_CLIENT_ID')
     OIDC_RP_CLIENT_SECRET = config('OIDC_RP_CLIENT_SECRET')
     OIDC_CREATE_USER = config('OIDC_CREATE_USER', default=False, cast=bool)
-    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \
-        ('mozilla_django_oidc.middleware.RefreshIDToken',)
+    MIDDLEWARE = MIDDLEWARE + \
+        ('mozilla_django_oidc.middleware.SessionRefresh',)
     LOGIN_REDIRECT_URL = '/admin/'

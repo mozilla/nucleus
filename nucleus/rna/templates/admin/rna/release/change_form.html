@@ -1,0 +1,26 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_related_objects %}
+{% if original %}
+<h2>Notes</h2>
+<div id="note-table" data-releaseid="{{original.id}}"></div>
+<p>
+  Add
+  <input name="add-releasenote" id="add-releasenote" type="hidden">
+  <a href="/admin/rna/note/?t=id" class="related-lookup" id="lookup_add-releasenote" onclick="return showRelatedObjectLookupPopup(this);">
+    <img src="/static/admin/img/selector-search.gif" alt="Lookup" height="16" width="16">
+  </a>
+  <a href="/admin/rna/note/add/?releases={{original.id}}" onclick="return showAddAnotherPopup(this);" id="add_add-releasenote" class="add-another">
+    <img width="10" height="10" alt="Add Another" src="/static/admin/img/icon_addlink.gif">
+  </a>
+</p>
+<script type="text/javascript" src="/static/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/static/js/mori/mori.js"></script>
+<script type="text/javascript" src="/static/js/react.min.js"></script>
+<script type="text/javascript" src="/static/js/releasenotes.js"></script>
+{% endif %}
+{% endblock %}
+
+{% comment %}
+vim: filetype=htmldjango
+{% endcomment %}

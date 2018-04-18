@@ -1,0 +1,19 @@
+{% extends "admin/change_form.html" %}
+
+{% block footer %}{{ block.super }}
+<script>
+// We don't want to auto complete on the release filter. Disable it.
+// We are using the .delegate because the SelectFilter is generated
+// at the end of the page load. So, we need to execute this code
+// once this item is fully loaded.
+(function($) {
+$('.form-row.field-releases').delegate('#id_releases_input', 'focus', function() {
+ document.getElementById('id_releases_input').autocomplete = 'off';
+})})
+(django.jQuery);
+</script>
+{% endblock %}
+
+{% comment %}
+vim: filetype=htmldjango
+{% endcomment %}
