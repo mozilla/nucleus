@@ -81,9 +81,9 @@ dj-database-url==0.5.0 \
     --hash=sha256:4aeaeb1f573c74835b0686a2b46b85990571159ffc21aa57ecd4d1e1cb334163
 https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz#egg=django-synctool==1.1.0 \
     --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
-Markdown==2.6.6 \
-    --hash=sha256:9a292bb40d6d29abac8024887bcfc1159d7a32dc1d6f1f6e8d6d8e293666c504 \
-    --hash=sha256:022239550fb4a84bcc3b3b42dff9a41efc56d773ef17c4f28016dd8f265c82d0
+Markdown==2.6.11 \
+    --hash=sha256:9ba587db9daee7ec761cfc656272be6aabe2ed300fece21208e4aab2e457bc8f \
+    --hash=sha256:a856869c7ff079ad84a3e19cd87a64998350c2b94e9e08e44270faef33400f81
 django-cache-url==1.2.0 \
     --hash=sha256:ca0e9128936d847fae8f13b5dc1ebd16a652e3db25ae79170af4b4045dc4bdf8 \
     --hash=sha256:94734964bc58394a5153bf03300ea7ea109fa317d23677e0d6d6913c079b3f29
