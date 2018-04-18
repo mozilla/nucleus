@@ -84,9 +84,9 @@ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz#egg=dj
 Markdown==2.6.11 \
     --hash=sha256:9ba587db9daee7ec761cfc656272be6aabe2ed300fece21208e4aab2e457bc8f \
     --hash=sha256:a856869c7ff079ad84a3e19cd87a64998350c2b94e9e08e44270faef33400f81
-django-cache-url==1.2.0 \
-    --hash=sha256:ca0e9128936d847fae8f13b5dc1ebd16a652e3db25ae79170af4b4045dc4bdf8 \
-    --hash=sha256:94734964bc58394a5153bf03300ea7ea109fa317d23677e0d6d6913c079b3f29
+django-cache-url==2.0.0 \
+    --hash=sha256:f0009452c4d63468714c7ff59266085947f3f3cc0947b3b2e87121bb27538d6c \
+    --hash=sha256:d7e7d3f3fadaa38ab7c655afafc85c2a1b06a3ddc0002af4ae021c1948307f8b
 raven==5.23.0 \
     --hash=sha256:aa97f795c40490a03367a27ced8ab65c2d22b3f9955c3b29ea833e4683d73887 \
     --hash=sha256:603ce4e2f9b7032587192ccc836e099c4a2b39fec55807cd94fc4e0a74676c0e
