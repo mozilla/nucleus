@@ -7,6 +7,8 @@ from watchman import views as watchman_views
 
 
 admin.autodiscover()  # Discover admin.py files for the admin interface.
+admin.site.site_header = 'Release Notes Administration'
+admin.site.site_title = 'Release Notes Administration'
 
 urlpatterns = [
     url(r'', include('nucleus.base.urls')),
