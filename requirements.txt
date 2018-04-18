@@ -90,9 +90,9 @@ django-cache-url==2.0.0 \
 raven==6.7.0 \
     --hash=sha256:e4edf648829a64234800a10ed94ca08e0b38592f7449fa5e70931db62f5cd851 \
     --hash=sha256:f908e9b39f02580e7f822030d119ed3b2e8d32300a2fec6373e5827d588bbae7
-contextlib2==0.5.3 \
-    --hash=sha256:888a280f24dcff2cc55ac0e51fc764484b284f91ff711a219e459a6d5f76de2b \
-    --hash=sha256:30e500f13921c73c96f49a6dd2adfbdd92bc3fae12183e91b06b2e4583486206
+contextlib2==0.5.5 \
+    --hash=sha256:f5260a6e679d2ff42ec91ec5252f4eeffdcf21053db9113bd0a8e4d953769c00 \
+    --hash=sha256:509f9419ee91cdd00ba34443217d5ca51f5a364a404e1dce9e8979cea969ca48
 psycopg2==2.5.4 \
     --hash=sha256:24ba3f328aba08d8d505bc2a8f68a94ebe24a85e8483640b667221bc0efd3b1e
 asn1crypto==0.23.0 \
