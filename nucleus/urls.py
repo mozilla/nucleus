@@ -3,6 +3,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import HttpResponse
 
+from rest_framework.authtoken.views import obtain_auth_token
 from watchman import views as watchman_views
 
 
@@ -13,9 +14,8 @@ admin.site.site_title = 'Release Notes Administration'
 urlpatterns = [
     url(r'', include('nucleus.base.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-token-auth/',
-        'rest_framework.authtoken.views.obtain_auth_token'),
-    url(r'^rna/', include('rna.urls')),
+    url(r'^api-token-auth/', obtain_auth_token),
+    url(r'^rna/', include('nucleus.rna.urls')),
 
     url(r'^robots\.txt$', lambda r: HttpResponse(
         "User-agent: *\n%s: /" % ('Allow' if settings.ENGAGE_ROBOTS else 'Disallow'),

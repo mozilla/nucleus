@@ -7,6 +7,6 @@ MANIFEST
 .coverage
 __pycache__
 *.db
-static
+/static
 Dockerfile.jenkins
 json_export
