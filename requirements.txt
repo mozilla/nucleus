@@ -43,9 +43,9 @@ django-session-csrf==0.7.1 \
 django-extensions==2.0.7 \
     --hash=sha256:3be3debf53c77ca795bdf713726c923aa3c3f895e1a42e2e31a68c1a562346a4 \
     --hash=sha256:94bfac99eb262c5ac27e53eda96925e2e53fe0b331af7dde37012d07639a649c
-django-filter==0.13.0 \
-    --hash=sha256:b4c1614576fe696d1a91d08f100caeffcbc084d93181b3df26f5d4fc0131f0fc \
-    --hash=sha256:f5e10bea3b30e43a9b0b7efdca8e91cb0c1d5bf4d316e8fb6c0c22300d30c7dd
+django-filter==1.1.0 \
+    --hash=sha256:ea204242ea83790e1512c9d0d8255002a652a6f4986e93cee664f28955ba0c22 \
+    --hash=sha256:ec0ef1ba23ef95b1620f5d481334413700fb33f45cd76d56a63f4b0b1d76976a
 django-mozilla-rna==2.1.2 \
     --hash=sha256:48675fe4d325b02b4e429fb7f8a3787d1dee23f9d06cc4be19a13efb5d7e911f \
     --hash=sha256:d6c3ecbd6c88b66255a31f754c7a1fd2dea1da1fe4914522fc27f0c67263a392
