@@ -20,7 +20,7 @@ CMD ["./bin/run-prod.sh"]
 WORKDIR /app
 ENV DJANGO_SETTINGS_MODULE=nucleus.settings
 
-RUN apt-install build-essential libpq-dev gettext libxslt1.1 libxml2 libxml2-dev libxslt1-dev
+RUN apt-install build-essential gettext libxslt1.1 libxml2 libxml2-dev libxslt1-dev
 
 COPY requirements.txt /app/
 RUN pip install --require-hashes --no-cache-dir -r requirements.txt
