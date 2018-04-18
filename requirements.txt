@@ -37,9 +37,9 @@ mccabe==0.6.1 \
 django-jinja==2.4.1 \
     --hash=sha256:ceaa0eeebc4d91a5800967e50f4f087f0b6457503e3c2af85dc199bed8732a9a \
     --hash=sha256:8a49d73de616a12075eee14c6d3bbab936261a463457d40348d8b8e2995cfbed
-django-session-csrf==0.6 \
-    --hash=sha256:009d574590aeebff230bda3d8c1cacd9d48b204cc1a784a5d3be3638727f8d16 \
-    --hash=sha256:ccfddfbf947a51c8b095a5e63bed43005a277a5581de92ed373eb06b75ceec77
+django-session-csrf==0.7.1 \
+    --hash=sha256:ff8c10e30d312c77fc6a6db7710e22b9383e28c03b7fe958876ca96f39aa6cf2 \
+    --hash=sha256:e17177e6e2e6518ec7ce6693ad10a5c747f8571d09f4cfa9082599334421605d
 django-extensions==1.5.9 \
     --hash=sha256:59c12ad4dae6cb7a54deac626a0907d8b0d19b5757dc1d15b06374695131528b \
     --hash=sha256:141965ae43bbe36a0682a4d1527ed82bc5d4c203113f91171257a5d9764edd82
