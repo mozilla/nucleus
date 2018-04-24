@@ -1,6 +1,9 @@
 #!/bin/sh
 
 echo "$GIT_SHA" > static/revision.txt
-
-exec gunicorn nucleus.wsgi:application -w ${WSGI_NUM_WORKERS:-2} -b 0.0.0.0:${PORT:-8000} \
-    --log-file - --log-level ${GUNICORN_LOG_LEVEL:-info}
+exec gunicorn nucleus.wsgi:application --bind "0.0.0.0:${PORT:-8000}" \
+                          --workers "${WSGI_NUM_WORKERS:-4}" \
+                          --worker-class "${WSGI_WORKER_CLASS:-meinheld.gmeinheld.MeinheldWorker}" \
+                          --log-level "${WSGI_LOG_LEVEL:-info}" \
+                          --error-logfile - \
+                          --access-logfile -
