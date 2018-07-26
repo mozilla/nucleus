@@ -3,13 +3,13 @@
  */
 
 /**
- * Send a notice to #www on irc.mozilla.org with the build result
+ * Send a notice to #www-notify on mozilla.slack.com with the build result
  *
  * @param stage step of build/deploy
  * @param result outcome of build (will be uppercased)
 */
-def ircNotification(Map args) {
-    def command = "bin/irc-notify.sh"
+def slackNotification(Map args) {
+    def command = "bin/slack-notify.sh"
     for (arg in args) {
         command += " --${arg.key} '${arg.value}'"
     }
