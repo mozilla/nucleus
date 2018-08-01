@@ -49,8 +49,8 @@ django-filter==2.0.0 \
 django-mozilla-rna==2.1.2 \
     --hash=sha256:48675fe4d325b02b4e429fb7f8a3787d1dee23f9d06cc4be19a13efb5d7e911f \
     --hash=sha256:d6c3ecbd6c88b66255a31f754c7a1fd2dea1da1fe4914522fc27f0c67263a392
-django-pagedown==1.0.4 \
-    --hash=sha256:9b320946a3fe7b68d340651ef86d0c5c9bad1c9fff1dd5172fd83273e627a2d1
+django-pagedown==1.0.5 \
+    --hash=sha256:e33075eaeaae06051c4b2b40403c345c297850ec02d8c4e7ad0c776ef9488b38
 djangorestframework==3.3.3 \
     --hash=sha256:4f47056ad798103fc9fb049dff8a67a91963bd215d31bad12ad72b891559ab16 \
     --hash=sha256:f606f2bb4e9bb320937cb6ccce299991b2d302f5cc705a671dffca491e55935c
