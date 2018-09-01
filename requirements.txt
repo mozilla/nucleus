@@ -164,9 +164,9 @@ ipaddress==1.0.21 \
 josepy==1.1.0 \
     --hash=sha256:1309a25aac3caeff5239729c58ff9b583f7d022ffdb1553406ddfc8e5b52b76e \
     --hash=sha256:fb5c62c77d26e04df29cb5ecd01b9ce69b6fcc9e521eb1ca193b7faa2afa7086
-mozilla-django-oidc==0.6.0 \
-    --hash=sha256:0f21353f376cfc6c52f7dfdf4c09eb5b1af4ad34c3748c0710a2cad008befd20 \
-    --hash=sha256:4b432410410c685891bb827b9a392e2bb9d6418dd48d650db68f26a07563dbb0
+mozilla-django-oidc==1.1.2 \
+    --hash=sha256:0da273be7753c3775f8893bc228acf4d1dfffdc58c073a0df044917796ad5e0d \
+    --hash=sha256:efd9df9d8d3b58f84cdedf548387afa31146facaac11945e53f67314f57244af
 packaging==17.1 \
     --hash=sha256:e9215d2d2535d3ae866c3d6efc77d5b24a0192cce0ff20e42896cc0664f889c0 \
     --hash=sha256:f019b770dd64e585a99714f1fd5e01c7a8f11b45635aa953fd41c689a657375b
