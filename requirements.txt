@@ -1,6 +1,6 @@
-Django==1.11.16 \
-    --hash=sha256:37f5876c1fbfd66085001f4c06fa0bf96ef05442c53daf8d4294b6f29e7fa6b8 \
-    --hash=sha256:29268cc47816a44f27308e60f71da635f549c47d8a1d003b28de55141df75791    # pyup: >=1.11,<2.0
+Django==1.11.17 \
+    --hash=sha256:f1a961b954d96bb24b397db4c35e9a128d12e044d6b57984c122282b592d508d \
+    --hash=sha256:a787ee66f4b4cf8ed753661cabcec603989677fa3a107fcb7f15511a44bdb483    # pyup: >=1.11,<2.0
 python-decouple==3.1 \
     --hash=sha256:1317df14b43efee4337a4aa02914bf004f010cd56d6c4bd894e6474ec8c4fe2d
 Jinja2==2.10 \
