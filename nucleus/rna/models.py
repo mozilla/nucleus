@@ -144,7 +144,7 @@ class Release(TimeStampedModel):
     def to_dict(self):
         """Return a dict all all data about the release"""
         data = model_to_dict(self, exclude=['id'])
-        data['title'] = unicode(self)
+        data['title'] = str(self)
         data['slug'] = self.slug
         data['release_date'] = self.release_date.date().isoformat()
         data['created'] = self.created.isoformat()
@@ -163,10 +163,10 @@ class Release(TimeStampedModel):
             'channel': self.channel,
             'is_public': self.is_public,
             'slug': self.slug,
-            'title': unicode(self),
+            'title': str(self),
         }
 
-    def __unicode__(self):
+    def __str__(self):
         return '{product} {version} {channel}'.format(
             product=self.product, version=self.version, channel=self.channel)
 
@@ -185,7 +185,7 @@ class Note(TimeStampedModel):
     note = models.TextField(blank=True)
     releases = models.ManyToManyField(Release, blank=True)
     is_known_issue = models.BooleanField(default=False)
-    fixed_in_release = models.ForeignKey(Release, null=True, blank=True,
+    fixed_in_release = models.ForeignKey(Release, on_delete=models.SET_NULL, null=True, blank=True,
                                          related_name='fixed_note_set')
     tag = models.CharField(max_length=255, blank=True,
                            choices=[(t, t) for t in TAGS])
@@ -212,7 +212,7 @@ class Note(TimeStampedModel):
 
         return data
 
-    def __unicode__(self):
+    def __str__(self):
         return self.note
 
     class Meta:

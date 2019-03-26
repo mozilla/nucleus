@@ -1,6 +1,6 @@
-Django==1.11.20 \
-    --hash=sha256:0a73696e0ac71ee6177103df984f9c1e07cd297f080f8ec4dc7c6f3fb74395b5 \
-    --hash=sha256:43a99da08fee329480d27860d68279945b7d8bf7b537388ee2c8938c709b2041    # pyup: >=1.11,<2.0
+Django==2.2 \
+    --hash=sha256:7c3543e4fb070d14e10926189a7fcf42ba919263b7473dceaefce34d54e8a119 \
+    --hash=sha256:a2814bffd1f007805b19194eb0b9a331933b82bd5da1c3ba3d7b7ba16e06dc4b
 python-decouple==3.1 \
     --hash=sha256:1317df14b43efee4337a4aa02914bf004f010cd56d6c4bd894e6474ec8c4fe2d
 Jinja2==2.10 \
@@ -286,6 +286,6 @@ meinheld==0.6.1 \
 entrypoints==0.3 \
     --hash=sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19 \
     --hash=sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451
-functools32==3.2.3-2 \
-    --hash=sha256:89d824aa6c358c421a234d7f9ee0bd75933a67c29588ce50aaa3acdf4d403fa0 \
-    --hash=sha256:f6253dfbe0538ad2e387bd8fdfd9293c925d63553f5813c4e587745416501e6d
+sqlparse==0.3.0 \
+    --hash=sha256:40afe6b8d4b1117e7dff5504d7a8ce07d9a1b15aeeade8a2d10f130a834f8177 \
+    --hash=sha256:7c3dca29c022744e95b547e867cee89f4fce4373f3549ccd8797d8eb52cdb873
