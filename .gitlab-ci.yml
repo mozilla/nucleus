@@ -1,0 +1,7 @@
+docker build:
+  tags:
+    - meao
+    - gcp
+  stage: build
+  script:
+    - docker/bin/build_images.sh
