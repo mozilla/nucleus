@@ -1,4 +1,4 @@
-docker build:
+build images:
   tags:
     - meao
     - gcp
