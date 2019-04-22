@@ -1,7 +1,11 @@
-build images:
+dev:
   tags:
     - meao
     - gcp
+  only:
+    - gitlab
   stage: build
   script:
     - docker/bin/build_images.sh
+    - docker/bin/push2dockerhub.sh
+    - bin/update-config.sh
