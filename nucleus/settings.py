@@ -70,12 +70,12 @@ MIDDLEWARE = (
     'allow_cidr.middleware.AllowCIDRMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'nucleus.base.middleware.HostnameMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
@@ -133,8 +133,6 @@ USE_I18N = config('USE_I18N', default=True, cast=bool)
 USE_L10N = config('USE_L10N', default=True, cast=bool)
 
 USE_TZ = config('USE_TZ', default=True, cast=bool)
-
-USE_ETAGS = config('USE_ETAGS', default=True, cast=bool)
 
 STATIC_ROOT = config('STATIC_ROOT', default=os.path.join(BASE_DIR, 'static'))
 STATIC_URL = config('STATIC_URL', '/static/')
@@ -197,8 +195,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
-
-    'DEFAULT_FILTER_BACKENDS': ('nucleus.rna.filters.TimestampedFilterBackend',)
 }
 
 # Django-CSP

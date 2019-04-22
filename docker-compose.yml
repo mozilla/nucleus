@@ -1,17 +1,31 @@
-db:
-  image: postgres:9.4
-web:
-  build: .
-  ports:
-    - "8000:8000"
-  volumes:
-    - .:/app
-  links:
-    - db
-  environment:
-    - DATABASE_URL=postgres://postgres@db/postgres
-    - DEBUG=True
-    - ALLOWED_HOSTS=localhost,127.0.0.1,
-    - SECRET_KEY=59114b6a-2858-4caf-8878-482a24ee9542
-  command:
-    ./bin/run-dev.sh
+version: '3.4'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    links:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres@db/postgres
+      - DEBUG=True
+      - ALLOWED_HOSTS=localhost,127.0.0.1,
+      - SECRET_KEY=59114b6a-2858-4caf-8878-482a24ee9542
+    command:
+      ./bin/run-dev.sh
+
+  tests:
+    build: .
+    volumes:
+      - .:/app
+    links:
+      - db
+    env_file: docker/envfiles/test.env
+    command:
+      ./bin/run-tests.sh
+
+  db:
+    image: postgres:9.4
+
