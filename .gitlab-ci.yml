@@ -2,8 +2,6 @@ dev:
   tags:
     - meao
     - gcp
-  only:
-    - gitlab
   stage: build
   script:
     - docker/bin/build_images.sh
