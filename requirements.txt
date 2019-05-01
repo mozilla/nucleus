@@ -44,9 +44,9 @@ whitenoise==4.1.2 \
 django-csp==3.5 \
     --hash=sha256:8b9997df89a7a936d7c397e051367f974aa1d1a97d0b32acb4300087b3bed071 \
     --hash=sha256:04600237701e6d6ff78ed7d41209ff923988148bf292c128f6b474b9befe444f
-pytz==2018.9 \
-    --hash=sha256:32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9 \
-    --hash=sha256:d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c
+pytz==2019.1 \
+    --hash=sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda \
+    --hash=sha256:d747dd3d23d77ef44c6a3526e274af6efeb0a6f1afd5a69ba4d5be4098c8e141
 newrelic==4.14.0.115 \
     --hash=sha256:b0f2ef6c817d9b5389cb3ef0f06037abbd1c1ed1a4ae04f293dadeb0f78ea924
 flake8==3.7.7 \
