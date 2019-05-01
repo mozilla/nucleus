@@ -47,8 +47,8 @@ django-csp==3.5 \
 pytz==2019.1 \
     --hash=sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda \
     --hash=sha256:d747dd3d23d77ef44c6a3526e274af6efeb0a6f1afd5a69ba4d5be4098c8e141
-newrelic==4.14.0.115 \
-    --hash=sha256:b0f2ef6c817d9b5389cb3ef0f06037abbd1c1ed1a4ae04f293dadeb0f78ea924
+newrelic==4.18.0.118 \
+    --hash=sha256:3cd496022c6906ee3cdbf27c67ec3e03922830bfebbca4549ef6f2e58cf719e2
 flake8==3.7.7 \
     --hash=sha256:859996073f341f2670741b51ec1e67a01da142831aa1fdc6242dbf88dffbe661 \
     --hash=sha256:a796a115208f5c03b18f332f7c11729812c8c3ded6c46319c59b53efd3819da8
