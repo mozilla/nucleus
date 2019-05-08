@@ -64,3 +64,8 @@ add two enviroment variables:
  - NEW_RELIC_APP_NAME
 
 See the [full list of supported environment variables](https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables).
+
+
+## Kubernetes
+
+https://github.com/mozmeao/nucleus-config/ has public examples of deployments in k8s clusters in AWS & GCP.
