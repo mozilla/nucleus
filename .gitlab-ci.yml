@@ -9,7 +9,8 @@ gitlab-dev:
   script:
     - docker/bin/build_images.sh
     - docker/bin/push2dockerhub.sh
-    - bin/update-config.sh
+    - CLUSTER_NAME=iowa-b bin/update-config.sh
+    - CLUSTER_NAME=frankfurt bin/update-config.sh
 
 master:
   tags:
