@@ -1,0 +1,51 @@
+gitlab-dev:
+  tags:
+    - meao
+    - gcp
+  only:
+    - gitlab
+  variables:
+    NAMESPACE: nucleus-dev
+  script:
+    - docker/bin/build_images.sh
+    - docker/bin/push2dockerhub.sh
+    - bin/update-config.sh
+
+master:
+  tags:
+    - meao
+    - gcp
+  only:
+    - master
+  variables:
+    NAMESPACE: nucleus-dev
+  script:
+    - docker/bin/build_images.sh
+    - docker/bin/push2dockerhub.sh
+    - bin/update-config.sh
+
+stage:
+  tags:
+    - meao
+    - gcp
+  only:
+    - stage
+  variables:
+    NAMESPACE: nucleus-stage
+  script:
+    - docker/bin/build_images.sh
+    - docker/bin/push2dockerhub.sh
+    - bin/update-config.sh
+
+prod:
+  tags:
+    - meao
+    - gcp
+  only:
+    - prod
+  variables:
+    NAMESPACE: nucleus-prod
+  script:
+    - docker/bin/build_images.sh
+    - docker/bin/push2dockerhub.sh
+    - bin/update-config.sh

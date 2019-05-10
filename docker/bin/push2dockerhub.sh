@@ -5,10 +5,6 @@ set -ex
 BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BIN_DIR/set_git_env_vars.sh
 
-DOCKER_USERNAME="${DOCKER_USERNAME:-mozjenkins}"
-
-docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-
 # Push to docker hub
 docker push $DOCKER_IMAGE_TAG
 
