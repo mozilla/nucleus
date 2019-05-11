@@ -6,6 +6,11 @@ It exposes the WSGI callable as a module-level variable named ``application``.
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
+# newrelic.agent must be imported and initialized first
+# https://docs.newrelic.com/docs/agents/python-agent/installation/python-agent-advanced-integration#manual-integration
+import newrelic.agent
+newrelic.agent.initialize('newrelic.ini')
+
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nucleus.settings')  # NOQA
 
@@ -33,9 +38,6 @@ if config('SENTRY_DSN', None):
     from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
     application = Sentry(application)
 
-newrelic_ini = config('NEW_RELIC_CONFIG_FILE', default='newrelic.ini')
 newrelic_license_key = config('NEW_RELIC_LICENSE_KEY', default=None)
-if newrelic_ini and newrelic_license_key:
-    import newrelic.agent
-    newrelic.agent.initialize(newrelic_ini)
+if newrelic_license_key:
     application = newrelic.agent.WSGIApplicationWrapper(application)
