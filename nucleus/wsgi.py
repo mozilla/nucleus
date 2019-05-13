@@ -1,12 +1,4 @@
 # flake8: noqa
-"""
-WSGI config for nucleus project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
-"""
 # newrelic.agent must be imported and initialized first
 # https://docs.newrelic.com/docs/agents/python-agent/installation/python-agent-advanced-integration#manual-integration
 import newrelic.agent
