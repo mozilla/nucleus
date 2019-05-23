@@ -1,7 +1,7 @@
 dev:
   tags:
     - meao
-    - gcp
+    - aws
   only:
     - gitlab
     - master
@@ -17,36 +17,22 @@ dev:
 stage:
   tags:
     - meao
-    - gcp
-  only:
-    - stage
-  variables:
-    NAMESPACE: nucleus-stage
-  script:
-    - docker/bin/build_images.sh
-    - docker/bin/push2dockerhub.sh
-    - bin/update-config.sh
-
-
-stage-aws:
-  tags:
-    - meao
     - aws
   only:
     - stage
   variables:
     NAMESPACE: nucleus-stage
-    CLUSTER_NAME: frankfurt
   script:
     - docker/bin/build_images.sh
     - docker/bin/push2dockerhub.sh
-    - bin/update-config.sh
+    - CLUSTER_NAME=frankfurt bin/update-config.sh
+    - CLUSTER_NAME=iowa-b bin/update-config.sh
 
 
 prod:
   tags:
     - meao
-    - gcp
+    - aws
   only:
     - prod
   variables:
@@ -54,4 +40,5 @@ prod:
   script:
     - docker/bin/build_images.sh
     - docker/bin/push2dockerhub.sh
-    - bin/update-config.sh
+    - CLUSTER_NAME=frankfurt bin/update-config.sh
+    - CLUSTER_NAME=iowa-b bin/update-config.sh
