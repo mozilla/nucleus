@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 import os
-import platform
 
 import dj_database_url
 import django_cache_url
@@ -232,10 +231,9 @@ CSP_STYLE_SRC = (
     'https://*.mozilla.net',
 )
 
-HOSTNAME = platform.node()
-DEIS_APP = config('DEIS_APP', default=None)
-DEIS_DOMAIN = config('DEIS_DOMAIN', default=None)
-DEIS_RELEASE = config('DEIS_RELEASE', default=None)
+K8S_NAMESPACE = config('K8S_NAMESPACE', default=None)
+K8S_POD_NAME = config('K8S_POD_NAME', default=None)
+CLUSTER_NAME = config('CLUSTER_NAME', default=None)
 
 USE_X_FORWARDED_HOST = True
 RAVEN_CONFIG = {
