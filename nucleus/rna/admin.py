@@ -4,6 +4,7 @@
 
 from django import forms
 from django.contrib import admin
+from django.utils.html import format_html
 from django.utils.timezone import now
 from pagedown.widgets import AdminPagedownWidget
 
@@ -63,15 +64,15 @@ class ReleaseAdmin(admin.ModelAdmin):
             product = "thunderbird"
         elif obj.product == "Firefox OS":
             # Special case for Firefox OS. URL are different
-            return ('<a href="{staging}/firefox/os/notes/{version}/">Staging</a> / '
-                    '<a href="{prod}/firefox/os/notes/{version}/">Public</a>'.format(
-                        staging=base_url_staging, product=product,
-                        version=obj.version, prod=base_url_prod))
+            return format_html('<a href="{staging}/firefox/os/notes/{version}/">Staging</a> / '
+                               '<a href="{prod}/firefox/os/notes/{version}/">Public</a>',
+                               staging=base_url_staging, product=product,
+                               version=obj.version, prod=base_url_prod)
 
-        return ('<a href="{staging}/{product}/{version}/releasenotes/">Staging</a> / '
-                '<a href="{prod}/{product}/{version}/releasenotes/">Public</a>'.format(
-                    staging=base_url_staging, product=product,
-                    version=obj.version, prod=base_url_prod))
+        return format_html('<a href="{staging}/{product}/{version}/releasenotes/">Staging</a> / '
+                           '<a href="{prod}/{product}/{version}/releasenotes/">Public</a>',
+                           staging=base_url_staging, product=product,
+                           version=obj.version, prod=base_url_prod)
 
     url.allow_tags = True
 
