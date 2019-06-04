@@ -26,7 +26,8 @@ stage:
     - docker/bin/build_images.sh
     - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
-    - CLUSTER_NAME=iowa-b bin/update-config.sh
+    # mozmeao/infra#1039 tracks fixing the GCP deployment
+    #- CLUSTER_NAME=iowa-b bin/update-config.sh
 
 
 prod:
@@ -41,4 +42,5 @@ prod:
     - docker/bin/build_images.sh
     - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
-    - CLUSTER_NAME=iowa-b bin/update-config.sh
+    # mozmeao/infra#1039 tracks fixing the GCP deployment
+    #- CLUSTER_NAME=iowa-b bin/update-config.sh
