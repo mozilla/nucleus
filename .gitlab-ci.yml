@@ -3,7 +3,7 @@ dev:
     - meao
     - aws
   only:
-    - gitlab
+    - dev
     - master
   variables:
     NAMESPACE: nucleus-dev
