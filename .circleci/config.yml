@@ -16,4 +16,4 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            bin/dc.sh run test-image
+            bin/dc.sh run --rm test-image

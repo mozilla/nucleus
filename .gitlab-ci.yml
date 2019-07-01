@@ -9,7 +9,7 @@ dev:
     NAMESPACE: nucleus-dev
   script:
     - bin/dc.sh build --pull web builder
-    - bin/dc.sh run test-image
+    - bin/dc.sh run --rm test-image
     - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=iowa-b bin/update-config.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
@@ -25,7 +25,7 @@ stage:
     NAMESPACE: nucleus-stage
   script:
     - bin/dc.sh build --pull web builder
-    - bin/dc.sh run test-image
+    - bin/dc.sh run --rm test-image
     - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
     # mozmeao/infra#1039 tracks fixing the GCP deployment
@@ -42,7 +42,7 @@ prod:
     NAMESPACE: nucleus-prod
   script:
     - bin/dc.sh build --pull web builder
-    - bin/dc.sh run test-image
+    - bin/dc.sh run --rm test-image
     - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
     # mozmeao/infra#1039 tracks fixing the GCP deployment
