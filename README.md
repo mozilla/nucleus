@@ -1,41 +1,52 @@
-nucleus
-==========
+Nucleus
+=======
 
-[![Build Status](https://img.shields.io/travis/mozilla/nucleus/master.svg)](https://travis-ci.org/mozilla/nucleus)
-
-[![Coverage status](https://img.shields.io/coveralls/mozilla/nucleus/master.svg)](https://coveralls.io/r/mozilla/nucleus)
-
-Run the tests
--------------
-
-There's a sample test in `nucleus/base/tests.py` for your convenience, that
-you can run using the following command:
-
-    python manage.py test
-
-If you want to run the full suite, with flake8 and coverage, you may use
-[tox](https://testrun.org/tox/latest/). This will run the tests the same way
-they are run by [travis](https://travis-ci.org)):
-
-    pip install tox
-    tox
-
-The `.travis.yml` file will also run [coveralls](https://coveralls.io) by
-default.
-
-If you want to benefit from Travis and Coveralls, you will need to activate
-both of them in your project.
-
-Oh, and you might want to change the "Build Status" and "Coverage Status" links
-at the top of this file to point to your own travis and coveralls accounts.
-
+The publication platform for Mozilla's marketing websites.
 
 Docker for development
 ----------------------
 
-0. Make sure you have [docker](https://docker.io) and [docker-compose](https://github.com/docker/compose)
-1. docker-compose up
+Make sure you have [docker](https://www.docker.com/products/docker-desktop) and 
+[docker-compose](https://github.com/docker/compose). After those are setup and running
+you can use the following commands:
 
+```bash
+$ # This file must exist and you can customize environment variables for local dev in it
+$ touch .env
+$ # this pulls our latest builds from the docker hub.
+$ # it's optional but will speed up your builds considerably.
+$ docker-compose pull
+$ # get the site up and running
+$ docker-compose up web
+```
+
+If you've made changes to the `Dockerfile` or the `requirements.txt` files you'll need to rebuild
+the image to run the app and tests:
+
+```bash
+$ docker-compose build web
+```
+
+Then to run the app you run the `docker-compose up web` command again, or for running tests against your local changes you run:
+
+```bash
+$ docker-compose run --rm test
+```
+
+We use pytest for running tests. So if you'd like to craft your own pytest command to run individual test files or something
+you can do so by passing in a command to the above:
+
+```bash
+$ docker-compose run --rm test py.test nucleus/base/tests.py
+```
+
+And if you need to debug a running container, you can open another terminal to your nucleus code and run the following:
+
+```bash
+$ docker-compose exec web bash
+$ # or
+$ docker-compose exec web python manage.py shell
+```
 
 Docker for deploying to production
 -----------------------------------
@@ -44,7 +55,9 @@ Docker for deploying to production
 2. Prepare a 'env' file with all the variables needed by dev, stage or production.
 3. Run the image:
 
-    docker run --env-file env -p 80:8000 mozilla/nucleus
+```bash
+$ docker run --env-file env -p 80:8000 mozilla/nucleus
+```
 
 Heroku
 ------

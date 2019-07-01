@@ -8,14 +8,12 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Setup
-          command: |
-            echo "export DOCKER_IMAGE_TAG=mozmeao/nucleus:${CIRCLE_SHA1}" >> $BASH_ENV
-      - run:
           name: Build Image
           command: |
-            docker build -t "$DOCKER_IMAGE_TAG" --pull=true .
+            touch .env
+            docker-compose pull || true
+            bin/dc.sh build --pull web
       - run:
           name: Run Tests
           command: |
-            docker run --env-file docker/envfiles/test.env "$DOCKER_IMAGE_TAG" bin/run-tests.sh
+            bin/dc.sh run --rm test-image

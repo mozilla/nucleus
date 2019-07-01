@@ -2,6 +2,11 @@
 
 set -e
 
+# Debian slim images needs the man directories created
+# https://github.com/debuerreotype/debuerreotype/issues/10#issuecomment-438342078
+for i in {1..8}; do
+    mkdir -p "/usr/share/man/man$i";
+done
 apt-get update
 apt-get install -y --no-install-recommends "$@"
 rm -rf /var/lib/apt/lists/*
