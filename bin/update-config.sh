@@ -12,4 +12,7 @@ sed -i -e "s|image: ${DOCKER_REPOSITORY}.*|image: ${DOCKER_IMAGE_TAG}|" ${CLUSTE
 git add ${CLUSTER_NAME}/${NAMESPACE}/${DEPLOYMENT_YAML}
 git commit -m "set image to ${DOCKER_IMAGE_TAG} in ${CLUSTER_NAME}" || echo "nothing new to commit"
 git push
+if [[ -n "${ADDITIONAL_BRANCH}" ]]; then
+    git push origin master:${ADDITIONAL_BRANCH}
+fi
 popd

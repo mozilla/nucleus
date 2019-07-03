@@ -11,9 +11,8 @@ dev:
     - bin/dc.sh build --pull web builder
     - bin/dc.sh run --rm test-image
     - docker/bin/push2dockerhub.sh
-    - CLUSTER_NAME=iowa-b bin/update-config.sh
-    - CLUSTER_NAME=frankfurt bin/update-config.sh
-
+    - CLUSTER_NAME=iowa-b ADDITIONAL_BRANCH=iowa-b-dev bin/update-config.sh
+    - CLUSTER_NAME=frankfurt ADDITIONAL_BRANCH=frankfurt-dev bin/update-config.sh
 
 stage:
   tags:
@@ -27,10 +26,9 @@ stage:
     - bin/dc.sh build --pull web builder
     - bin/dc.sh run --rm test-image
     - docker/bin/push2dockerhub.sh
-    - CLUSTER_NAME=frankfurt bin/update-config.sh
+    - CLUSTER_NAME=frankfurt ADDITIONAL_BRANCH=frankfurt-stage bin/update-config.sh
     # mozmeao/infra#1039 tracks fixing the GCP deployment
-    #- CLUSTER_NAME=iowa-b bin/update-config.sh
-
+    #- CLUSTER_NAME=iowa-b ADDITIONAL_BRANCH=iowa-b-stage bin/update-config.sh
 
 prod:
   tags:
@@ -44,6 +42,6 @@ prod:
     - bin/dc.sh build --pull web builder
     - bin/dc.sh run --rm test-image
     - docker/bin/push2dockerhub.sh
-    - CLUSTER_NAME=frankfurt bin/update-config.sh
+    - CLUSTER_NAME=frankfurt ADDITIONAL_BRANCH=frankfurt-prod bin/update-config.sh
     # mozmeao/infra#1039 tracks fixing the GCP deployment
-    #- CLUSTER_NAME=iowa-b bin/update-config.sh
+    #- CLUSTER_NAME=iowa-b ADDITIONAL_BRANCH=iowa-b-prod bin/update-config.sh
