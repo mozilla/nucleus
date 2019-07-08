@@ -1,49 +1,47 @@
-dev:
+stages:
+  - deploy
+
+.deploy:
+  stage: deploy
   tags:
     - meao
     - aws
+  before_script: # executed together in same shell context as scripts defined below
+    - bin/dc.sh build --pull web builder
+    - bin/dc.sh run --rm test-image
+    - docker/bin/push2dockerhub.sh
+
+dev:
+  extends: .deploy
   only:
     - dev
     - master
   variables:
     NAMESPACE: nucleus-dev
   script:
-    - bin/dc.sh build --pull web builder
-    - bin/dc.sh run --rm test-image
-    - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=iowa-b bin/update-config.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
 
 
 stage:
-  tags:
-    - meao
-    - aws
+  extends: .deploy
   only:
     - stage
   variables:
     NAMESPACE: nucleus-stage
   script:
-    - bin/dc.sh build --pull web builder
-    - bin/dc.sh run --rm test-image
-    - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
     # mozmeao/infra#1039 tracks fixing the GCP deployment
     #- CLUSTER_NAME=iowa-b bin/update-config.sh
 
 
 prod:
-  tags:
-    - meao
-    - aws
+  extends: .deploy
   only:
     - prod
   variables:
     NAMESPACE: nucleus-prod
   script:
-    - bin/dc.sh build --pull web builder
-    - bin/dc.sh run --rm test-image
-    - docker/bin/push2dockerhub.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
     # mozmeao/infra#1039 tracks fixing the GCP deployment
     #- CLUSTER_NAME=iowa-b bin/update-config.sh
