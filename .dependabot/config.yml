@@ -1,0 +1,11 @@
+version: 1
+update_configs:
+  - package_manager: "python"
+    update_schedule: "weekly"
+    default_labels:
+      - "maintenance"
+      - "dependencies"
+    ignored_updates:
+      - match:
+          dependency_name: "django-filter"
+          version_requirement: ">=1.1.0,<2.0"
