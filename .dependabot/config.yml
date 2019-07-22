@@ -2,6 +2,7 @@ version: 1
 update_configs:
   - package_manager: "python"
     update_schedule: "weekly"
+    directory: "/"
     default_labels:
       - "maintenance"
       - "dependencies"
