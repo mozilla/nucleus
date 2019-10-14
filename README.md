@@ -95,7 +95,7 @@ NewRelic Monitoring
 -------------------
 
 A newrelic.ini file is already included. To enable NewRelic monitoring
-add two enviroment variables:
+add two environment variables:
 
  - NEW_RELIC_LICENSE_KEY
  - NEW_RELIC_APP_NAME
