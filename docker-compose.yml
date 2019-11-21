@@ -2,7 +2,7 @@ version: '3.4'
 services:
   web:
     command: ./bin/run-dev.sh
-    image: mozmeao/nucleus:${GIT_COMMIT:-latest}
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
     env_file:
       - docker/envfiles/dev.env
       - .env
@@ -18,7 +18,7 @@ services:
       - db
 
   test:
-    image: mozmeao/nucleus:${GIT_COMMIT:-latest}
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
     command: ./bin/run-tests.sh
     env_file:
       - docker/envfiles/dev.env
@@ -29,7 +29,7 @@ services:
       - db
 
   test-image:
-    image: mozmeao/nucleus:${GIT_COMMIT:-latest}
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
     command: ./bin/run-tests.sh
     env_file:
       - docker/envfiles/dev.env
@@ -41,7 +41,7 @@ services:
     image: postgres:9.4
 
   builder:
-    image: mozmeao/nucleus:builder-${GIT_COMMIT:-latest}
+    image: mozmeao/nucleus:builder-${GIT_COMMIT_SHORT:-latest}
     build:
       context: .
       target: builder

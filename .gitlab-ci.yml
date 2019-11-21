@@ -7,9 +7,17 @@ stages:
     - meao
     - aws
   before_script: # executed together in same shell context as scripts defined below
-    - bin/dc.sh build --pull web builder
-    - bin/dc.sh run --rm test-image
-    - docker/bin/push2dockerhub.sh
+    - make clean
+    - make build-ci
+    - make push-ci
+    - make test-ci
+
+test:
+  extends: .deploy
+  only:
+    - test
+  script:
+    - echo SUCCESS
 
 dev:
   extends: .deploy

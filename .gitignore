@@ -10,3 +10,4 @@ __pycache__
 /static
 Dockerfile.jenkins
 json_export
+.make.*
