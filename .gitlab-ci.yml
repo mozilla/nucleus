@@ -19,7 +19,6 @@ dev:
   variables:
     NAMESPACE: nucleus-dev
   script:
-    - CLUSTER_NAME=iowa-b bin/update-config.sh
     - CLUSTER_NAME=frankfurt bin/update-config.sh
 
 
@@ -31,8 +30,6 @@ stage:
     NAMESPACE: nucleus-stage
   script:
     - CLUSTER_NAME=frankfurt bin/update-config.sh
-    # mozmeao/infra#1039 tracks fixing the GCP deployment
-    #- CLUSTER_NAME=iowa-b bin/update-config.sh
 
 
 prod:
@@ -43,5 +40,3 @@ prod:
     NAMESPACE: nucleus-prod
   script:
     - CLUSTER_NAME=frankfurt bin/update-config.sh
-    # mozmeao/infra#1039 tracks fixing the GCP deployment
-    #- CLUSTER_NAME=iowa-b bin/update-config.sh
