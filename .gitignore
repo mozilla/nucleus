@@ -11,3 +11,4 @@ __pycache__
 Dockerfile.jenkins
 json_export
 .make.*
+/git-repos

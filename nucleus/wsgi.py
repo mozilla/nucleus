@@ -27,10 +27,6 @@ class WSGIHTTPSRequest(WSGIRequest):
 application = get_wsgi_application()
 application.request_class = WSGIHTTPSRequest
 
-if config('SENTRY_DSN', None):
-    from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
-    application = Sentry(application)
-
 newrelic_license_key = config('NEW_RELIC_LICENSE_KEY', default=None)
 if newrelic_license_key:
     application = newrelic.agent.WSGIApplicationWrapper(application)

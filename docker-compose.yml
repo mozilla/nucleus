@@ -4,8 +4,8 @@ services:
     command: ./bin/run-dev.sh
     image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
     env_file:
-      - docker/envfiles/dev.env
       - .env
+      - docker/envfiles/dev.env
     build:
       context: .
       args:
@@ -16,6 +16,19 @@ services:
       - .:/app
     depends_on:
       - db
+      - redis
+
+  worker:
+    command: ./bin/run-worker.sh
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    env_file:
+      - .env
+      - docker/envfiles/dev.env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
 
   test:
     image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
@@ -39,6 +52,9 @@ services:
 
   db:
     image: postgres:9.4
+
+  redis:
+    image: redis
 
   builder:
     image: mozmeao/nucleus:builder-${GIT_COMMIT_SHORT:-latest}

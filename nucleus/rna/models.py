@@ -8,27 +8,8 @@ from django.conf import settings
 from django.db import models
 from django.forms.models import model_to_dict
 from django.utils.text import slugify
-from django.utils.timezone import now
-from django_extensions.db.fields import CreationDateTimeField
 
-
-class TimeStampedModel(models.Model):
-    """
-    Replacement for django_extensions.db.models.TimeStampedModel
-    that updates the modified timestamp by default, but allows
-    that behavior to be overridden by passing a modified=False
-    parameter to the save method
-    """
-    created = CreationDateTimeField()
-    modified = models.DateTimeField(editable=False, blank=True, db_index=True)
-
-    class Meta:
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        if kwargs.pop('modified', True):
-            self.modified = now()
-        super(TimeStampedModel, self).save(*args, **kwargs)
+from nucleus.base.models import SaveToGithubModel
 
 
 class ReleaseManager(models.Manager):
@@ -37,7 +18,7 @@ class ReleaseManager(models.Manager):
         return [r.to_dict() for r in self.prefetch_related('note_set').all()]
 
 
-class Release(TimeStampedModel):
+class Release(SaveToGithubModel):
     CHANNELS = ('Nightly', 'Aurora', 'Beta', 'Release', 'ESR')
     PRODUCTS = ('Firefox', 'Firefox for Android',
                 'Firefox Extended Support Release', 'Firefox OS',
@@ -177,7 +158,7 @@ class Release(TimeStampedModel):
         get_latest_by = 'modified'
 
 
-class Note(TimeStampedModel):
+class Note(SaveToGithubModel):
     TAGS = ('New', 'Changed', 'HTML5', 'Feature', 'Language', 'Developer',
             'Enterprise', 'Fixed')
 
@@ -191,6 +172,8 @@ class Note(TimeStampedModel):
                            choices=[(t, t) for t in TAGS])
     sort_num = models.IntegerField(default=0)
     is_public = models.BooleanField(default=True)
+
+    related_field_to_github = 'releases'
 
     def is_known_issue_for(self, release):
         return self.is_known_issue and self.fixed_in_release != release

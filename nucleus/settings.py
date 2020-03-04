@@ -9,16 +9,35 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 import os
+import platform
+from datetime import timedelta
+from os.path import abspath
+from pathlib import Path
 
 import dj_database_url
 import django_cache_url
+import sentry_sdk
+import spinach
 from decouple import Csv, config
+from redis import StrictRedis
+from sentry_sdk.integrations.django import DjangoIntegration
+from spinach.contrib.sentry_sdk_spinach import SpinachIntegration
 
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-ROOT = os.path.dirname(os.path.join(BASE_DIR, '..'))
-WHITENOISE_ROOT = os.path.join(ROOT, 'root_files')
+ROOT_PATH = Path(__file__).resolve().parents[1]
+GIT_REPOS_PATH = ROOT_PATH / 'git-repos'
+ROOT = str(ROOT_PATH)
+
+
+def path(*args):
+    return abspath(str(ROOT_PATH.joinpath(*args)))
+
+
+def git_repo_path(*args):
+    return abspath(str(GIT_REPOS_PATH.joinpath(*args)))
+
+
+WHITENOISE_ROOT = path('root_files')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -52,8 +71,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
+    'spinach.contrib.spinachd',
     'mozilla_django_oidc',
-    'raven.contrib.django.raven_compat',
     'django_jinja',
     'django_extensions',
     'pagedown',
@@ -79,6 +98,7 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
     'nucleus.rna.middleware.PatchOverrideMiddleware',
+    'crum.CurrentRequestUserMiddleware',
 )
 
 ROOT_URLCONF = 'nucleus.urls'
@@ -133,11 +153,11 @@ USE_L10N = config('USE_L10N', default=True, cast=bool)
 
 USE_TZ = config('USE_TZ', default=True, cast=bool)
 
-STATIC_ROOT = config('STATIC_ROOT', default=os.path.join(BASE_DIR, 'static'))
+STATIC_ROOT = config('STATIC_ROOT', default=path('static'))
 STATIC_URL = config('STATIC_URL', '/static/')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'media'))
+MEDIA_ROOT = config('MEDIA_ROOT', default=path('media'))
 MEDIA_URL = config('MEDIA_URL', '/media/')
 
 SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=not DEBUG, cast=bool)
@@ -145,6 +165,10 @@ CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 
 RNA = {'BASE_URL': config('RNA_BASE_URL', default='https://nucleus.mozilla.org/rna/')}
 RNA_JSON_CACHE_TIME = config('RNA_JSON_CACHE_TIME', default='600', cast=int)
+
+GITHUB_ACCESS_TOKEN = config('GITHUB_ACCESS_TOKEN', default='')
+GITHUB_OUTPUT_REPO = config('GITHUB_OUTPUT_REPO', default='mozmeao/nucleus-data')
+GITHUB_OUTPUT_BRANCH = config('GITHUB_OUTPUT_BRANCH', default='master')
 
 TEMPLATES = [
     {
@@ -231,22 +255,38 @@ CSP_STYLE_SRC = (
     'https://*.mozilla.net',
 )
 
+HOSTNAME = platform.node()
 K8S_NAMESPACE = config('K8S_NAMESPACE', default=None)
 K8S_POD_NAME = config('K8S_POD_NAME', default=None)
 CLUSTER_NAME = config('CLUSTER_NAME', default=None)
-
 USE_X_FORWARDED_HOST = True
-RAVEN_CONFIG = {
-    'dsn': config('SENTRY_DSN', None),
-    'release': config('GIT_SHA', None),
-}
 
+sentry_sdk.init(
+    dsn=config('SENTRY_DSN', None),
+    release=config('GIT_SHA', None),
+    server_name='.'.join(x for x in [K8S_NAMESPACE, CLUSTER_NAME, HOSTNAME] if x),
+    integrations=[
+        SpinachIntegration(send_retries=True),
+        DjangoIntegration(),
+    ],
+)
+
+REDIS_URL = config('REDIS_URL', None)
+
+SPINACH_NAMESPACE = K8S_NAMESPACE or 'nucleus-dev'
+SPINACH_CLEAR_SESSIONS_PERIODICITY = timedelta(days=1)
+if REDIS_URL:
+    SPINACH_BROKER = spinach.RedisBroker(StrictRedis.from_url(REDIS_URL))
+else:
+    SPINACH_BROKER = spinach.MemoryBroker()
+
+LOG_LEVEL = 'DEBUG' if DEBUG else 'INFO'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'level': os.getenv('DJANGO_LOG_LEVEL', LOG_LEVEL),
             'class': 'logging.StreamHandler',
         },
     },
@@ -254,6 +294,18 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+        'nucleus': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', LOG_LEVEL),
+        },
+        'spinach': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', LOG_LEVEL),
+        },
+        'root': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', LOG_LEVEL),
         },
     },
 }
