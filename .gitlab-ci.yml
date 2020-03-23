@@ -13,11 +13,21 @@ stages:
     - make test-ci
 
 test:
-  extends: .deploy
+  stage: deploy
+  tags:
+    - meao
+    - aws
   only:
-    - test
+    - branches
+  except:
+    - dev
+    - master
+    - stage
+    - prod
   script:
-    - echo SUCCESS
+    - make clean
+    - make build-ci
+    - make test-ci
 
 dev:
   extends: .deploy
