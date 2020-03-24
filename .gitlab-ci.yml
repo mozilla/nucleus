@@ -25,7 +25,7 @@ test:
     - stage
     - prod
   script:
-    - make clean
+    - make clean-ci
     - make build-ci
     - make test-ci
 

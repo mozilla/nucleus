@@ -1,12 +1,15 @@
+from datetime import timedelta
 from unittest.mock import patch
 
 from django.apps import apps
 from django.utils.timezone import now
 
 import pytest
+from crum import set_current_user
 from github import UnknownObjectException
 
 from nucleus.base import tasks
+from nucleus.base.models import GithubLog
 
 
 def get_modified_data():
@@ -75,41 +78,53 @@ def test_data_matches():
     assert tasks.data_matches(data, data_today)
 
 
+# increments for each time called for unique data
+VERSION = 70
+
+
+def get_version_str():
+    global VERSION
+    VERSION += 1
+    return f'{VERSION}.0a1'
+
+
 def setup_data():
-    model = apps.get_model('rna.release')
-    obj = model.objects.create(
-        product='Firefox',
-        channel='Nightly',
-        version='73.0a1',
-        release_date=now(),
-    )
     user_model = apps.get_model('auth.user')
     user = user_model.objects.create(
-        username='dude',
+        username=get_version_str(),
         email='dude@example.com',
         first_name='The',
         last_name='Dude',
     )
-    return obj, user
+    set_current_user(user)
+    model = apps.get_model('rna.release')
+    model.objects.create(
+        product='Firefox',
+        channel='Nightly',
+        version=get_version_str(),
+        release_date=now(),
+    )
+    return GithubLog.objects.latest()
 
 
 @patch.object(tasks, 'github')
 @pytest.mark.django_db
 def test_save_to_github_update(gh_mock):
-    obj, user = setup_data()
+    ghl = setup_data()
     repo = gh_mock.get_repo()
+    obj = ghl.content_object
 
     # with file already in github
     ghf = repo.get_contents()
     ghf.decoded_content = '{}'
-    tasks.save_to_github('rna.release', obj.pk, user.pk, 'test')
-    repo.get_contents.assert_called_with('releases/firefox-73.0a1-nightly.json', ref='test')
-    gh_mock.get_author.assert_called_with(user)
-    repo.update_file.assert_called_with('releases/firefox-73.0a1-nightly.json',
-                                        'Update releases/firefox-73.0a1-nightly.json',
+    tasks.save_to_github(ghl.pk)
+    repo.get_contents.assert_called_with(obj.json_file_path, ref=ghl.branch)
+    gh_mock.get_author.assert_called_with(ghl.author)
+    repo.update_file.assert_called_with(obj.json_file_path,
+                                        f'Update {obj.json_file_path}',
                                         obj.to_json(),
                                         ghf.sha,
-                                        branch='test',
+                                        branch=ghl.branch,
                                         author=gh_mock.get_author())
 
 
@@ -117,8 +132,9 @@ def test_save_to_github_update(gh_mock):
 @pytest.mark.django_db
 def test_save_to_github_skip_update(gh_mock):
     """Should skip updating or creating if the data is the same"""
-    obj, user = setup_data()
+    ghl = setup_data()
     repo = gh_mock.get_repo()
+    obj = ghl.content_object
 
     # with file already in github
     orig_json = obj.to_json()
@@ -128,9 +144,9 @@ def test_save_to_github_skip_update(gh_mock):
     new_json = obj.to_json()
     # should have different modified times
     assert new_json != orig_json
-    tasks.save_to_github('rna.release', obj.pk, user.pk, 'test')
-    repo.get_contents.assert_called_with('releases/firefox-73.0a1-nightly.json', ref='test')
-    gh_mock.get_author.assert_called_with(user)
+    tasks.save_to_github(ghl.pk)
+    repo.get_contents.assert_called_with(obj.json_file_path, ref=ghl.branch)
+    gh_mock.get_author.assert_called_with(ghl.author)
     repo.update_file.assert_not_called()
     repo.create_file.assert_not_called()
 
@@ -138,16 +154,59 @@ def test_save_to_github_skip_update(gh_mock):
 @patch.object(tasks, 'github')
 @pytest.mark.django_db
 def test_save_to_github_create(gh_mock):
-    obj, user = setup_data()
+    ghl = setup_data()
     repo = gh_mock.get_repo()
+    obj = ghl.content_object
 
     # with no file already in github
     repo.get_contents.side_effect = UnknownObjectException('failed', 'missing')
-    tasks.save_to_github('rna.release', obj.pk, user.pk, 'test')
-    repo.get_contents.assert_called_with('releases/firefox-73.0a1-nightly.json', ref='test')
-    gh_mock.get_author.assert_called_with(user)
-    repo.create_file.assert_called_with('releases/firefox-73.0a1-nightly.json',
-                                        'Create releases/firefox-73.0a1-nightly.json',
+    tasks.save_to_github(ghl.pk)
+    repo.get_contents.assert_called_with(obj.json_file_path, ref=ghl.branch)
+    gh_mock.get_author.assert_called_with(ghl.author)
+    repo.create_file.assert_called_with(obj.json_file_path,
+                                        f'Create {obj.json_file_path}',
                                         obj.to_json(),
-                                        branch='test',
+                                        branch=ghl.branch,
                                         author=gh_mock.get_author())
+
+
+@patch.object(tasks, 'tasks')
+@pytest.mark.django_db
+def test_cleanup_failures(tasks_mock):
+    # setup two objects. only one should requeue.
+    ghl = setup_data()
+    setup_data()
+    ghl.created = now() - timedelta(hours=2)
+    ghl.save()
+    tasks.cleanup()
+    tasks_mock.schedule.assert_called_once_with(tasks.save_to_github, ghl.pk)
+
+
+@patch.object(tasks, 'tasks')
+@pytest.mark.django_db
+def test_cleanup_max_failures(tasks_mock):
+    ghl = setup_data()
+    ghl.created = now() - timedelta(hours=2)
+    ghl.save()
+    # call 8 times
+    for i in range(8):
+        tasks.cleanup()
+
+    # should only have re run it MAX_FAILS times
+    ghl.refresh_from_db()
+    assert ghl.fail_count == tasks.MAX_FAILS
+    assert tasks_mock.schedule.call_count == tasks.MAX_FAILS
+
+
+@patch.object(tasks, 'tasks')
+@pytest.mark.django_db
+def test_cleanup_successes(tasks_mock):
+    # setup two objects. only one should be deleted.
+    ghl = setup_data()
+    setup_data()
+    assert GithubLog.objects.count() == 2
+    ghl.created = now() - timedelta(days=10)
+    ghl.ack = True
+    ghl.save()
+    tasks.cleanup()
+    assert GithubLog.objects.count() == 1

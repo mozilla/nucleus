@@ -1,10 +1,9 @@
 import json
 from copy import deepcopy
+from datetime import timedelta
 from logging import getLogger
 
-from django.apps import apps
-from django.conf import settings
-from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 from github import UnknownObjectException
 from spinach import Tasks
@@ -14,27 +13,52 @@ from nucleus.base import github
 
 log = getLogger(__name__)
 tasks = Tasks(max_retries=8)
+MAX_FAILS = 5
+
+
+@tasks.task(name='nucleus:cleanup', periodicity=timedelta(hours=1))
+def cleanup():
+    from .models import GithubLog  # avoid circular import
+    # requeue any that are unacknowledged after an hour
+    unacked = GithubLog.objects.filter(ack=False,
+                                       fail_count__lt=MAX_FAILS,
+                                       created__lt=now() - timedelta(hours=1))
+    count = 0
+    for ghl in unacked:
+        ghl.fail_count += 1
+        ghl.save()
+        tasks.schedule(save_to_github, ghl.pk)
+        count += 1
+
+    log.info(f'scheduled {count} GithubLog entries for trying again')
+
+    # delete acknowledged entries after a week
+    acked = GithubLog.objects.filter(ack=True, created__lt=now() - timedelta(weeks=1))
+    num_deleted, _ = acked.delete()
+    log.info(f'deleted {num_deleted} GithubLog entries')
 
 
 @tasks.task(name='nucleus:save_to_github')
-def save_to_github(model_label, instance_id, author_id=None, branch=None):
-    log.debug(f'save_to_github, {model_label}, {instance_id}, {author_id}, {branch}')
-    branch = branch or settings.GITHUB_OUTPUT_BRANCH
-    model = apps.get_model(model_label)
-    obj = model.objects.get(pk=instance_id)
-    user = User.objects.get(pk=author_id)
-    author = github.get_author(user)
+def save_to_github(ghl_id):
+    from .models import GithubLog  # avoid circular import
+    ghl = GithubLog.objects.get(pk=ghl_id)
+    log.debug(f'save_to_github: {ghl}')
+    obj = ghl.content_object
     file_path = obj.json_file_path
     content = obj.to_json()
     repo = github.get_repo()
     try:
-        ghf = repo.get_contents(file_path, ref=branch)
+        ghf = repo.get_contents(file_path, ref=ghl.branch)
         action = 'Update'
     except UnknownObjectException:
         ghf = None
         action = 'Create'
 
     message = f'{action} {file_path}'
+    kwargs = {'branch': ghl.branch}
+    if ghl.author:
+        kwargs['author'] = github.get_author(ghl.author)
+
     if ghf:
         current_data = json.loads(ghf.decoded_content)
         if data_matches(current_data, obj.to_dict()):
@@ -45,17 +69,17 @@ def save_to_github(model_label, instance_id, author_id=None, branch=None):
                                 message,
                                 content,
                                 ghf.sha,
-                                branch=branch,
-                                author=author)
+                                **kwargs)
     else:
         resp = repo.create_file(file_path,
                                 message,
                                 content,
-                                branch=branch,
-                                author=author)
+                                **kwargs)
 
     log.info(f"committed to github: {resp['commit'].sha}")
     log.info(message)
+    ghl.ack = True
+    ghl.save()
 
 
 def data_matches(data1, data2):

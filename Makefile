@@ -68,6 +68,9 @@ docs: .make.docker.pull
 .make.docker.build.ci:
 	${MAKE} build-ci
 
+clean-ci: clean .env
+	${DC_CI} down -v
+
 build-ci: .make.docker.pull
 	${DC_CI} build --pull web
 #	tag intermediate images using cache
@@ -96,4 +99,4 @@ help:
 	@echo "  build-ci      - build docker images for use in our CI pipeline"
 	@echo "  test-ci       - run tests against files in docker image built by CI"
 
-.PHONY: all clean build pull docs lint run run-shell shell test test-image build-ci test-ci push-ci djshell stop kill
+.PHONY: all clean clean-ci build pull docs lint run run-shell shell test test-image build-ci test-ci push-ci djshell stop kill

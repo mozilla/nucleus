@@ -2,6 +2,9 @@ import json
 from logging import getLogger
 
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
@@ -21,11 +24,12 @@ DEFAULT_BRANCH = settings.GITHUB_OUTPUT_BRANCH
 def send_instance_to_github(instance, branch=DEFAULT_BRANCH):
     log.debug(f'send_instance_to_github, {instance._meta.label_lower}, {instance.pk}')
     author = get_current_user()
-    tasks.schedule('nucleus:save_to_github',
-                   instance._meta.label_lower,  # app_name.model_name
-                   instance.pk,
-                   author.pk if author else None,
-                   branch)
+    ghl = GithubLog.objects.create(
+        content_object=instance,
+        author=author,
+        branch=branch,
+    )
+    tasks.schedule('nucleus:save_to_github', ghl.pk)
 
 
 @receiver(post_save, weak=False, dispatch_uid='send_to_github_signal')
@@ -97,3 +101,23 @@ class SaveToGithubModel(TimeStampedModel):
                 obj.to_github()
         else:
             send_instance_to_github(self)
+
+
+class GithubLog(TimeStampedModel):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey()
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    branch = models.CharField(max_length=100, default='master')
+    ack = models.BooleanField(default=False)
+    fail_count = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ['-created']
+        get_latest_by = 'created'
+
+    def __str__(self):
+        return f'GithubLog: {self.content_object}, {self.author}, {self.branch}'
+
+    def author_name(self):
+        return self.author.get_full_name() or self.author.username
