@@ -23,6 +23,9 @@ DEFAULT_BRANCH = settings.GITHUB_OUTPUT_BRANCH
 
 def send_instance_to_github(instance, branch=DEFAULT_BRANCH):
     log.debug(f'send_instance_to_github, {instance._meta.label_lower}, {instance.pk}')
+    if not settings.GITHUB_PUSH_ENABLE:
+        return
+
     author = get_current_user()
     ghl = GithubLog.objects.create(
         content_object=instance,

@@ -166,6 +166,7 @@ CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 RNA = {'BASE_URL': config('RNA_BASE_URL', default='https://nucleus.mozilla.org/rna/')}
 RNA_JSON_CACHE_TIME = config('RNA_JSON_CACHE_TIME', default='600', cast=int)
 
+GITHUB_PUSH_ENABLE = config('GITHUB_PUSH_ENABLE', default='false', cast=bool)
 GITHUB_ACCESS_TOKEN = config('GITHUB_ACCESS_TOKEN', default='')
 GITHUB_OUTPUT_REPO = config('GITHUB_OUTPUT_REPO', default='mozmeao/nucleus-data')
 GITHUB_OUTPUT_BRANCH = config('GITHUB_OUTPUT_BRANCH', default='master')

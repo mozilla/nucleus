@@ -2,6 +2,7 @@ from datetime import timedelta
 from unittest.mock import patch
 
 from django.apps import apps
+from django.test import override_settings
 from django.utils.timezone import now
 
 import pytest
@@ -88,6 +89,7 @@ def get_version_str():
     return f'{VERSION}.0a1'
 
 
+@override_settings(GITHUB_PUSH_ENABLE=True)
 def setup_data():
     user_model = apps.get_model('auth.user')
     user = user_model.objects.create(
