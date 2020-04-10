@@ -11,6 +11,8 @@ stages:
     - make build-ci
     - make push-ci
     - make test-ci
+  script:
+    - bin/update-config.sh
 
 test:
   stage: deploy
@@ -36,9 +38,7 @@ dev:
     - master
   variables:
     NAMESPACE: nucleus-dev
-  script:
-    - CLUSTER_NAME=frankfurt bin/update-config.sh
-
+    CLUSTER_NAME: frankfurt
 
 stage:
   extends: .deploy
@@ -46,9 +46,7 @@ stage:
     - stage
   variables:
     NAMESPACE: nucleus-stage
-  script:
-    - CLUSTER_NAME=frankfurt bin/update-config.sh
-
+    CLUSTER_NAME: frankfurt
 
 prod:
   extends: .deploy
@@ -56,5 +54,4 @@ prod:
     - prod
   variables:
     NAMESPACE: nucleus-prod
-  script:
-    - CLUSTER_NAME=frankfurt bin/update-config.sh
+    CLUSTER_NAME: frankfurt
