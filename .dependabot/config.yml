@@ -8,5 +8,5 @@ update_configs:
       - "dependencies"
     ignored_updates:
       - match:
-        dependency_name: "Django"
-        version_requirement: "3.x"
+          dependency_name: "Django"
+          version_requirement: "3.x"
