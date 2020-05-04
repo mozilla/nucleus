@@ -4,7 +4,7 @@ stages:
 .deploy:
   stage: deploy
   tags:
-    - meao
+    - mozmeao
     - aws
   before_script: # executed together in same shell context as scripts defined below
     - make clean
@@ -17,7 +17,7 @@ stages:
 test:
   stage: deploy
   tags:
-    - meao
+    - mozmeao
     - aws
   only:
     - branches
