@@ -73,8 +73,9 @@ django-filter==2.2.0 \
 django-extensions==2.2.8 \
     --hash=sha256:1a03c4e8bade575f8c2be6c76456f8a2be3f9b02ab9f47d3535afa9562dc0493 \
     --hash=sha256:2699cc1d6fb4bd393c0b5832fea4bc685f2ace5800b3c9ff222b2080f161ac04
-django-pagedown==1.0.6 \
-    --hash=sha256:cd24550256879077bc5699c41407e4f1f2c0d3409bf033ccdb68fc9502844b15
+django-pagedown==2.1.2 \
+    --hash=sha256:9cb56d14e0bfc3057cd2842c32f93a48c3b844ec2a7aa12f0e424a8750ac0d8c \
+    --hash=sha256:7f97a47aad0d5fbb654db89db0cc144f424b8c53a246a6680d8c8ee2c27ee543
 djangorestframework==3.11.0 \
     --hash=sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4 \
     --hash=sha256:e782087823c47a26826ee5b6fa0c542968219263fb3976ec3c31edab23a4001f
