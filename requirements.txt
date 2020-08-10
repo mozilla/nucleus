@@ -70,9 +70,9 @@ django-session-csrf==0.7.1 \
 django-filter==2.2.0 \
     --hash=sha256:558c727bce3ffa89c4a7a0b13bc8976745d63e5fd576b3a9a851650ef11c401b \
     --hash=sha256:c3deb57f0dd7ff94d7dce52a047516822013e2b441bed472b722a317658cfd14
-django-extensions==2.2.8 \
-    --hash=sha256:1a03c4e8bade575f8c2be6c76456f8a2be3f9b02ab9f47d3535afa9562dc0493 \
-    --hash=sha256:2699cc1d6fb4bd393c0b5832fea4bc685f2ace5800b3c9ff222b2080f161ac04
+django-extensions==3.0.5 \
+    --hash=sha256:40d4b7aec7bbe66dda8704fbfaf2e1b7e04ec4aea6b10dcbd78d8af7c37bfddb \
+    --hash=sha256:6306175ae8c78c18ea7aff794f5fa3a47de7d128666e6668bd40596895da7f84
 django-pagedown==1.0.6 \
     --hash=sha256:cd24550256879077bc5699c41407e4f1f2c0d3409bf033ccdb68fc9502844b15
 djangorestframework==3.11.0 \
