@@ -75,7 +75,7 @@ INSTALLED_APPS = [
     'mozilla_django_oidc',
     'django_jinja',
     'django_extensions',
-    'pagedown',
+    'pagedown.apps.PagedownConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'watchman',
