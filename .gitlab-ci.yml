@@ -38,7 +38,7 @@ dev:
     - master
   variables:
     NAMESPACE: nucleus-dev
-    CLUSTER_NAME: frankfurt
+    CLUSTER_NAME: mozmeao-fr
 
 stage:
   extends: .deploy
@@ -46,7 +46,7 @@ stage:
     - stage
   variables:
     NAMESPACE: nucleus-stage
-    CLUSTER_NAME: frankfurt
+    CLUSTER_NAME: mozmeao-fr
 
 prod:
   extends: .deploy
@@ -54,4 +54,4 @@ prod:
     - prod
   variables:
     NAMESPACE: nucleus-prod
-    CLUSTER_NAME: frankfurt
+    CLUSTER_NAME: mozmeao-fr
