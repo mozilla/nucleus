@@ -1,5 +1,6 @@
 #!/bin/sh
 
+./bin/post-deploy.sh
 echo "$GIT_SHA" > static/revision.txt
 exec gunicorn nucleus.wsgi:application --bind "0.0.0.0:${PORT:-8000}" \
                           --workers "${WSGI_NUM_WORKERS:-4}" \
