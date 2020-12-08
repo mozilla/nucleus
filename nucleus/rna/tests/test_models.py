@@ -36,23 +36,26 @@ class TestReleaseQueries(TestCase):
 
     def test_recently_modified_release(self):
         """Should only return releases modified more recently than `days_ago`"""
-        query = Release.objects.recently_modified(days_ago=5)
-        assert self.r1 not in query
-        assert self.r2 not in query
-        assert self.r3 in query
+        data = Release.objects.recently_modified_list(days_ago=5)
+        versions = [o['version'] for o in data]
+        assert self.r1.version not in versions
+        assert self.r2.version not in versions
+        assert self.r3.version in versions
 
     def test_recently_modified_note(self):
         """Should also return releases with notes modified more recently than `days_ago`"""
         self.r1.note_set.create(note='The Dude minds, man')
-        query = Release.objects.recently_modified(days_ago=5)
-        assert self.r1 in query
-        assert self.r2 not in query
-        assert self.r3 in query
+        data = Release.objects.recently_modified_list(days_ago=5)
+        versions = [o['version'] for o in data]
+        assert self.r1.version in versions
+        assert self.r2.version not in versions
+        assert self.r3.version in versions
 
     def test_recently_modified_fixed_in_note(self):
         """Should also return releases with notes modified more recently than `days_ago`"""
         self.r2.fixed_note_set.create(note='The Dude minds, man')
-        query = Release.objects.recently_modified(days_ago=5)
-        assert self.r1 not in query
-        assert self.r2 in query
-        assert self.r3 in query
+        data = Release.objects.recently_modified_list(days_ago=5)
+        versions = [o['version'] for o in data]
+        assert self.r1.version not in versions
+        assert self.r2.version in versions
+        assert self.r3.version in versions

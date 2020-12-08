@@ -2,12 +2,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import datetime
 import json
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.utils.dateparse import parse_datetime
+from django.utils.http import parse_http_date_safe
+from django.utils.timezone import now
 from django.views.decorators.http import last_modified, require_safe
 from django.views.decorators.cache import cache_page
 
@@ -16,8 +18,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.viewsets import ModelViewSet
 from synctool.routing import Route
 
-from . import models, serializers
-from .utils import get_last_modified_date, HttpResponseJSON
+from nucleus.rna.serializers import NoteSerializer, ReleaseSerializer
+from nucleus.rna.models import Note, Release
+from nucleus.rna.utils import get_last_modified_date, HttpResponseJSON
 
 
 rnasync = Route(api_token=None).app('rna', 'rna')
@@ -36,41 +39,36 @@ def auth_token(request):
 
 
 class NoteViewSet(ModelViewSet):
-    queryset = models.Note.objects.all()
-    serializer_class = serializers.NoteSerializer
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
 
 
 class ReleaseViewSet(ModelViewSet):
-    queryset = models.Release.objects.all()
-    serializer_class = serializers.ReleaseSerializer
+    queryset = Release.objects.all()
+    serializer_class = ReleaseSerializer
 
 
 class NestedNoteView(generics.ListAPIView):
-    model = models.Note
-    serializer_class = serializers.NoteSerializer
+    model = Note
+    serializer_class = NoteSerializer
 
     def get_queryset(self):
-        release = get_object_or_404(models.Release, pk=self.kwargs.get('pk'))
+        release = get_object_or_404(Release, pk=self.kwargs.get('pk'))
         return release.note_set.all()
 
 
 @cache_page(RNA_JSON_CACHE_TIME)
+@last_modified(get_last_modified_date)
 @require_safe
 def export_json(request):
-    mod_date = request.GET.get('last-modified')
-    if mod_date == 'all':
-        return HttpResponseJSON(models.Release.objects.all_as_list())
+    if request.GET.get('all') == 'true':
+        return HttpResponseJSON(Release.objects.all_as_list(), cors=True)
 
+    mod_date = parse_http_date_safe(request.META.get('HTTP_IF_MODIFIED_SINCE'))
     if mod_date:
-        try:
-            # parse_datetime can return None or raise ValueError if value is not parsable
-            mod_date = parse_datetime(mod_date)
-        except ValueError:
-            mod_date = None
-
-    if mod_date:
-        query = models.Release.objects.recently_modified(mod_date=mod_date)
+        mod_date = datetime.datetime.fromtimestamp(mod_date, datetime.timezone.utc)
     else:
-        query = models.Release.objects.recently_modified(days_ago=14)
+        mod_date = now() - datetime.timedelta(days=30)
 
-    return HttpResponseJSON([o.to_dict() for o in query])
+    return HttpResponseJSON(Release.objects.recently_modified_list(mod_date=mod_date),
+                            cors=True)
