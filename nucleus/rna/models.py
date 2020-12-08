@@ -1,13 +1,15 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
+from datetime import timedelta
 from itertools import chain
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.utils.text import slugify
+from django.utils.timezone import now
 
 from nucleus.base.models import SaveToGithubModel
 
@@ -16,6 +18,15 @@ class ReleaseManager(models.Manager):
     def all_as_list(self):
         """Return all releases as a list of dicts"""
         return [r.to_dict() for r in self.prefetch_related('note_set').all()]
+
+    def recently_modified(self, days_ago=7, mod_date=None):
+        if mod_date is None:
+            mod_date = now() - timedelta(days=days_ago)
+
+        query = self.filter(Q(modified__gte=mod_date) |
+                            Q(note__modified__gte=mod_date) |
+                            Q(fixed_note_set__modified__gte=mod_date))
+        return query.prefetch_related('note_set')
 
 
 class Release(SaveToGithubModel):
