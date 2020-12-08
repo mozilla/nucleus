@@ -7,6 +7,7 @@ import json
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
+from django.utils.dateparse import parse_datetime
 from django.views.decorators.http import last_modified, require_safe
 from django.views.decorators.cache import cache_page
 
@@ -56,4 +57,20 @@ class NestedNoteView(generics.ListAPIView):
 @cache_page(RNA_JSON_CACHE_TIME)
 @require_safe
 def export_json(request):
-    return HttpResponseJSON(models.Release.objects.all_as_list())
+    mod_date = request.GET.get('last-modified')
+    if mod_date == 'all':
+        return HttpResponseJSON(models.Release.objects.all_as_list())
+
+    if mod_date:
+        try:
+            # parse_datetime can return None or raise ValueError if value is not parsable
+            mod_date = parse_datetime(mod_date)
+        except ValueError:
+            mod_date = None
+
+    if mod_date:
+        query = models.Release.objects.recently_modified(mod_date=mod_date)
+    else:
+        query = models.Release.objects.recently_modified(days_ago=14)
+
+    return HttpResponseJSON([o.to_dict() for o in query])
