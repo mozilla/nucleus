@@ -19,14 +19,14 @@ class ReleaseManager(models.Manager):
         """Return all releases as a list of dicts"""
         return [r.to_dict() for r in self.prefetch_related('note_set').all()]
 
-    def recently_modified(self, days_ago=7, mod_date=None):
+    def recently_modified_list(self, days_ago=7, mod_date=None):
         if mod_date is None:
             mod_date = now() - timedelta(days=days_ago)
 
         query = self.filter(Q(modified__gte=mod_date) |
                             Q(note__modified__gte=mod_date) |
                             Q(fixed_note_set__modified__gte=mod_date))
-        return query.prefetch_related('note_set')
+        return [r.to_dict() for r in query.prefetch_related('note_set')]
 
 
 class Release(SaveToGithubModel):
