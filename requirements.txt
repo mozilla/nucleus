@@ -73,10 +73,10 @@ django-filter==2.2.0 \
 django-extensions==2.2.8 \
     --hash=sha256:1a03c4e8bade575f8c2be6c76456f8a2be3f9b02ab9f47d3535afa9562dc0493 \
     --hash=sha256:2699cc1d6fb4bd393c0b5832fea4bc685f2ace5800b3c9ff222b2080f161ac04
-django-pagedown==2.1.3 \
-    --hash=sha256:298d655b3dd85563c10692d7b512fd0d42d254f8d48a5198023dc42a5237feb7 \
-    --hash=sha256:59240d34083990c39ad8f1f1b6a79af0a999831a4da3cf59051bd2549a1567db \
-    --hash=sha256:bf020685e44c6eaed87fe31279c1f284a31340b5446a9269bd1bed56e8ca3668
+django-pagedown==2.2.0 \
+    --hash=sha256:80ed1e6e8f1c8d854aa70d3b97bacb493aad4bdf19b23fda601ff6e6e5efb803 \
+    --hash=sha256:a11ceff4b0f3eac20111b53a80f26365ebc2ea13efe504175d12672971f694ee \
+    --hash=sha256:3fcba59c4d8f3fe14ce43526ef2618c90ffaab7986102a0878f9f14fc17eb304
 djangorestframework==3.11.0 \
     --hash=sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4 \
     --hash=sha256:e782087823c47a26826ee5b6fa0c542968219263fb3976ec3c31edab23a4001f
