@@ -37,11 +37,11 @@ class ReleaseAdminForm(forms.ModelForm):
 
     class Meta:
         model = models.Release
-        fields = '__all__'
+        fields = ('is_public', 'product', 'channel', 'version', 'release_date', 'text', 'bug_list', 'bug_search_url', 'system_requirements' )
 
 
 class ReleaseAdmin(admin.ModelAdmin):
-    actions = ['copy_releases', 'set_to_public']
+    actions = ['copy_releases', 'set_to_public', 'set_to_private']
     form = ReleaseAdminForm
     list_display = ('version', 'product', 'channel', 'is_public',
                     'release_date', 'text', 'url')
@@ -109,6 +109,12 @@ class ReleaseAdmin(admin.ModelAdmin):
             obj.is_public = True
             obj.save()
 
+    def set_to_private(self, request, queryset):
+        """ Set one or several releases to private """
+        # save them individually so that signals are sent
+        for obj in queryset:
+            obj.is_public = False
+            obj.save()
 
 admin.site.register(models.Note, NoteAdmin)
 admin.site.register(models.Release, ReleaseAdmin)

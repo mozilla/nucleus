@@ -42,7 +42,7 @@ class Release(SaveToGithubModel):
     version = models.CharField(max_length=255)
     release_date = models.DateTimeField()
     text = models.TextField(blank=True)
-    is_public = models.BooleanField(default=False)
+    is_public = models.BooleanField(default=False, help_text = "Note: If checked, these Release Notes will be visible on www.mozilla.org")
     bug_list = models.TextField(blank=True)
     bug_search_url = models.CharField(max_length=2000, blank=True)
     system_requirements = models.TextField(blank=True)
