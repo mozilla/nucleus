@@ -171,7 +171,7 @@ class Release(SaveToGithubModel):
 
 class Note(SaveToGithubModel):
     TAGS = ('New', 'Changed', 'HTML5', 'Feature', 'Language', 'Developer',
-            'Enterprise', 'Fixed')
+            'Enterprise', 'Fixed', 'Community')
 
     bug = models.IntegerField(null=True, blank=True)
     note = models.TextField(blank=True)
