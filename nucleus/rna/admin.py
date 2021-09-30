@@ -37,7 +37,9 @@ class ReleaseAdminForm(forms.ModelForm):
 
     class Meta:
         model = models.Release
-        fields = ('is_public', 'product', 'channel', 'version', 'release_date', 'text', 'bug_list', 'bug_search_url', 'system_requirements' )
+        fields = ('is_public', 'product', 'channel', 'version',
+                  'release_date', 'text', 'bug_list', 'bug_search_url',
+                  'system_requirements')
 
 
 class ReleaseAdmin(admin.ModelAdmin):
@@ -115,6 +117,7 @@ class ReleaseAdmin(admin.ModelAdmin):
         for obj in queryset:
             obj.is_public = False
             obj.save()
+
 
 admin.site.register(models.Note, NoteAdmin)
 admin.site.register(models.Release, ReleaseAdmin)
