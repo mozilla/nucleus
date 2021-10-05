@@ -64,12 +64,6 @@ class ReleaseAdmin(admin.ModelAdmin):
             product = "firefox"
         elif obj.product == "Thunderbird":
             product = "thunderbird"
-        elif obj.product == "Firefox OS":
-            # Special case for Firefox OS. URL are different
-            return format_html('<a href="{staging}/firefox/os/notes/{version}/">Staging</a> / '
-                               '<a href="{prod}/firefox/os/notes/{version}/">Public</a>',
-                               staging=base_url_staging, product=product,
-                               version=obj.version, prod=base_url_prod)
 
         return format_html('<a href="{staging}/{product}/{version}/releasenotes/">Staging</a> / '
                            '<a href="{prod}/{product}/{version}/releasenotes/">Public</a>',
