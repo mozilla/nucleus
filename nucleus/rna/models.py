@@ -30,7 +30,7 @@ class ReleaseManager(models.Manager):
 
 
 class Release(SaveToGithubModel):
-    CHANNELS = ('Nightly', 'Aurora', 'Beta', 'Release', 'ESR')
+    CHANNELS = ('Nightly', 'Beta', 'Release', 'ESR')
     PRODUCTS = ('Firefox', 'Firefox for Android', 'Firefox for iOS',
                 'Firefox Extended Support Release', 'Thunderbird')
 

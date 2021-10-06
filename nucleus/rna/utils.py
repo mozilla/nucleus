@@ -25,8 +25,6 @@ def migrate_versions():
             'channel', 'version'):
         if r.channel == 'Release':
             Release.objects.filter(id=r.id).update(version=r.version[:-2])
-        elif r.channel == 'Aurora':
-            Release.objects.filter(id=r.id).update(version=r.version[:-2] + 'a2')
         elif r.channel == 'Beta':
             Release.objects.filter(id=r.id).update(version=r.version[:-2] + 'beta')
 
