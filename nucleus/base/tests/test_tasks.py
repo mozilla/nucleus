@@ -161,7 +161,7 @@ def test_save_to_github_create(gh_mock):
     obj = ghl.content_object
 
     # with no file already in github
-    repo.get_contents.side_effect = UnknownObjectException('failed', 'missing')
+    repo.get_contents.side_effect = UnknownObjectException('failed', 'missing', None)
     tasks.save_to_github(ghl.pk)
     repo.get_contents.assert_called_with(obj.json_file_path, ref=ghl.branch)
     gh_mock.get_author.assert_called_with(ghl.author)
