@@ -169,7 +169,8 @@ django-session-csrf==0.7.1 \
     --hash=sha256:e17177e6e2e6518ec7ce6693ad10a5c747f8571d09f4cfa9082599334421605d \
     --hash=sha256:ff8c10e30d312c77fc6a6db7710e22b9383e28c03b7fe958876ca96f39aa6cf2
     # via -r requirements/prod.in
-django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz     --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
+django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz \
+    --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
     # via -r requirements/prod.in
 django-watchman==1.2.0 \
     --hash=sha256:6c0b8889456ed644fcfe2f7c3294cb4ef8568a85772b7f95842e2d8c9b4bbff5 \
@@ -434,9 +435,9 @@ requests==2.27.1 \
     #   django-synctool
     #   mozilla-django-oidc
     #   pygithub
-sentry-sdk==0.14.2 \
-    --hash=sha256:480eee754e60bcae983787a9a13bc8f155a111aef199afaa4f289d6a76aa622a \
-    --hash=sha256:a920387dc3ee252a66679d0afecd34479fb6fc52c2bc20763793ed69e5b0dcc0
+sentry-sdk==1.5.4 \
+    --hash=sha256:4fc7960a82c95d906a0514cf4d9aacba1743eb9863a5b7c2a01c525a7d9b21e6 \
+    --hash=sha256:f7e54567937ebcbe938c4df1075ec891587faeb7c74184b88cf2894e47c86116
     # via -r requirements/prod.in
 spinach==0.0.14 \
     --hash=sha256:072a10c8ee882b855a3c353701521384af9cf00f7b956114cdf4a94d13579d21 \
