@@ -169,15 +169,16 @@ django-session-csrf==0.7.1 \
     --hash=sha256:e17177e6e2e6518ec7ce6693ad10a5c747f8571d09f4cfa9082599334421605d \
     --hash=sha256:ff8c10e30d312c77fc6a6db7710e22b9383e28c03b7fe958876ca96f39aa6cf2
     # via -r requirements/prod.in
-django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz     --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
+django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz \
+    --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
     # via -r requirements/prod.in
 django-watchman==1.2.0 \
     --hash=sha256:6c0b8889456ed644fcfe2f7c3294cb4ef8568a85772b7f95842e2d8c9b4bbff5 \
     --hash=sha256:c38830c58984b8eb29db30a3e332968d1c7e235dee3f5c0a907d8d79a37a3125
     # via -r requirements/prod.in
-djangorestframework==3.12.4 \
-    --hash=sha256:6d1d59f623a5ad0509fe0d6bfe93cbdfe17b8116ebc8eda86d45f6e16e819aaf \
-    --hash=sha256:f747949a8ddac876e879190df194b925c177cdeb725a099db1460872f7c0a7f2
+djangorestframework==3.13.1 \
+    --hash=sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee \
+    --hash=sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa
     # via -r requirements/prod.in
 entrypoints==0.3 \
     --hash=sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19 \
@@ -420,7 +421,9 @@ python-decouple==3.5 \
 pytz==2021.3 \
     --hash=sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c \
     --hash=sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326
-    # via django
+    # via
+    #   django
+    #   djangorestframework
 redis==3.5.3 \
     --hash=sha256:0e7e0cfca8660dea8b7d5cd8c4f6c5e29e11f31158c0b0ae91a397f00e5a05a2 \
     --hash=sha256:432b788c4530cfe16d8d943a09d40ca6c16149727e4afe8c2c9d5580c59d9f24
