@@ -3,6 +3,7 @@ services:
   web:
     command: ./bin/run-dev.sh
     image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
     env_file:
       - .env
       - docker/envfiles/dev.env
@@ -21,6 +22,7 @@ services:
   worker:
     command: ./bin/run-worker.sh
     image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
     env_file:
       - .env
       - docker/envfiles/dev.env
@@ -31,8 +33,9 @@ services:
       - redis
 
   test:
-    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
     command: ./bin/run-tests.sh
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
     env_file:
       - docker/envfiles/dev.env
       - docker/envfiles/test.env
@@ -42,8 +45,9 @@ services:
       - db
 
   test-image:
-    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
     command: ./bin/run-tests.sh
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
     env_file:
       - docker/envfiles/dev.env
       - docker/envfiles/test.env
@@ -60,6 +64,17 @@ services:
 
   builder:
     image: mozmeao/nucleus:builder-${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
     build:
       context: .
       target: builder
+
+  # Python dependency management
+  compile-requirements:
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
+    command:
+      ./bin/compile-requirements.sh
+    user: root
+    volumes:
+      - .:/app
