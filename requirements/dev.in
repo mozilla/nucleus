@@ -1,6 +1,6 @@
 -r prod.in
 
-flake8==3.9.2
+flake8==4.0.1
 importlib-metadata==4.8.1
 Markdown==3.1.1
 mock==3.0.5
