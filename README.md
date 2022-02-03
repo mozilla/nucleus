@@ -20,7 +20,7 @@ $ # get the site up and running
 $ docker-compose up web
 ```
 
-If you've made changes to the `Dockerfile` or the `requirements.txt` files you'll need to rebuild
+If you've made changes to the `Dockerfile` or the `requirements/*.txt` files you'll need to rebuild
 the image to run the app and tests:
 
 ```bash
@@ -46,6 +46,30 @@ And if you need to debug a running container, you can open another terminal to y
 $ docker-compose exec web bash
 $ # or
 $ docker-compose exec web python manage.py shell
+```
+
+Managing Python dependencies
+----------------------------
+
+For Python we use [pip-compile-multi](https://pypi.org/project/pip-compile-multi/) to manage dependencies expressed in our requirements
+files. `pip-compile-multi` is wrapped up in Makefile commands, to ensure we use it consistently.
+
+If you add a new Python dependency (e.g. to `requirements/prod.in` or `requirements/dev.in`) you can generate a pinned and hash-marked
+addition to our requirements files by running:
+
+```bash
+    make compile-requirements
+```
+
+and committing any changes that are made. Please re-build your docker image and test it with `make build test` to be sure the dependency
+does not cause a regression.
+
+Similarly, if you *upgrade* a pinned dependency in an `*.in` file, run `make compile-requirements` then rebuild, test and commit the results.
+
+To check for stale Python dependencies (basically `pip list -o` but in the Docker container):
+
+```bash
+    make check-requirements
 ```
 
 Docker for deploying to production
