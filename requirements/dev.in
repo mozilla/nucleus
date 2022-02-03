@@ -6,5 +6,5 @@ Markdown==3.1.1
 mock==3.0.5
 pbr==5.6.0
 pep8==1.7.1
-pytest-django==4.4.0
+pytest-django==4.5.2
 typing-extensions==3.10.0.2
