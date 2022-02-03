@@ -169,7 +169,8 @@ django-session-csrf==0.7.1 \
     --hash=sha256:e17177e6e2e6518ec7ce6693ad10a5c747f8571d09f4cfa9082599334421605d \
     --hash=sha256:ff8c10e30d312c77fc6a6db7710e22b9383e28c03b7fe958876ca96f39aa6cf2
     # via -r requirements/prod.in
-django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz     --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
+django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz \
+    --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
     # via -r requirements/prod.in
 django-watchman==1.2.0 \
     --hash=sha256:6c0b8889456ed644fcfe2f7c3294cb4ef8568a85772b7f95842e2d8c9b4bbff5 \
@@ -215,9 +216,9 @@ idna==3.3 \
     --hash=sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff \
     --hash=sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d
     # via requests
-jinja2==3.0.2 \
-    --hash=sha256:827a0e32839ab1600d4eb1c4c33ec5a8edfbc5cb42dafa13b81f182f97784b45 \
-    --hash=sha256:8569982d3f0889eed11dd620c706d39b60c36d6d25843961f33f77fb6bc6b20c
+jinja2==3.0.3 \
+    --hash=sha256:077ce6014f7b40d03b47d1f1ca4b0fc8328a692bd284016f806ed0eaca390ad8 \
+    --hash=sha256:611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7
     # via
     #   -r requirements/prod.in
     #   django-jinja
