@@ -3,7 +3,7 @@
 flake8==3.9.2
 importlib-metadata==4.8.1
 Markdown==3.1.1
-mock==3.0.5
+mock==4.0.3
 pbr==5.6.0
 pep8==1.7.1
 pytest-django==4.4.0
