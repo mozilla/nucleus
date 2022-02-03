@@ -23,7 +23,7 @@ meinheld==1.0.2
 more-itertools==8.10.0
 mozilla-django-oidc==2.0.0
 newrelic==4.20.1.121
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.3
 PyGithub==1.55
 python-decouple==3.5
 redis==3.5.3
