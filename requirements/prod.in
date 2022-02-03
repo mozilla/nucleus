@@ -26,7 +26,7 @@ newrelic==4.20.1.121
 psycopg2-binary==2.8.6
 PyGithub==1.55
 python-decouple==3.5
-redis==3.5.3
+redis==4.1.2
 sentry-sdk==0.14.2
 spinach==0.0.14
 urlwait==1.0
