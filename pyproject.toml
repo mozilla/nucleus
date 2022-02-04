@@ -1,0 +1,13 @@
+[tool.black]
+line-length = 150  # To match flake8
+target-version = ['py37']
+include = '\.pyi?$'
+
+[tool.isort]
+combine_as_imports = true
+default_section = 'THIRDPARTY'
+include_trailing_comma = true
+known_django = 'django'
+known_first_party = 'nucleus'
+profile = 'black'
+sections = 'FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
