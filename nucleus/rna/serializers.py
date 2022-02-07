@@ -9,19 +9,18 @@ from .models import Note, Release
 
 class HyperlinkedModelSerializerWithPkField(serializers.HyperlinkedModelSerializer):
     def get_default_field_names(self, declared_fields, model_info):
-        fields = super(HyperlinkedModelSerializerWithPkField, self).get_default_field_names(
-            declared_fields, model_info)
-        fields.append('id')
+        fields = super(HyperlinkedModelSerializerWithPkField, self).get_default_field_names(declared_fields, model_info)
+        fields.append("id")
         return fields
 
 
 class NoteSerializer(HyperlinkedModelSerializerWithPkField):
     class Meta:
         model = Note
-        fields = '__all__'
+        fields = "__all__"
 
 
 class ReleaseSerializer(HyperlinkedModelSerializerWithPkField):
     class Meta:
         model = Release
-        fields = '__all__'
+        fields = "__all__"

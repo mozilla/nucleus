@@ -1,11 +1,13 @@
 import datetime
+
 try:
     import urllib.parse as urlparse
 except ImportError:
     import urlparse
 
-from django_jinja import library
 from django.utils.http import urlencode
+
+from django_jinja import library
 
 
 @library.global_function
@@ -28,8 +30,6 @@ def urlparams(url_, hash=None, **query):
     query_dict = dict(urlparse.parse_qsl(url.query))
     query_dict.update(query)
 
-    query_string = urlencode(
-        [(k, v) for k, v in query_dict.items() if v is not None])
-    new = urlparse.ParseResult(url.scheme, url.netloc, url.path, url.params,
-                               query_string, fragment)
+    query_string = urlencode([(k, v) for k, v in query_dict.items() if v is not None])
+    new = urlparse.ParseResult(url.scheme, url.netloc, url.path, url.params, query_string, fragment)
     return new.geturl()

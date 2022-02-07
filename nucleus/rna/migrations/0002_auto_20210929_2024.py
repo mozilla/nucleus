@@ -6,13 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rna', '0001_initial'),
+        ("rna", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='note',
-            name='tag',
-            field=models.CharField(blank=True, choices=[('New', 'New'), ('Changed', 'Changed'), ('HTML5', 'HTML5'), ('Feature', 'Feature'), ('Language', 'Language'), ('Developer', 'Developer'), ('Enterprise', 'Enterprise'), ('Fixed', 'Fixed'), ('Community', 'Community')], max_length=255),
+            model_name="note",
+            name="tag",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("New", "New"),
+                    ("Changed", "Changed"),
+                    ("HTML5", "HTML5"),
+                    ("Feature", "Feature"),
+                    ("Language", "Language"),
+                    ("Developer", "Developer"),
+                    ("Enterprise", "Enterprise"),
+                    ("Fixed", "Fixed"),
+                    ("Community", "Community"),
+                ],
+                max_length=255,
+            ),
         ),
     ]

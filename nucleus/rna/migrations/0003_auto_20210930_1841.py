@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rna', '0002_auto_20210929_2024'),
+        ("rna", "0002_auto_20210929_2024"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='release',
-            name='is_public',
-            field=models.BooleanField(default=False, help_text='Note: If checked, these Release Notes will be visible on www.mozilla.org'),
+            model_name="release",
+            name="is_public",
+            field=models.BooleanField(default=False, help_text="Note: If checked, these Release Notes will be visible on www.mozilla.org"),
         ),
     ]

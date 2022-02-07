@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rna', '0004_auto_20211005_1522'),
+        ("rna", "0004_auto_20211005_1522"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='release',
-            name='channel',
-            field=models.CharField(choices=[('Nightly', 'Nightly'), ('Beta', 'Beta'), ('Release', 'Release'), ('ESR', 'ESR')], max_length=255),
+            model_name="release",
+            name="channel",
+            field=models.CharField(choices=[("Nightly", "Nightly"), ("Beta", "Beta"), ("Release", "Release"), ("ESR", "ESR")], max_length=255),
         ),
     ]
