@@ -1,1 +1,1 @@
-default_app_config = 'nucleus.base.app.BaseAppConfig'
+default_app_config = "nucleus.base.app.BaseAppConfig"

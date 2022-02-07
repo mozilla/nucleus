@@ -21,12 +21,11 @@ def get_last_modified_date(*args, **kwargs):
 
 
 def migrate_versions():
-    for r in Release.objects.filter(version__endswith='.0.0').only(
-            'channel', 'version'):
-        if r.channel == 'Release':
+    for r in Release.objects.filter(version__endswith=".0.0").only("channel", "version"):
+        if r.channel == "Release":
             Release.objects.filter(id=r.id).update(version=r.version[:-2])
-        elif r.channel == 'Beta':
-            Release.objects.filter(id=r.id).update(version=r.version[:-2] + 'beta')
+        elif r.channel == "Beta":
+            Release.objects.filter(id=r.id).update(version=r.version[:-2] + "beta")
 
 
 def get_duplicate_product_versions():
@@ -38,16 +37,13 @@ def get_duplicate_product_versions():
             version_ids[product].setdefault(r.version, [])
             version_ids[product][r.version].append(r.id)
             if len(version_ids[product][r.version]) > 1:
-                duplicates[(product, r.version)] = version_ids[product][
-                    r.version]
+                duplicates[(product, r.version)] = version_ids[product][r.version]
     return duplicates
 
 
 class HttpResponseJSON(HttpResponse):
     def __init__(self, data, status=None, cors=False):
-        super(HttpResponseJSON, self).__init__(content=json.dumps(data),
-                                               content_type='application/json',
-                                               status=status)
+        super(HttpResponseJSON, self).__init__(content=json.dumps(data), content_type="application/json", status=status)
 
         if cors:
-            self['Access-Control-Allow-Origin'] = '*'
+            self["Access-Control-Allow-Origin"] = "*"

@@ -2,7 +2,6 @@ from django.conf import settings
 
 from github import Github, InputGitAuthor
 
-
 GITHUB_CLIENT = None
 
 
@@ -26,9 +25,9 @@ def get_repo():
 
 
 def get_author(user):
-    name = user.get_full_name() or 'Nucleus User'
+    name = user.get_full_name() or "Nucleus User"
     return InputGitAuthor(name, user.email)
 
 
 def repo_url():
-    return f'https://github.com/{settings.GITHUB_OUTPUT_REPO}'
+    return f"https://github.com/{settings.GITHUB_OUTPUT_REPO}"
