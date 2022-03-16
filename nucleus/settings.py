@@ -20,6 +20,7 @@ import sentry_sdk
 import spinach
 from decouple import Csv, config
 from redis import StrictRedis
+from sentry_processor import DesensitizationProcessor
 from sentry_sdk.integrations.django import DjangoIntegration
 from spinach.contrib.sentry_sdk_spinach import SpinachIntegration
 
@@ -242,6 +243,31 @@ K8S_POD_NAME = config("K8S_POD_NAME", default=None)
 CLUSTER_NAME = config("CLUSTER_NAME", default=None)
 USE_X_FORWARDED_HOST = True
 
+# Data scrubbing before Sentry
+# https://github.com/laiyongtao/sentry-processor
+SENSITIVE_FIELDS_TO_MASK_ENTIRELY = [
+    # Add custom fieldnames here, to supplement the default keys set at
+    # https://github.com/laiyongtao/sentry-processor/blob/master/sentry_processor/sentry_event_processor.py#L13
+]
+SENSITIVE_FIELDS_TO_MASK_PARTIALLY = [
+    # Add custom fieldnames here
+]
+
+
+def before_send(event, hint):
+    processor = DesensitizationProcessor(
+        with_default_keys=True,
+        # Enable the following if required:
+        # sensitive_keys=SENSITIVE_FIELDS_TO_MASK_ENTIRELY,
+        # Enable the following if required:
+        # partial_keys=SENSITIVE_FIELDS_TO_MASK_PARTIALLY,
+        # mask_position=POSITION.LEFT,  # from sentry_processor import POSITION (when you need it)
+        # off_set=3,
+    )
+    event = processor.process(event, hint)
+    return event
+
+
 sentry_sdk.init(
     dsn=config("SENTRY_DSN", None),
     release=config("GIT_SHA", None),
@@ -250,6 +276,7 @@ sentry_sdk.init(
         SpinachIntegration(send_retries=True),
         DjangoIntegration(),
     ],
+    before_send=before_send,
 )
 
 REDIS_URL = config("REDIS_URL", None)

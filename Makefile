@@ -68,6 +68,9 @@ check-requirements: .make.docker.pull
 compile-requirements: .make.docker.pull
 	${DC} run --rm compile-requirements
 
+install-local-python-deps:
+	pip install -r requirements/dev.txt
+
 ###############
 # For use in CI
 ###############
@@ -91,20 +94,21 @@ push-ci: .make.docker.build.ci
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  run                  - docker-compose up the entire system for dev"
-	@echo "  build                - build docker images for dev"
-	@echo "  pull                 - pull the latest production images from Docker Hub"
-	@echo "  run-shell            - open a bash shell in a fresh container"
-	@echo "  shell                - open a bash shell in the running app"
-	@echo "  djshell              - start the Django Python shell in the running app"
-	@echo "  clean                - remove all build, test, coverage and Python artifacts"
-	@echo "  lint                 - check style with flake8, jshint, and stylelint"
-	@echo "  test                 - run tests against local files"
-	@echo "  test-image           - run tests against files in docker image"
-	@echo "  docs                 - generate Sphinx HTML documentation"
-	@echo "  build-ci             - build docker images for use in our CI pipeline"
-	@echo "  test-ci              - run tests against files in docker image built by CI"
-	@echo "  check-requirements   - output list of outdated Python requirements"
-	@echo "  compile-requirements - compile pip requirements using pip-compile-multi"
+	@echo "  run                       - docker-compose up the entire system for dev"
+	@echo "  build                     - build docker images for dev"
+	@echo "  pull                      - pull the latest production images from Docker Hub"
+	@echo "  run-shell                 - open a bash shell in a fresh container"
+	@echo "  shell                     - open a bash shell in the running app"
+	@echo "  djshell                   - start the Django Python shell in the running app"
+	@echo "  clean                     - remove all build, test, coverage and Python artifacts"
+	@echo "  lint                      - check style with flake8, jshint, and stylelint"
+	@echo "  test                      - run tests against local files"
+	@echo "  test-image                - run tests against files in docker image"
+	@echo "  docs                      - generate Sphinx HTML documentation"
+	@echo "  build-ci                  - build docker images for use in our CI pipeline"
+	@echo "  test-ci                   - run tests against files in docker image built by CI"
+	@echo "  check-requirements        - output list of outdated Python requirements"
+	@echo "  compile-requirements      - compile pip requirements using pip-compile-multi"
+	@echo "  install-local-python-deps - install Python dependencies onto your development machine"
 
-.PHONY: all clean clean-ci build pull docs lint run run-shell shell test test-image build-ci test-ci push-ci djshell stop kill check-requirements compile-requirements
+.PHONY: all clean clean-ci build pull docs lint run run-shell shell test test-image build-ci test-ci push-ci djshell stop kill check-requirements compile-requirements install-local-python-deps
