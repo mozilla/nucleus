@@ -22,6 +22,7 @@ from decouple import Csv, config
 from redis import StrictRedis
 from sentry_processor import DesensitizationProcessor
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import ignore_logger
 from spinach.contrib.sentry_sdk_spinach import SpinachIntegration
 
 ROOT_PATH = Path(__file__).resolve().parents[1]
@@ -317,6 +318,11 @@ LOGGING = {
         },
     },
 }
+
+# DisallowedHost gets a lot of action thanks to scans/bots/scripts,
+# but we need not take any action because it's already HTTP 400-ed.
+# Note that we ignore at the Sentry client level
+ignore_logger("django.security.DisallowedHost")
 
 OIDC_ENABLE = config("OIDC_ENABLE", default=False, cast=bool)
 if OIDC_ENABLE:
