@@ -1,13 +1,13 @@
-# SHA1:228a5f4dae6f8cf143b20533c4d2bb58e0c64bf7
+# SHA1:0e398b0c8bc9bff65ad747619aed5627f7d9a183
 # Please recompile requirements inside the Docker image, not on your local, host machine.
 #
 # To do this, just use the following from your host:
 #
 # $ make compile-requirements
 #
-asn1crypto==1.4.0 \
-    --hash=sha256:4bcdf33c861c7d40bdcd74d8e4dd7661aac320fcdf40b9a3f95b4ee12fde2fa8 \
-    --hash=sha256:f4f6e119474e58e04a2b1af817eb585b4fd72bdd89b998624712b5c99be7641c
+asn1crypto==1.5.1 \
+    --hash=sha256:13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c \
+    --hash=sha256:db4e40728b728508912cbb3d44f19ce188f218e9eba635821bb4b68564f8fd67
     # via -r requirements/prod.in
 blinker==1.4 \
     --hash=sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6
@@ -133,13 +133,13 @@ django==2.2.27 \
     #   django-watchman
     #   djangorestframework
     #   mozilla-django-oidc
-django-allow-cidr==0.3.1 \
-    --hash=sha256:d9a3b22c14e91c26ddd010c278ddf7e2c69a5421c862a3a3cd448ae57fd833e8 \
-    --hash=sha256:e8708c0511a78b80d9b74f718ee46685a1425e6d3520143bd00c773fdca56cc7
+django-allow-cidr==0.4.0 \
+    --hash=sha256:9f6c3ffbad47f0e722fb208bc857e10153054d6ef02c462047fa4815671adc57 \
+    --hash=sha256:b9758a7c9626fa2b00735ce0e3f45b46471a2bb7c21edc7cee1d52ec04e63788
     # via -r requirements/prod.in
-django-cache-url==3.2.3 \
-    --hash=sha256:5514ca3a2075c6b956b3d0a5c540654d32b004e76340d7bdabf6661135b5f218 \
-    --hash=sha256:c1d45626ae8a206267c1263aa7a3461e2e186be2e939bcbd8c660e25851ddac8
+django-cache-url==3.4.0 \
+    --hash=sha256:4559398a946ff24c4ee96e32c55e3b760bd69f7c2ba48844cdf8fcb4f76d10bd \
+    --hash=sha256:9061f8e7ffbb29eb92ba93fa9058003ec92393e85c537d1969570652ff8721fa
     # via -r requirements/prod.in
 django-crum==0.7.9 \
     --hash=sha256:037cc8b822975bb1d41cd24269b59a512cc77448fadc3f34ab9a17b229b4b471 \
@@ -171,9 +171,9 @@ django-session-csrf==0.7.1 \
     # via -r requirements/prod.in
 django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz     --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
     # via -r requirements/prod.in
-django-watchman==1.2.0 \
-    --hash=sha256:6c0b8889456ed644fcfe2f7c3294cb4ef8568a85772b7f95842e2d8c9b4bbff5 \
-    --hash=sha256:c38830c58984b8eb29db30a3e332968d1c7e235dee3f5c0a907d8d79a37a3125
+django-watchman==1.3.0 \
+    --hash=sha256:33b5fc734d689b83cb96fc17beda624ae2955f4cede0856897d990c363eac962 \
+    --hash=sha256:5f04300bd7fbdd63b8a883b2730ed1e4d9b0f9991133b33a1281134b81f466eb
     # via -r requirements/prod.in
 djangorestframework==3.13.1 \
     --hash=sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee \
@@ -278,8 +278,22 @@ netaddr==0.8.0 \
     --hash=sha256:9666d0232c32d2656e5e5f8d735f58fd6c7457ce52fc21c98d45f2af78f990ac \
     --hash=sha256:d6cc57c7a07b1d9d2e917aa8b36ae8ce61c35ba3fcd1b83ca31c5a0ee2b5a243
     # via django-allow-cidr
-newrelic==4.20.1.121 \
-    --hash=sha256:708ac6a75c76a59e3d6c0d714e2fbb1e4ec7d540f7d34bddd81e61bdb636e895
+newrelic==7.6.0.173 \
+    --hash=sha256:03e9121f784888f4aa85078fbfde3452842053414816fb7fb23c98ab8fbf0000 \
+    --hash=sha256:4779e0e84a00b67c0de62b211e8b5e2d8bedc26695a8801a38eb20936557d831 \
+    --hash=sha256:48c7b6f6ed00935aaa46f0099dd59a791ef975836179686bfed8641e4c2ea45b \
+    --hash=sha256:6645f7d53c056b0d04081aace1639e01e4f35d89dc8a3f697328f2741eecd334 \
+    --hash=sha256:7fc955d8d64d526d52677568d2f13a5b73ab6c7138cb7aa06a9bf9d4d3c46f7a \
+    --hash=sha256:8333451a5e81df82e1b4b6c9eaa0d08f1081bc10a048c951fb90c88a0c3dbbdd \
+    --hash=sha256:90e7182dca3af174e44894ecfb21178713eb563826e42a883add5585cf31a9e0 \
+    --hash=sha256:91a014aa757cd5c826a1c9548c083c2cbe00136f7d7653cbf74e163e78648da8 \
+    --hash=sha256:a6c55a045a23b4feeef441d2d05cddd87527510e4ee5f522c34aa6dbad302973 \
+    --hash=sha256:ab1b00378f4cc6d690aa0ccaa4a1d7ac05ebb134b0517ffa73edce56c7de998a \
+    --hash=sha256:bd79597e024e35ea4e9a3e917cf1f3ace94adade97ffb89805332f11e46d2719 \
+    --hash=sha256:c00e254ae02df93467df0c3f9344fe9002c2174cfdcf0a6f12df43c7a5103757 \
+    --hash=sha256:c3a2e36b603686b2084e40fd2409f3e31b3c452ac7e3d7e6bd60a5dc3e64f0c1 \
+    --hash=sha256:dc826b1fc4f8e88009fce09fb5a8a2517603ae2aa13b13d7a7982ba68c604a39 \
+    --hash=sha256:e6d6f90644ed1972513e9fe2ce59b4eaf4be814bc36fd85f5eeac09519a392a7
     # via -r requirements/prod.in
 pillow==9.0.1 \
     --hash=sha256:011233e0c42a4a7836498e98c1acf5e744c96a67dd5032a6f666cc1fb97eab97 \
@@ -387,9 +401,9 @@ python-decouple==3.6 \
     --hash=sha256:2838cdf77a5cf127d7e8b339ce14c25bceb3af3e674e039d4901ba16359968c7 \
     --hash=sha256:6cf502dc963a5c642ea5ead069847df3d916a6420cad5599185de6bab11d8c2e
     # via -r requirements/prod.in
-pytz==2021.3 \
-    --hash=sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c \
-    --hash=sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326
+pytz==2022.1 \
+    --hash=sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7 \
+    --hash=sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c
     # via
     #   django
     #   djangorestframework
@@ -409,9 +423,9 @@ requests==2.27.1 \
 sentry-processor==0.0.1 \
     --hash=sha256:fd7a30fb57aaf05c01cd04cf7d949c628376b2b55d7a0aaa222efe58a8f122bc
     # via -r requirements/prod.in
-sentry-sdk==1.5.7 \
-    --hash=sha256:411a8495bd18cf13038e5749e4710beb4efa53da6351f67b4c2f307c2d9b6d49 \
-    --hash=sha256:aa52da941c56b5a76fd838f8e9e92a850bf893a9eb1e33ffce6c21431d07ee30
+sentry-sdk==1.5.8 \
+    --hash=sha256:32af1a57954576709242beb8c373b3dbde346ac6bd616921def29d68846fb8c3 \
+    --hash=sha256:38fd16a92b5ef94203db3ece10e03bdaa291481dd7e00e77a148aa0302267d47
     # via -r requirements/prod.in
 spinach==0.0.14 \
     --hash=sha256:072a10c8ee882b855a3c353701521384af9cf00f7b956114cdf4a94d13579d21 \
@@ -421,9 +435,9 @@ sqlparse==0.4.2 \
     --hash=sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae \
     --hash=sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d
     # via django
-urllib3==1.26.8 \
-    --hash=sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed \
-    --hash=sha256:0e7c33d9a63e7ddfcb86780aac87befc2fbddf46c58dbb487e0855f7ceec283c
+urllib3==1.26.9 \
+    --hash=sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14 \
+    --hash=sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e
     # via
     #   requests
     #   sentry-sdk
@@ -431,9 +445,9 @@ urlwait==1.0 \
     --hash=sha256:a9bf2da792fa6983fa93f6360108e16615066ab0f9cfb7f53e5faee5f5dffaac \
     --hash=sha256:eae2c20001efc915166cac79c04bac0088ad5787ec64b36f27afd2f359953b2b
     # via -r requirements/prod.in
-whitenoise==5.3.0 \
-    --hash=sha256:d234b871b52271ae7ed6d9da47ffe857c76568f11dd30e28e18c5869dbd11e12 \
-    --hash=sha256:d963ef25639d1417e8a247be36e6aedd8c7c6f0a08adcb5a89146980a96b577c
+whitenoise==6.0.0 \
+    --hash=sha256:08c42bc535f9777eea1a599289d9433f081921f97887eaf6f559446b2a080374 \
+    --hash=sha256:5a4aff543ee860fbe40d743e556adf92ccd41b7df45697cae074afdf657056b9
     # via -r requirements/prod.in
 wrapt==1.14.0 \
     --hash=sha256:00108411e0f34c52ce16f81f1d308a571df7784932cc7491d1e94be2ee93374b \

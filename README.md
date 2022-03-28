@@ -72,6 +72,14 @@ To check for stale Python dependencies (basically `pip list -o` but in the Docke
     make check-requirements
 ```
 
+Install Python requirements locally
+-----------------------------------
+
+Ideally, do this in a virtual environment (eg a `venv` or `virtualenv`)
+
+.. code-block:: bash
+    $ make install-local-python-deps
+
 Docker for deploying to production
 -----------------------------------
 

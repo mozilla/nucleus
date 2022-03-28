@@ -92,6 +92,15 @@ test-ci: .make.docker.build.ci
 push-ci: .make.docker.build.ci
 	docker/bin/push2dockerhub.sh
 
+######################################################
+# For use in local-machine development (not in Docker)
+######################################################
+
+install-local-python-deps:
+	# Dev requirements are a superset of prod requirements
+	pip install -r requirements/dev.txt
+
+
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  run                       - docker-compose up the entire system for dev"
