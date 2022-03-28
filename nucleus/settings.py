@@ -84,9 +84,9 @@ for app in config("EXTRA_APPS", default="", cast=Csv()):
 MIDDLEWARE = (
     "allow_cidr.middleware.AllowCIDRMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "nucleus.base.middleware.HostnameMiddleware",
     "django.middleware.http.ConditionalGetMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.common.CommonMiddleware",
