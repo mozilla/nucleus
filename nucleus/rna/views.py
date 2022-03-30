@@ -58,7 +58,7 @@ def export_json(request):
     if request.GET.get("all") == "true":
         return HttpResponseJSON(Release.objects.all_as_list(), cors=True)
 
-    mod_date = parse_http_date_safe(request.META.get("HTTP_IF_MODIFIED_SINCE"))
+    mod_date = parse_http_date_safe(request.headers.get("If-Modified-Since"))
     if mod_date:
         mod_date = datetime.datetime.fromtimestamp(mod_date, datetime.timezone.utc)
     else:
