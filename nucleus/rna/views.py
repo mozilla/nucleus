@@ -16,14 +16,11 @@ from django.views.decorators.http import last_modified, require_safe
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from rest_framework.viewsets import ModelViewSet
-from synctool.routing import Route
 
 from nucleus.rna.models import Note, Release
 from nucleus.rna.serializers import NoteSerializer, ReleaseSerializer
 from nucleus.rna.utils import HttpResponseJSON, get_last_modified_date
 
-rnasync = Route(api_token=None).app("rna", "rna")
-rnasync = last_modified(get_last_modified_date)(rnasync)
 RNA_JSON_CACHE_TIME = getattr(settings, "RNA_JSON_CACHE_TIME", 600)
 
 
