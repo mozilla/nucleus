@@ -1,13 +1,17 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_static %}
+{% load i18n static %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}" />{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}">
+{{ form.media }}
+{% endblock %}
 
 {% block bodyclass %}{{ block.super }} login{% endblock %}
 
 {% block usertools %}{% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
 
 {% block content_title %}{% endblock %}
 
@@ -34,6 +38,15 @@
         <a href="{% url 'oidc_authentication_init' %}">Mozilla SSO</a>
       </p>
     {% else %}
+      {% if user.is_authenticated %}
+        <p class="errornote">
+          {% blocktrans trimmed %}
+              You are authenticated as {{ username }}, but are not authorized to
+              access this page. Would you like to login to a different account?
+          {% endblocktrans %}
+        </p>
+      {% endif %}
+
       <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
         <div class="form-row">
           {{ form.username.errors }}
@@ -42,7 +55,7 @@
         <div class="form-row">
           {{ form.password.errors }}
           {{ form.password.label_tag }} {{ form.password }}
-          <input type="hidden" name="next" value="{{ next }}" />
+          <input type="hidden" name="next" value="{{ next }}">
         </div>
         {% url 'admin_password_reset' as password_reset_url %}
         {% if password_reset_url %}
@@ -51,7 +64,7 @@
           </div>
         {% endif %}
         <div class="submit-row">
-          <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
+          <input type="submit" value="{% trans 'Log in' %}">
         </div>
       </form>
     {% endif %}
