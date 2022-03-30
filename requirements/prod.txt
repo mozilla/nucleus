@@ -1,4 +1,4 @@
-# SHA1:62956431948855e328b69aeb3ba814cee0089894
+# SHA1:680c684cb3dfc030e7efc8b42231d436f2792162
 # Please recompile requirements inside the Docker image, not on your local, host machine.
 #
 # To do this, just use the following from your host:
@@ -133,7 +133,6 @@ django==3.0.14 \
     #   django-filter
     #   django-jinja
     #   django-pagedown
-    #   django-synctool
     #   django-watchman
     #   djangorestframework
     #   mozilla-django-oidc
@@ -172,8 +171,6 @@ django-pagedown==2.2.1 \
 django-session-csrf==0.7.1 \
     --hash=sha256:e17177e6e2e6518ec7ce6693ad10a5c747f8571d09f4cfa9082599334421605d \
     --hash=sha256:ff8c10e30d312c77fc6a6db7710e22b9383e28c03b7fe958876ca96f39aa6cf2
-    # via -r requirements/prod.in
-django-synctool @ https://github.com/pmclanahan/django-synctool/archive/fix-dumpdata.tar.gz     --hash=sha256:cdb85d2932a9923206db9ef7172220bebf573fdf74ceaacfe2ea9c4957de778c
     # via -r requirements/prod.in
 django-watchman==1.3.0 \
     --hash=sha256:33b5fc734d689b83cb96fc17beda624ae2955f4cede0856897d990c363eac962 \
@@ -421,7 +418,6 @@ requests==2.27.1 \
     --hash=sha256:68d7c56fd5a8999887728ef304a6d12edc7be74f1cfa47714fc8b414525c9a61 \
     --hash=sha256:f22fa1e554c9ddfd16e6e41ac79759e17be9e492b3587efa038054674760e72d
     # via
-    #   django-synctool
     #   mozilla-django-oidc
     #   pygithub
 sentry-processor==0.0.1 \

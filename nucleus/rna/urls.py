@@ -15,6 +15,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("releases/<int:pk>/notes/", views.NestedNoteView.as_view()),
     path("auth_token/", views.auth_token),
-    path("sync/", views.rnasync),
     path("all-releases.json", views.export_json),
 ]
