@@ -5,7 +5,7 @@ from django.test import RequestFactory, TestCase
 from django.utils.http import http_date
 from django.utils.timezone import now
 
-from nucleus.rna.models import Release
+from nucleus.rna.models import Note, Release
 from nucleus.rna.views import export_json
 
 
@@ -88,6 +88,20 @@ class TestExportJSON(TestCase):
         assert self.r2.version not in release_versions
         assert self.r3.version in release_versions
 
+    def test_recently_modified_note_distinct(self):
+        """Should also return releases with notes modified more recently than 14 days ago"""
+        note = Note.objects.create(note="The Dude minds, man")
+        note2 = Note.objects.create(note="Careful, man, there’s a beverage here.")
+        self.r1.note_set.add(note)
+        self.r1.note_set.add(note2)
+        resp = export_json(self.rf.get("/"))
+        data = json.loads(resp.content)
+        release_versions = [o["version"] for o in data]
+        assert self.r1.version in release_versions
+        assert self.r2.version not in release_versions
+        assert self.r3.version in release_versions
+        assert len(release_versions) == 2
+
     def test_recently_modified_fixed_in_note(self):
         """Should also return releases with notes modified more recently than 14 days ago"""
         self.r2.fixed_note_set.create(note="The Dude minds, man")
@@ -97,3 +111,17 @@ class TestExportJSON(TestCase):
         assert self.r1.version not in release_versions
         assert self.r2.version in release_versions
         assert self.r3.version in release_versions
+
+    def test_all_as_list(self):
+        """Should return all releases with no dupes"""
+        note = Note.objects.create(note="The Dude minds, man")
+        note2 = Note.objects.create(note="Careful, man, there’s a beverage here.")
+        self.r1.note_set.add(note)
+        self.r1.note_set.add(note2)
+        resp = export_json(self.rf.get("/", {"all": "true"}))
+        data = json.loads(resp.content)
+        release_versions = [o["version"] for o in data]
+        assert self.r1.version in release_versions
+        assert self.r2.version in release_versions
+        assert self.r3.version in release_versions
+        assert len(release_versions) == 3
