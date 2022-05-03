@@ -23,7 +23,7 @@ class ReleaseManager(models.Manager):
         if mod_date is None:
             mod_date = now() - timedelta(days=days_ago)
 
-        query = self.filter(Q(modified__gte=mod_date) | Q(note__modified__gte=mod_date) | Q(fixed_note_set__modified__gte=mod_date))
+        query = self.filter(Q(modified__gte=mod_date) | Q(note__modified__gte=mod_date) | Q(fixed_note_set__modified__gte=mod_date)).distinct()
         return [r.to_dict() for r in query.prefetch_related("note_set")]
 
 

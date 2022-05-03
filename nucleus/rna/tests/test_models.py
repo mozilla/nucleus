@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.test import TestCase
 from django.utils.timezone import now
 
-from nucleus.rna.models import Release
+from nucleus.rna.models import Note, Release
 
 
 class TestReleaseQueries(TestCase):
@@ -59,3 +59,16 @@ class TestReleaseQueries(TestCase):
         assert self.r1.version not in versions
         assert self.r2.version in versions
         assert self.r3.version in versions
+
+    def test_distinct_recently_modified(self):
+        note = Note.objects.create(note="The Dude minds, man")
+        note2 = Note.objects.create(note="Careful, man, there’s a beverage here.")
+        self.r3.note_set.add(note)
+        self.r2.note_set.add(note)
+        self.r3.note_set.add(note2)
+        data = Release.objects.recently_modified_list(days_ago=5)
+        versions = [o["version"] for o in data]
+        assert self.r1.version not in versions
+        assert self.r2.version in versions
+        assert self.r3.version in versions
+        assert len(versions) == 2
