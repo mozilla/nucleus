@@ -58,7 +58,7 @@ If you add a new Python dependency (e.g. to `requirements/prod.in` or `requireme
 addition to our requirements files by running:
 
 ```bash
-    make compile-requirements
+$ make compile-requirements
 ```
 
 and committing any changes that are made. Please re-build your docker image and test it with `make build test` to be sure the dependency
@@ -69,7 +69,7 @@ Similarly, if you *upgrade* a pinned dependency in an `*.in` file, run `make com
 To check for stale Python dependencies (basically `pip list -o` but in the Docker container):
 
 ```bash
-    make check-requirements
+$ make check-requirements
 ```
 
 Install Python requirements locally
@@ -77,8 +77,9 @@ Install Python requirements locally
 
 Ideally, do this in a virtual environment (eg a `venv` or `virtualenv`)
 
-.. code-block:: bash
-    $ make install-local-python-deps
+```bash
+$ make install-local-python-deps
+```
 
 Docker for deploying to production
 -----------------------------------
