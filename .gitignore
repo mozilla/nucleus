@@ -12,3 +12,4 @@ Dockerfile.jenkins
 json_export
 .make.*
 /git-repos
+.vscode
