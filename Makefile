@@ -68,9 +68,6 @@ check-requirements: .make.docker.pull
 compile-requirements: .make.docker.pull
 	${DC} run --rm compile-requirements
 
-install-local-python-deps:
-	pip install -r requirements/dev.txt
-
 ###############
 # For use in CI
 ###############
