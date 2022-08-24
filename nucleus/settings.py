@@ -339,3 +339,15 @@ if OIDC_ENABLE:
     OIDC_CREATE_USER = config("OIDC_CREATE_USER", default=False, cast=bool)
     MIDDLEWARE = MIDDLEWARE + ("mozilla_django_oidc.middleware.SessionRefresh",)
     LOGIN_REDIRECT_URL = "/admin/"
+
+
+RNA_NOTES_ENFORCE_CLOSING_PUNCTUATION = config(
+    "RNA_NOTES_ENFORCE_CLOSING_PUNCTUATION",
+    default=True,
+    cast=bool,
+)
+RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION = config(
+    "RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION",
+    default=".,!",  # NB: , is not one of the expected values and never will be.
+    cast=Csv(str),
+)
