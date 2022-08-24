@@ -3,10 +3,14 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from django import forms
+from django.conf import settings
 from django.contrib import admin
+from django.forms import ValidationError as DjangoValidationError
 from django.utils.html import format_html
 from django.utils.timezone import now
 
+import markdown
+from bs4 import BeautifulSoup
 from pagedown.widgets import AdminPagedownWidget
 
 from . import models
@@ -18,6 +22,22 @@ class NoteAdminForm(forms.ModelForm):
     class Meta:
         model = models.Note
         fields = "__all__"
+
+    def clean_note(self):
+        """Ensure Note entries end with appropriate punctuation
+        See https://github.com/mozilla/nucleus/issues/639"""
+
+        note = self.cleaned_data.get("note")
+        if note and settings.RNA_NOTES_ENFORCE_CLOSING_PUNCTUATION:
+            rendered_html = markdown.markdown(note)
+            soup = BeautifulSoup(rendered_html, features="html.parser")
+            plaintext = soup.get_text()
+            if plaintext and plaintext[-1] not in settings.RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION:
+                raise DjangoValidationError(
+                    "Notes must end with appropriate punctuation. Allowed marks are: "
+                    f"{' or '.join(x for x in settings.RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION)}"
+                )
+        return note
 
 
 class NoteAdmin(admin.ModelAdmin):
