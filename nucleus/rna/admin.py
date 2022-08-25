@@ -33,10 +33,22 @@ class NoteAdminForm(forms.ModelForm):
             soup = BeautifulSoup(rendered_html, features="html.parser")
             plaintext = soup.get_text()
             if plaintext and plaintext[-1] not in settings.RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION:
-                raise DjangoValidationError(
-                    "Notes must end with appropriate punctuation. Allowed marks are: "
-                    f"{' or '.join(x for x in settings.RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION)}"
-                )
+                invalid_content = True
+                # Not so fast! Before we assume it's a problem, let's check it's
+                # not an image at the end of the note, which would naturally
+                # not have punctuation after it, and so should be tolerated.
+                try:
+                    last_para = soup.find_all("p")[-1]
+                    last_image = soup.find_all("img")[-1]
+                    if str(last_para).endswith(f"{str(last_image)}</p>"):
+                        invalid_content = False
+                except IndexError:
+                    pass
+                if invalid_content:
+                    raise DjangoValidationError(
+                        "Notes must end with appropriate punctuation. Allowed marks are: "
+                        f"{' or '.join(x for x in settings.RNA_NOTES_EXPECTED_CLOSING_PUNCTUATION)}"
+                    )
         return note
 
 
