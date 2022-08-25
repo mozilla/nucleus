@@ -18,8 +18,8 @@ from nucleus.rna.admin import NoteAdminForm
         ),
         (
             (
-                "Multi-line test note with a [URL][1] in it.\r\n"
-                "And DOES have terminal punctuation on this middle line.\r\n"
+                "Multi-line test note with a [URL][1] in it.\r\n\r\n"
+                "And DOES have terminal punctuation on this middle line.\r\n\r\n"
                 "But not on this final line, with a second [URL][2] in it\r\n\r\n\r\n"
                 "  [1]: http://example.com/test\r\n"
                 "  [2]: http://example.com/test2"
@@ -44,13 +44,35 @@ from nucleus.rna.admin import NoteAdminForm
         ),
         (
             (
-                "Multi-line test note with a [URL][1] in it.\r\n"
-                "And no terminal punctuation on this middle line\r\n"
+                "Multi-line test note with a [URL][1] in it.\r\n\r\n"
+                "And no terminal punctuation on this middle line\r\n\r\n"
                 "AND with a second [URL][2] in it.\r\n\r\n\r\n"
                 "  [1]: http://example.com/test\r\n"
                 "  [2]: http://example.com/test2"
             ),
             None,
+        ),
+        (
+            (
+                "This is a multi-line note with a [URL][1] in it\r\n\r\n"
+                "and it finishes with an image which understandably\r\n\r\n"
+                "has no terminal punctuation after it:\r\n\r\n"
+                "![an image][2]\r\n\r\n"
+                "[1]: http://example.com/test\r\n"
+                "[2]: http://example.com/image.png\r\n"
+            ),
+            None,
+        ),
+        (
+            (
+                "This is a multi-line note with a [URL][1] in it\r\n\r\n"
+                "and it finishes with some text AFTER an image, which\r\n\r\n"
+                "has no terminal punctuation after it:\r\n\r\n"
+                "![an image][2] and some blurb with no punctuation\r\n\r\n"
+                "[1]: http://example.com/test\r\n"
+                "[2]: http://example.com/image.png\r\n"
+            ),
+            "Notes must end with appropriate punctuation. Allowed marks are: . or !",
         ),
     ),
 )
