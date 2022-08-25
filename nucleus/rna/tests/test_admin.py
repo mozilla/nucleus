@@ -18,8 +18,8 @@ from nucleus.rna.admin import NoteAdminForm
         ),
         (
             (
-                "Multi-line test note with a [URL][1] in it.\r\n"
-                "And DOES have terminal punctuation on this middle line.\r\n"
+                "Multi-line test note with a [URL][1] in it.\r\n\r\n"
+                "And DOES have terminal punctuation on this middle line.\r\n\r\n"
                 "But not on this final line, with a second [URL][2] in it\r\n\r\n\r\n"
                 "  [1]: http://example.com/test\r\n"
                 "  [2]: http://example.com/test2"
@@ -44,8 +44,8 @@ from nucleus.rna.admin import NoteAdminForm
         ),
         (
             (
-                "Multi-line test note with a [URL][1] in it.\r\n"
-                "And no terminal punctuation on this middle line\r\n"
+                "Multi-line test note with a [URL][1] in it.\r\n\r\n"
+                "And no terminal punctuation on this middle line\r\n\r\n"
                 "AND with a second [URL][2] in it.\r\n\r\n\r\n"
                 "  [1]: http://example.com/test\r\n"
                 "  [2]: http://example.com/test2"
