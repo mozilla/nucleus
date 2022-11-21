@@ -19,7 +19,7 @@ gunicorn==20.1.0
 Jinja2==3.0.3
 meinheld==1.0.2
 more-itertools==9.0.0
-mozilla-django-oidc==2.0.0
+mozilla-django-oidc==3.0.0
 newrelic==8.4.0
 psycopg2-binary==2.8.6  # Cannot upgrade until Django 3.2+
 PyGithub==1.55
