@@ -7,7 +7,7 @@ django-cache-url==3.4.4
 django-crum==0.7.9
 django-csp==3.7
 django-extensions==3.2.1
-django-filter==22.1
+django-filter==23.2
 django-jinja==2.10.2
 django-pagedown==2.2.1
 django-session-csrf==0.7.1
