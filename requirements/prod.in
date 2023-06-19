@@ -31,4 +31,4 @@ sentry-processor==0.0.1
 spinach==0.0.17
 sqlparse==0.4.4
 urlwait==1.0
-whitenoise==6.4.0
+whitenoise==6.5.0
