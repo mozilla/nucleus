@@ -24,7 +24,7 @@ newrelic==8.8.0
 psycopg2-binary==2.9.6
 PyGithub==1.58.2
 python-decouple==3.8
-redis==4.5.5
+redis==4.6.0
 requests==2.31.0  # hard pin to force security bump for now
 sentry-sdk==1.24.0
 sentry-processor==0.0.1
