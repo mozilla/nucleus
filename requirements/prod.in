@@ -20,7 +20,7 @@ Jinja2==3.0.3
 meinheld==1.0.2
 more-itertools==9.1.0
 mozilla-django-oidc==3.0.0
-newrelic==8.8.1
+newrelic==8.9.0
 psycopg2-binary==2.9.6
 PyGithub==1.59.0
 python-decouple==3.8
