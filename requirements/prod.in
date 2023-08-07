@@ -1,5 +1,5 @@
 asn1crypto==1.5.1
-chardet==5.1.0
+chardet==5.2.0
 contextlib2==21.6.0
 dj-database-url==2.0.0
 django-allow-cidr==0.7.1
