@@ -22,7 +22,7 @@ more-itertools==9.1.0
 mozilla-django-oidc==3.0.0
 newrelic==9.1.0
 Pillow>=10.0.1  # hard-base pin for security
-psycopg2-binary==2.9.8
+psycopg2-binary==2.9.9
 PyGithub==1.59.0
 python-decouple==3.8
 redis==4.6.0
