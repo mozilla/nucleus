@@ -23,7 +23,7 @@ mozilla-django-oidc==3.0.0
 newrelic==9.1.0
 Pillow>=10.0.1  # hard-base pin for security
 psycopg2-binary==2.9.8
-PyGithub==1.59.0
+PyGithub==2.1.1
 python-decouple==3.8
 redis==4.6.0
 requests==2.31.0  # hard pin to force security bump for now
