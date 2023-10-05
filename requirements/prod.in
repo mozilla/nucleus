@@ -12,7 +12,7 @@ django-jinja==2.10.2
 django-pagedown==2.2.1
 django-session-csrf==0.7.1
 django-watchman==1.3.0
-Django==3.2.20
+Django==3.2.22
 djangorestframework==3.14.0
 entrypoints==0.4
 gunicorn==20.1.0
@@ -20,13 +20,14 @@ Jinja2==3.0.3
 meinheld==1.0.2
 more-itertools==9.1.0
 mozilla-django-oidc==3.0.0
-newrelic==8.8.1
-psycopg2-binary==2.9.6
+newrelic==9.1.0
+Pillow>=10.0.1  # hard-base pin for security
+psycopg2-binary==2.9.8
 PyGithub==1.59.0
 python-decouple==3.8
 redis==4.6.0
 requests==2.31.0  # hard pin to force security bump for now
-sentry-sdk==1.28.0
+sentry-sdk==1.31.0
 sentry-processor==0.0.1
 spinach==0.0.17
 sqlparse==0.4.4
