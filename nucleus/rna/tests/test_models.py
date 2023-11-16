@@ -72,3 +72,34 @@ class TestReleaseQueries(TestCase):
         assert self.r2.version in versions
         assert self.r3.version in versions
         assert len(versions) == 2
+
+
+class TestNote(TestCase):
+    def test_to_dict__simple__no_relations(self):
+        # Very simple test of the to_dict() method, mainly
+        # to prove that progressive_rollout is included
+        data = dict(
+            bug=1234,
+            note="Test note",
+            tag="this is a tag",
+            sort_num=1,
+            is_public=True,
+            progressive_rollout=True,
+        )
+
+        note = Note(**data)
+        note.save()
+
+        dumped_dict = note.to_dict()
+        for key in [
+            "bug",
+            "note",
+            "tag",
+            "sort_num",
+            "is_public",
+            "progressive_rollout",
+        ]:
+            assert dumped_dict[key] == data[key]
+
+        assert "created" in dumped_dict
+        assert "modified" in dumped_dict
