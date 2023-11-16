@@ -25,7 +25,7 @@ class NoteAdmin(admin.ModelAdmin):
     filter_horizontal = ["releases"]
     list_display = ("id", "bug", "tag", "note", "created")
     list_display_links = ("id",)
-    list_filter = ("tag", "is_known_issue", "releases__product", "releases__version")
+    list_filter = ("tag", "is_known_issue", "releases__product", "releases__version", "progressive_rollout")
     search_fields = ("bug", "note", "releases__version")
 
 
