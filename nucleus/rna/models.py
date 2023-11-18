@@ -171,6 +171,7 @@ class Note(SaveToGithubModel):
     tag = models.CharField(max_length=255, blank=True, choices=[(t, t) for t in TAGS])
     sort_num = models.IntegerField(default=0)
     is_public = models.BooleanField(default=True)
+    progressive_rollout = models.BooleanField(default=False)
 
     related_field_to_github = "releases"
 
