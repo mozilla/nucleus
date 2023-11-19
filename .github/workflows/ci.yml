@@ -1,0 +1,18 @@
+name: Unit tests
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-python:
+    runs-on: ubuntu-latest  # For consistency with above
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Run Python tests (on Docker)"
+        run: |
+            make clean-ci
+            make build-ci
+            make test-ci
