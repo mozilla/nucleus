@@ -40,6 +40,11 @@ class Release(SaveToGithubModel):
     bug_list = models.TextField(blank=True)
     bug_search_url = models.CharField(max_length=2000, blank=True)
     system_requirements = models.TextField(blank=True)
+    reviewed_by_release_manager = models.BooleanField(
+        null=True,
+        default=False,
+        help_text="Purely a visual indicator in Nucleus - does not show on mozilla.org",
+    )
 
     objects = ReleaseManager()
 

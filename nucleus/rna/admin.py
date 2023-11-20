@@ -36,7 +36,18 @@ class ReleaseAdminForm(forms.ModelForm):
 
     class Meta:
         model = models.Release
-        fields = ("is_public", "product", "channel", "version", "release_date", "text", "bug_list", "bug_search_url", "system_requirements")
+        fields = (
+            "is_public",
+            "product",
+            "channel",
+            "version",
+            "release_date",
+            "text",
+            "bug_list",
+            "bug_search_url",
+            "system_requirements",
+            "reviewed_by_release_manager",
+        )
 
 
 class ReleaseAdmin(admin.ModelAdmin):
