@@ -16,7 +16,7 @@ Django==3.2.23
 djangorestframework==3.14.0
 entrypoints==0.4
 gunicorn==20.1.0
-Jinja2==3.0.3
+Jinja2==3.1.2
 meinheld==1.0.2
 more-itertools==9.1.0
 mozilla-django-oidc==3.0.0
