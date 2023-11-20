@@ -20,7 +20,7 @@ Jinja2==3.0.3
 meinheld==1.0.2
 more-itertools==9.1.0
 mozilla-django-oidc==3.0.0
-newrelic==9.1.0
+newrelic==9.2.0
 Pillow>=10.1.0  # hard-base pin for security
 psycopg2-binary==2.9.9
 PyGithub==2.1.1
