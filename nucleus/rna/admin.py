@@ -5,15 +5,25 @@
 from django import forms
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 
 from pagedown.widgets import AdminPagedownWidget
 
 from . import models
 
+pagedown_widget_help_text = mark_safe(
+    "<span class='img-attr-note'>If you use an <code>&lt;img&gt;</code> tag, any <code>alt</code> "
+    "attribute must the last in the tag, else the image "
+    "<a target='_blank' href='https://github.com/StackExchange/pagedown/issues/105'>will not preview</a></span>"
+)
+
 
 class NoteAdminForm(forms.ModelForm):
-    note = forms.CharField(widget=AdminPagedownWidget())
+    note = forms.CharField(
+        widget=AdminPagedownWidget(),
+        help_text=pagedown_widget_help_text,
+    )
 
     class Meta:
         model = models.Note
@@ -30,8 +40,16 @@ class NoteAdmin(admin.ModelAdmin):
 
 
 class ReleaseAdminForm(forms.ModelForm):
-    system_requirements = forms.CharField(widget=AdminPagedownWidget(), required=False)
-    text = forms.CharField(widget=AdminPagedownWidget(), required=False)
+    system_requirements = forms.CharField(
+        widget=AdminPagedownWidget(),
+        required=False,
+        help_text=pagedown_widget_help_text,
+    )
+    text = forms.CharField(
+        widget=AdminPagedownWidget(),
+        required=False,
+        help_text=pagedown_widget_help_text,
+    )
     release_date = forms.DateTimeField(widget=admin.widgets.AdminDateWidget)
 
     class Meta:
