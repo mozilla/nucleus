@@ -32,7 +32,7 @@ class NoteAdminForm(forms.ModelForm):
 
 class NoteAdmin(admin.ModelAdmin):
     form = NoteAdminForm
-    filter_horizontal = ["releases"]
+    filter_horizontal = ["releases", "relevant_countries"]
     list_display = ("id", "bug", "tag", "note", "created")
     list_display_links = ("id",)
     list_filter = ("tag", "is_known_issue", "releases__product", "releases__version", "progressive_rollout")
@@ -148,5 +148,13 @@ class ReleaseAdmin(admin.ModelAdmin):
             obj.save()
 
 
+class CountryAdmin(admin.ModelAdmin):
+    search_fields = ("name", "code")
+
+    class Meta:
+        model = models.Country
+
+
+admin.site.register(models.Country, CountryAdmin)
 admin.site.register(models.Note, NoteAdmin)
 admin.site.register(models.Release, ReleaseAdmin)
