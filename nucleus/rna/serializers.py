@@ -4,7 +4,7 @@
 
 from rest_framework import serializers
 
-from .models import Note, Release
+from .models import Country, Note, Release
 
 
 class HyperlinkedModelSerializerWithPkField(serializers.HyperlinkedModelSerializer):
@@ -14,7 +14,21 @@ class HyperlinkedModelSerializerWithPkField(serializers.HyperlinkedModelSerializ
         return fields
 
 
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = [
+            "name",
+            "code",
+        ]
+
+
 class NoteSerializer(HyperlinkedModelSerializerWithPkField):
+    relevant_countries = CountrySerializer(
+        read_only=True,
+        many=True,
+    )
+
     class Meta:
         model = Note
         fields = "__all__"

@@ -6,7 +6,7 @@ from itertools import chain
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, UniqueConstraint
 from django.forms.models import model_to_dict
 from django.utils.text import slugify
 from django.utils.timezone import now
@@ -177,6 +177,15 @@ class Note(SaveToGithubModel):
     sort_num = models.IntegerField(default=0)
     is_public = models.BooleanField(default=True)
     progressive_rollout = models.BooleanField(default=False)
+    relevant_countries = models.ManyToManyField(
+        "Country",
+        blank=True,
+        help_text=(
+            "Select the countries where this Note applies, as part of a "
+            "progressive rollout. This info will only be shown on the Release "
+            "page if 'Progressive rollout', above, is ticked."
+        ),
+    )
 
     related_field_to_github = "releases"
 
@@ -201,6 +210,9 @@ class Note(SaveToGithubModel):
         if release and self.is_known_issue_for(release):
             data["tag"] = "Known"
 
+        if self.relevant_countries.count():
+            data["relevant_countries"] = [x.to_dict() for x in self.relevant_countries.all()]
+
         return data
 
     def __str__(self):
@@ -208,3 +220,35 @@ class Note(SaveToGithubModel):
 
     class Meta:
         get_latest_by = "modified"
+
+
+class Country(SaveToGithubModel):
+    # Simple model for associating a Country with a Note
+
+    name = models.CharField(
+        blank=False,
+        max_length=128,
+    )
+    code = models.CharField(
+        blank=False,
+        help_text="3166-1-alpha-2 code",
+        max_length=2,
+    )
+
+    def __str__(self):
+        return f"{self.name} ({self.code})"
+
+    class Meta:
+        verbose_name_plural = "Countries"
+        ordering = ["name"]
+        constraints = [
+            UniqueConstraint(
+                fields=["name", "code"],
+                name="unique_country_name_for_code",
+            ),
+        ]
+
+    def to_dict(self):
+        data = model_to_dict(self)
+        del data["id"]  # no need to dump out the internal ID for a Country
+        return data

@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.test import TestCase
 from django.utils.timezone import now
 
-from nucleus.rna.models import Note, Release
+from nucleus.rna.models import Country, Note, Release
 
 
 class TestReleaseQueries(TestCase):
@@ -103,3 +103,35 @@ class TestNote(TestCase):
 
         assert "created" in dumped_dict
         assert "modified" in dumped_dict
+
+    def test_to_dict__relevant_country_field(self):
+        # Country data is bootstrapped by a data migration
+
+        iceland = Country.objects.get(code="IS")
+        india = Country.objects.get(code="IN")
+
+        data = dict(
+            bug=1234,
+            note="Test note",
+            tag="this is a tag",
+            sort_num=1,
+            is_public=True,
+            progressive_rollout=True,
+        )
+
+        note = Note(**data)
+        note.save()
+
+        assert note.relevant_countries.count() == 0
+        dumped_dict = note.to_dict()
+        assert dumped_dict["relevant_countries"] == []
+
+        note.relevant_countries.add(india)
+        note.relevant_countries.add(iceland)
+        assert note.relevant_countries.count() == 2
+
+        dumped_dict = note.to_dict()
+        assert dumped_dict["relevant_countries"] == [
+            {"name": "Iceland", "code": "IS"},
+            {"name": "India", "code": "IN"},
+        ]
