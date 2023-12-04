@@ -132,7 +132,7 @@ class Release(SaveToGithubModel):
 
     def to_dict(self):
         """Return a dict all all data about the release"""
-        data = model_to_dict(self, exclude=["id"])
+        data = model_to_dict(self, exclude=["id", "reviewed_by_release_manager"])
         data["title"] = str(self)
         data["slug"] = self.slug
         data["release_date"] = self.release_date.date().isoformat()
