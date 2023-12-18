@@ -2,7 +2,7 @@
 
 black==23.10.1
 flake8==6.1.0
-isort==5.12.0
+isort==5.13.2
 Markdown==3.5.1  # is this definitely needed on the Python side?
 pytest-datadir==1.5.0
 pytest-django==4.5.2
