@@ -60,7 +60,7 @@ def export_json(request):
 
     mod_date = parse_http_date_safe(request.headers.get("If-Modified-Since"))
     if mod_date:
-        mod_date = datetime.datetime.fromtimestamp(mod_date, datetime.timezone.utc)
+        mod_date = datetime.datetime.fromtimestamp(mod_date, datetime.UTC)
     else:
         mod_date = now() - datetime.timedelta(days=30)
 
