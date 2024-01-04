@@ -27,7 +27,7 @@ class NoteAdminForm(forms.ModelForm):
 
     class Meta:
         model = models.Note
-        fields = "__all__"
+        fields = "__all__"  # noqa: DJ007
 
 
 class NoteAdmin(admin.ModelAdmin):
