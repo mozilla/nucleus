@@ -156,7 +156,7 @@ class Release(SaveToGithubModel):
         }
 
     def __str__(self):
-        return "{product} {version} {channel}".format(product=self.product, version=self.version, channel=self.channel)
+        return f"{self.product} {self.version} {self.channel}"
 
     class Meta:
         # TODO: see if this has a significant performance impact

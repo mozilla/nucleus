@@ -118,7 +118,7 @@ class ReleaseAdmin(admin.ModelAdmin):
             copy = release
             copy.id = None
             if copy_count > 1:
-                copy.version = "copy%s-%s" % (copy_count, copy.version)
+                copy.version = f"copy{copy_count}-{copy.version}"
             else:
                 copy.version = "copy-" + copy.version
             # By default, set it to public. Usually, the copy feature is
