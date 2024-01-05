@@ -15,13 +15,10 @@ class GithubLogAdmin(admin.ModelAdmin):
     actions = ["requeue"]
     date_hierarchy = "created"
 
-    @admin.action(
-        description="Run Task Again"
-    )
+    @admin.action(description="Run Task Again")
     def requeue(self, request, queryset):
         for ghl in queryset:
             tasks.schedule("nucleus:save_to_github", ghl.pk)
-
 
 
 class LogEntryAdmin(admin.ModelAdmin):

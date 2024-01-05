@@ -107,7 +107,6 @@ class ReleaseAdmin(admin.ModelAdmin):
             prod=base_url_prod,
         )
 
-
     def copy_releases(self, request, queryset):
         release_count = 0
         for release in queryset:
