@@ -8,17 +8,20 @@ from .models import GithubLog
 from .tasks import tasks
 
 
+@admin.register(GithubLog)
 class GithubLogAdmin(admin.ModelAdmin):
     list_display = ("created", "content_object", "author", "branch", "fail_count", "ack")
     list_filter = ("author", "content_type", "branch", "fail_count", "ack")
     actions = ["requeue"]
     date_hierarchy = "created"
 
+    @admin.action(
+        description="Run Task Again"
+    )
     def requeue(self, request, queryset):
         for ghl in queryset:
             tasks.schedule("nucleus:save_to_github", ghl.pk)
 
-    requeue.short_description = "Run Task Again"
 
 
 class LogEntryAdmin(admin.ModelAdmin):
@@ -35,5 +38,4 @@ class LogEntryAdmin(admin.ModelAdmin):
         return False
 
 
-admin.site.register(GithubLog, GithubLogAdmin)
 admin.site.register(admin.models.LogEntry, LogEntryAdmin)
