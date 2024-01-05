@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # nucleus documentation build configuration file, created by
 # sphinx-quickstart on Thu Nov  6 19:39:08 2014.
