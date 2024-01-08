@@ -19,6 +19,25 @@ services:
       - db
       - redis
 
+  local-prod:
+    command: ./bin/run-prod.sh
+    image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
+    platform: linux/amd64
+    env_file:
+      - .env
+      - docker/envfiles/dev.env
+    build:
+      context: .
+      args:
+        GIT_SHA: ${GIT_COMMIT:-latest}
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+
   worker:
     command: ./bin/run-worker.sh
     image: mozmeao/nucleus:${GIT_COMMIT_SHORT:-latest}
