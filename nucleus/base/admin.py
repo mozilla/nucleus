@@ -21,6 +21,7 @@ class GithubLogAdmin(admin.ModelAdmin):
             tasks.schedule("nucleus:save_to_github", ghl.pk)
 
 
+@admin.register(admin.models.LogEntry)
 class LogEntryAdmin(admin.ModelAdmin):
     list_display = ("action_time", "user", "__str__")
     list_filter = ("user", "content_type")
@@ -33,6 +34,3 @@ class LogEntryAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
-
-
-admin.site.register(admin.models.LogEntry, LogEntryAdmin)
