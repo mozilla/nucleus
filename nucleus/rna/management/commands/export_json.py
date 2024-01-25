@@ -28,4 +28,4 @@ class Command(BaseCommand):
             with open(os.path.join(OUTPUT_DIR, "{}.json".format(rel["slug"])), "w", encoding="utf-8") as fp:
                 json.dump(rel, fp, indent=2, sort_keys=True)
 
-        print("Exported {} releases".format(len(releases)))
+        print(f"Exported {len(releases)} releases")

@@ -1,5 +1,5 @@
 # BUILDER IMAGE
-FROM python:3.9-slim-bullseye AS builder
+FROM python:3.12-slim-bookworm AS builder
 
 # Extra python env
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -26,7 +26,7 @@ RUN DEBUG=False SECRET_KEY=foo ALLOWED_HOSTS=localhost, DATABASE_URL=sqlite:// \
 # END BUILDER IMAGE
 
 # FINAL IMAGE
-FROM python:3.9-slim-bullseye
+FROM python:3.12-slim-bookworm
 
 # Extra python env
 ENV PYTHONDONTWRITEBYTECODE=1

@@ -117,7 +117,7 @@ class Release(SaveToGithubModel):
         any note with the fixed tag that starts with the release version to
         the top, for what we call "dot fixes".
         """
-        tag_index = dict((tag, i) for i, tag in enumerate(Note.TAGS))
+        tag_index = {tag: i for i, tag in enumerate(Note.TAGS)}
         notes = self.note_set.order_by("-sort_num", "created")
         if public_only:
             notes = notes.filter(is_public=True)
@@ -156,7 +156,7 @@ class Release(SaveToGithubModel):
         }
 
     def __str__(self):
-        return "{product} {version} {channel}".format(product=self.product, version=self.version, channel=self.channel)
+        return f"{self.product} {self.version} {self.channel}"
 
     class Meta:
         # TODO: see if this has a significant performance impact

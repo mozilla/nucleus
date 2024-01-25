@@ -43,7 +43,7 @@ def get_duplicate_product_versions():
 
 class HttpResponseJSON(HttpResponse):
     def __init__(self, data, status=None, cors=False):
-        super(HttpResponseJSON, self).__init__(content=json.dumps(data), content_type="application/json", status=status)
+        super().__init__(content=json.dumps(data), content_type="application/json", status=status)
 
         if cors:
             self["Access-Control-Allow-Origin"] = "*"
