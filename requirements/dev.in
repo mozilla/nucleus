@@ -1,7 +1,7 @@
 -r prod.in
 
 black==23.12.1
-ruff==0.1.11
+ruff==0.3.4
 Markdown==3.5.1  # is this definitely needed on the Python side?
 pytest-datadir==1.5.0
 pytest-django==4.7.0
