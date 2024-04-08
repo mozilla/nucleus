@@ -25,7 +25,7 @@ PyGithub==2.1.1
 python-decouple==3.8
 redis==5.0.1
 requests==2.31.0  # hard pin to force security bump for now
-sentry-sdk==1.44.0
+sentry-sdk==1.44.1
 sentry-processor==0.0.1
 spinach==0.0.17
 sqlparse==0.4.4
