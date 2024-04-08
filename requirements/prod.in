@@ -27,7 +27,7 @@ redis==5.0.1
 requests==2.31.0  # hard pin to force security bump for now
 sentry-sdk==1.44.0
 sentry-processor==0.0.1
-spinach==0.0.17
+spinach==0.0.20
 sqlparse==0.4.4
 urlwait==1.0
 uwsgi==2.0.23
