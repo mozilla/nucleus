@@ -16,7 +16,7 @@ Django==4.2.11
 djangorestframework==3.15.1
 entrypoints==0.4
 Jinja2==3.1.4
-more-itertools==10.2.0
+more-itertools==10.3.0
 mozilla-django-oidc==4.0.1
 newrelic==9.8.0
 Pillow>=10.2.0  # hard-base pin for security
