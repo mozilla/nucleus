@@ -1,4 +1,3 @@
-version: '3.4'
 services:
   web:
     command: ./bin/run-dev.sh
