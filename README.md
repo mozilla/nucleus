@@ -115,6 +115,10 @@ See the [full list of supported environment variables](https://docs.newrelic.com
 
 <https://github.com/mozmeao/nucleus-config/> has public examples of deployments in k8s clusters in AWS & GCP.
 
-## Gitlab CI/CD
+## Github Actions CI/CD
 
-We have <https://gitlab.com/mozmeao/nucleus/pipelines> [set up as CI/CD for](https://gitlab.com/mozmeao/infra/blob/master/docs/gitlab_ci.md)  <https://github.com/mozilla/nucleus> via this [.gitlab-ci.yml](https://github.com/mozilla/nucleus/blob/gitlab/.gitlab-ci.yml), which [updates the config repo](https://github.com/mozilla/nucleus/blob/gitlab/bin/update-config.sh) triggering <https://gitlab.com/mozmeao/nucleus/pipelines> configured by [.gitlab-ci.yml in the config repo](https://github.com/mozilla/nucleus-config/blob/master/.gitlab-ci.yml).
+Unit tests are run via a GHA in the mozilla/nucleus repo <https://github.com/mozilla/nucleus/actions>
+
+Deployments are handled via the (private) <https://github.com/mozilla-sre-deploy/deploy-nucleus/> repo
+
+We no longer use GitLab for CI/CD for Nucleus
