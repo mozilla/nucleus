@@ -10,7 +10,7 @@ jobs:
   test-python:
     runs-on: ubuntu-latest  # For consistency with above
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: "Run Python tests (on Docker)"
         run: |
             make clean-ci
