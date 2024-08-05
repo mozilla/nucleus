@@ -51,5 +51,5 @@ ARG GIT_SHA=latest
 ENV GIT_SHA=${GIT_SHA}
 
 # Change User
-RUN chown webdev.webdev -R .
+RUN chown webdev:webdev -R .
 USER webdev
