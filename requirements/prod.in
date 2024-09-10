@@ -7,7 +7,7 @@ django-cache-url==3.4.5
 django-crum==0.7.9
 django-csp==3.8
 django-extensions==3.2.3
-django-filter==24.2
+django-filter==24.3
 django-jinja==2.11.0
 django-pagedown==2.2.1
 django-session-csrf==0.7.1
@@ -18,14 +18,14 @@ entrypoints==0.4
 Jinja2==3.1.4
 more-itertools==10.3.0
 mozilla-django-oidc==4.0.1
-newrelic==9.12.0
+newrelic==9.13.0
 Pillow>=10.2.0  # hard-base pin for security
 psycopg2-binary==2.9.9
-PyGithub==2.3.0
+PyGithub==2.4.0
 python-decouple==3.8
-redis==5.0.7
+redis==5.0.8
 requests>=2.32.3  # force security bump
-sentry-sdk==2.11.0
+sentry-sdk==2.14.0
 sentry-processor==0.0.1
 spinach==0.0.24
 sqlparse==0.5.1
