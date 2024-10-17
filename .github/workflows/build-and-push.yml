@@ -56,7 +56,7 @@ jobs:
             ref: ${{ env.REF_ID }}
 
       - id: dev_stage_image_tag
-        name: Set Docker Stag image tag for updates of the master branch
+        name: Set Docker DEV\Stage image tag for updates of the master branch
         if: github.ref == 'refs/heads/master'
         run: |
 
@@ -66,7 +66,7 @@ jobs:
 
 
       - id: prod_image_tag
-        name: Set Docker image tag to the git tag for tagged builds
+        name: Set Docker prod image tag for updates of the prod branch
         if: github.ref == 'refs/heads/prod'
         run: |
 
