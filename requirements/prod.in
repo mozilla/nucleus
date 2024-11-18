@@ -28,7 +28,7 @@ requests>=2.32.3  # force security bump
 sentry-sdk==2.14.0
 sentry-processor==0.0.1
 spinach==0.0.24
-sqlparse==0.5.1
+sqlparse==0.5.2
 urlwait==1.0
 uwsgi==2.0.26
 whitenoise==6.7.0
