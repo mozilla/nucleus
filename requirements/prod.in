@@ -18,7 +18,7 @@ entrypoints==0.4
 Jinja2==3.1.4
 more-itertools==10.3.0
 mozilla-django-oidc==4.0.1
-newrelic==9.13.0
+newrelic==10.3.1
 Pillow>=10.2.0  # hard-base pin for security
 psycopg2-binary==2.9.9
 PyGithub==2.4.0
