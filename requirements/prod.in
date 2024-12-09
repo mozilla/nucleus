@@ -23,7 +23,7 @@ Pillow>=10.2.0  # hard-base pin for security
 psycopg2-binary==2.9.9
 PyGithub==2.5.0
 python-decouple==3.8
-redis==5.2.0
+redis==5.2.1
 requests>=2.32.3  # force security bump
 sentry-sdk==2.19.0
 sentry-processor==0.0.1
