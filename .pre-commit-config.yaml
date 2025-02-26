@@ -5,8 +5,8 @@ exclude: >
     | jenkins
   )
 repos:
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.8.1
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.7
     hooks:
       - id: ruff
       - id: ruff-format
