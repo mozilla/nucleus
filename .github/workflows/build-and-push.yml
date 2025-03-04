@@ -55,6 +55,10 @@ jobs:
             fetch-tags: true
             ref: ${{ env.REF_ID }}
 
+      - id: short-sha
+        run: |
+          echo "SHORT_SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
       - id: dev_stage_image_tag
         name: Set Docker DEV\Stage image tag for updates of the master branch
         if: github.ref == 'refs/heads/master'
@@ -104,4 +108,6 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            GIT_SHA=${{ env.SHORT_SHA }}
 
