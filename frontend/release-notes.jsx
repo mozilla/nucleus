@@ -11,15 +11,14 @@ function BugLink({ bug }) {
 
 function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
   const makeReleaseSpecific = () => {
-    const copy = window.mori.assoc(
-      window.mori.dissoc(window.mori.js_to_clj(note), "id", "url", "releases"),
-      "releases",
-      [releaseApiUrl]
-    );
-    authPost(
-      "/rna/notes/",
-      JSON.stringify(window.mori.clj_to_js(copy))
-    )
+    const { id, url, releases, ...rest } = note;
+    const copy = {
+      ...rest,
+      releases: [releaseApiUrl]
+    };
+    const body = JSON.stringify(copy);
+
+    authPost("/rna/notes/", body)
       .then(() => removeNote())
       .catch((err) => alert(err.message));
   };
