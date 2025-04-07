@@ -76,6 +76,9 @@ class ReleaseAdmin(admin.ModelAdmin):
     ordering = ("-release_date",)
     search_fields = ("version", "text")
 
+    class Media:
+        js = ["js/release-notes.js"]
+
     def url(self, obj):
         base_url_staging = "https://www-dev.allizom.org/en-US"
         base_url_prod = "https://www.mozilla.com/en-US"

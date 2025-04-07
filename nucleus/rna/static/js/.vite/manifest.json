@@ -1,0 +1,8 @@
+{
+  "frontend/release-notes.jsx": {
+    "file": "release-notes.js",
+    "name": "release-notes",
+    "src": "frontend/release-notes.jsx",
+    "isEntry": true
+  }
+}
