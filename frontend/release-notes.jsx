@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
+import { authPost } from "./utils";
 
 function BugLink({ bug }) {
   if (bug) {
@@ -8,18 +9,19 @@ function BugLink({ bug }) {
   return <p></p>;
 }
 
-function ReleaseSpecific({ note, removeNote }) {
+function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
   const makeReleaseSpecific = () => {
     const copy = window.mori.assoc(
       window.mori.dissoc(window.mori.js_to_clj(note), "id", "url", "releases"),
       "releases",
-      [window.releaseApiUrl]
+      [releaseApiUrl]
     );
-    window.authPost(
+    authPost(
       "/rna/notes/",
-      JSON.stringify(window.mori.clj_to_js(copy)),
-      () => removeNote()
-    );
+      JSON.stringify(window.mori.clj_to_js(copy))
+    )
+      .then(() => removeNote())
+      .catch((err) => alert(err.message));
   };
 
   if (note.releases.length === 1) {
@@ -28,25 +30,31 @@ function ReleaseSpecific({ note, removeNote }) {
   return <input type="button" value="Make release-specific" onClick={makeReleaseSpecific} />;
 }
 
-function NoteRow({ note, removeNote }) {
+function NoteRow({ note, removeNote, releaseApiUrl, converter }) {
   return (
     <tr>
       <td><a href={`/admin/rna/note/${note.id}/`}>Edit</a></td>
-      <td>{note.is_known_issue && note.is_known_issue !== window.releaseApiUrl ? "Known issue" : note.tag}</td>
-      <td dangerouslySetInnerHTML={{ __html: window.converter.makeHtml(note.note) }} />
+      <td>{note.is_known_issue && note.is_known_issue !== releaseApiUrl ? "Known issue" : note.tag}</td>
+      <td dangerouslySetInnerHTML={{ __html: converter.makeHtml(note.note) }} />
       <td><BugLink bug={note.bug} /></td>
       <td>{note.sort_num}</td>
-      <td><ReleaseSpecific note={note} removeNote={() => removeNote(note)} /></td>
+      <td><ReleaseSpecific note={note} removeNote={removeNote} releaseApiUrl={releaseApiUrl} /></td>
       <td><input type="button" value="Remove" onClick={() => removeNote(note)} /></td>
     </tr>
   );
 }
 
-function NoteRows({ data, removeNote }) {
+function NoteRows({ data, removeNote, releaseApiUrl, converter }) {
   return (
     <tbody>
       {data.map((note, index) => (
-        <NoteRow key={index} note={note} removeNote={removeNote} />
+        <NoteRow
+          key={index}
+          note={note}
+          removeNote={removeNote}
+          releaseApiUrl={releaseApiUrl}
+          converter={converter}
+        />
       ))}
     </tbody>
   );
@@ -64,34 +72,37 @@ function NoteHeader({ data }) {
   );
 }
 
-function NoteTable({ url }) {
+function NoteTable({ url, releaseApiUrl, converter }) {
   const [data, setData] = useState([]);
 
   const getNotes = () => {
-    window.$.ajax({
-      url,
-      success: (notes) => setData(notes),
-      error: (jqXHR, textStatus, errorThrown) => {
-        alert(`Unable to get notes: ${jqXHR.status} ${textStatus} ${errorThrown}`);
-      }
-    });
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        return res.json();
+      })
+      .then(setData)
+      .catch((err) => alert(`Unable to get notes: ${err.message}`));
   };
 
   const addNote = (id) => {
-    window.$.ajax({
-      url: `/rna/notes/${id}/`,
-      success: (note) => {
-        const releases = JSON.stringify({ releases: [...note.releases, window.releaseApiUrl] });
-        window.authPatch(note.url, releases, getNotes);
-      }
-    });
+    fetch(`/rna/notes/${id}/`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        return res.json();
+      })
+      .then((note) => {
+        const releases = JSON.stringify({ releases: [...note.releases, releaseApiUrl] });
+        authPost(note.url, releases, true).then(getNotes).catch(err => alert(err.message));
+      })
+      .catch((err) => alert(`Unable to add note: ${err.message}`));
   };
 
   const removeNote = (note) => {
     const releases = JSON.stringify({
-      releases: note.releases.filter((url) => url !== window.releaseApiUrl),
+      releases: note.releases.filter((url) => url !== releaseApiUrl),
     });
-    window.authPatch(note.url, releases, getNotes);
+    authPost(note.url, releases, true).then(getNotes).catch(err => alert(err.message));
   };
 
   useEffect(() => {
@@ -115,13 +126,23 @@ function NoteTable({ url }) {
   return (
     <table>
       <NoteHeader data={headers} />
-      <NoteRows data={data} removeNote={removeNote} />
+      <NoteRows
+        data={data}
+        removeNote={removeNote}
+        releaseApiUrl={releaseApiUrl}
+        converter={converter}
+      />
     </table>
   );
 }
 
 const rootEl = document.getElementById("note-table");
 if (rootEl) {
+  const releaseId = rootEl.dataset.releaseid;
+  const releaseApiUrl = `${window.location.origin}/rna/releases/${releaseId}/`;
+  const notesApiUrl = `${releaseApiUrl}notes/`;
+  const converter = new window.Markdown.Converter();
+
   const root = ReactDOM.createRoot(rootEl);
-  root.render(<NoteTable url={window.notesApiUrl} />);
+  root.render(<NoteTable url={notesApiUrl} releaseApiUrl={releaseApiUrl} converter={converter} />);
 }
