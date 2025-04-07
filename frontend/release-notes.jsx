@@ -2,6 +2,18 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { authPost } from "./utils";
 
+const tableStyles = {
+  width: "100%",
+  tableLayout: "auto",
+  borderCollapse: "collapse"
+};
+
+const cellStyles = {
+  padding: "4px",
+  border: "1px solid #ddd",
+  verticalAlign: "top"
+};
+
 function BugLink({ bug }) {
   if (bug) {
     return <a href={`https://bugzilla.mozilla.org/show_bug.cgi?id=${bug}`}>{bug}</a>;
@@ -32,13 +44,13 @@ function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
 function NoteRow({ note, removeNote, releaseApiUrl, converter }) {
   return (
     <tr>
-      <td><a href={`/admin/rna/note/${note.id}/`}>Edit</a></td>
-      <td>{note.is_known_issue && note.is_known_issue !== releaseApiUrl ? "Known issue" : note.tag}</td>
-      <td dangerouslySetInnerHTML={{ __html: converter.makeHtml(note.note) }} />
-      <td><BugLink bug={note.bug} /></td>
-      <td>{note.sort_num}</td>
-      <td><ReleaseSpecific note={note} removeNote={removeNote} releaseApiUrl={releaseApiUrl} /></td>
-      <td><input type="button" value="Remove" onClick={() => removeNote(note)} /></td>
+      <td style={cellStyles}><a href={`/admin/rna/note/${note.id}/`}>Edit</a></td>
+      <td style={cellStyles}>{note.is_known_issue && note.is_known_issue !== releaseApiUrl ? "Known issue" : note.tag}</td>
+      <td style={cellStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(note.note) }} />
+      <td style={cellStyles}><BugLink bug={note.bug} /></td>
+      <td style={cellStyles}>{note.sort_num}</td>
+      <td style={cellStyles}><ReleaseSpecific note={note} removeNote={removeNote} releaseApiUrl={releaseApiUrl} /></td>
+      <td style={cellStyles}><input type="button" value="Remove" onClick={() => removeNote(note)} /></td>
     </tr>
   );
 }
@@ -48,7 +60,7 @@ function NoteRows({ data, removeNote, releaseApiUrl, converter }) {
     <tbody>
       {data.map((note, index) => (
         <NoteRow
-          key={index}
+          key={note.id}
           note={note}
           removeNote={removeNote}
           releaseApiUrl={releaseApiUrl}
@@ -64,7 +76,7 @@ function NoteHeader({ data }) {
     <thead>
       <tr>
         {data.map((header, index) => (
-          <th key={index}>{header}</th>
+          <th key={index} style={cellStyles}>{header}</th>
         ))}
       </tr>
     </thead>
@@ -123,15 +135,17 @@ function NoteTable({ url, releaseApiUrl, converter }) {
   const headers = ["Edit", "Tag/Known issue", "Note", "Bug", "Sort num", "Release-specific", "Remove"];
 
   return (
-    <table>
-      <NoteHeader data={headers} />
-      <NoteRows
-        data={data}
-        removeNote={removeNote}
-        releaseApiUrl={releaseApiUrl}
-        converter={converter}
-      />
-    </table>
+    <div style={{ width: "100%", overflowX: "auto" }}>
+      <table style={tableStyles}>
+        <NoteHeader data={headers} />
+        <NoteRows
+          data={data}
+          removeNote={removeNote}
+          releaseApiUrl={releaseApiUrl}
+          converter={converter}
+        />
+      </table>
+    </div>
   );
 }
 
