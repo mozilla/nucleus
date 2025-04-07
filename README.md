@@ -92,6 +92,36 @@ Docker for deploying to production
 docker run --env-file env -p 80:8000 mozilla/nucleus
 ```
 
+Release Notes UI (React)
+------------------------
+
+This project includes a small React component embedded into the Django admin to manage release notes.
+
+> **Note:** Built JS is committed to the repo. No need to rebuild unless you're changing the React code.
+
+If you need to make changes to the UI:
+
+1. Install dependencies (only once):
+   ```bash
+   npm install
+   ```
+
+2. Build the JS bundle:
+   ```bash
+   npm run build
+   ```
+
+3. Run Django's `collectstatic` to include the bundle:
+   ```bash
+   python manage.py collectstatic
+   ```
+
+Files of interest:
+- React entry point: `frontend/release-notes.jsx`
+- Compiled output: `nucleus/rna/static/js/release-notes.js`
+- Mount point: `note-table` div in `nucleus/rna/templates/admin/rna/release/change_form.html`
+
+
 Heroku
 ------
 
