@@ -50,6 +50,7 @@ function NoteRow({ note, removeNote, releaseApiUrl, converter }) {
       <td style={cellStyles}>
         {note.is_known_issue && note.is_known_issue !== releaseApiUrl ? "Known issue" : note.tag}
       </td>
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Markdown is safe/trusted input */}
       <td style={cellStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(note.note) }} />
       <td style={cellStyles}>
         <BugLink bug={note.bug} />
@@ -85,8 +86,8 @@ function NoteHeader({ data }) {
   return (
     <thead>
       <tr>
-        {data.map((header, index) => (
-          <th key={index} style={cellStyles}>
+        {data.map((header) => (
+          <th key={header} style={cellStyles}>
             {header}
           </th>
         ))}
@@ -98,7 +99,7 @@ function NoteHeader({ data }) {
 function NoteTable({ url, releaseApiUrl, converter }) {
   const [data, setData] = useState([]);
 
-  const getNotes = () => {
+  const getNotes = useCallback(() => {
     fetch(url)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
@@ -106,22 +107,25 @@ function NoteTable({ url, releaseApiUrl, converter }) {
       })
       .then(setData)
       .catch((err) => alert(`Unable to get notes: ${err.message}`));
-  };
+  }, [url]);
 
-  const addNote = (id) => {
-    fetch(`/rna/notes/${id}/`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-        return res.json();
-      })
-      .then((note) => {
-        const releases = JSON.stringify({ releases: [...note.releases, releaseApiUrl] });
-        authPost(note.url, releases, true)
-          .then(getNotes)
-          .catch((err) => alert(err.message));
-      })
-      .catch((err) => alert(`Unable to add note: ${err.message}`));
-  };
+  const addNote = useCallback(
+    (id) => {
+      fetch(`/rna/notes/${id}/`)
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+          return res.json();
+        })
+        .then((note) => {
+          const releases = JSON.stringify({ releases: [...note.releases, releaseApiUrl] });
+          authPost(note.url, releases, true)
+            .then(getNotes)
+            .catch((err) => alert(err.message));
+        })
+        .catch((err) => alert(`Unable to add note: ${err.message}`));
+    },
+    [releaseApiUrl, getNotes],
+  );
 
   const removeNote = (note) => {
     const releases = JSON.stringify({
@@ -146,7 +150,7 @@ function NoteTable({ url, releaseApiUrl, converter }) {
       addNote(newId);
       origAddAnother(win, newId, newRepr);
     };
-  }, []);
+  }, [addNote, getNotes]);
 
   const headers = [
     "Edit",
