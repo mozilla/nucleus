@@ -5,20 +5,20 @@ import { authPost } from "./utils";
 const tableStyles = {
   width: "100%",
   tableLayout: "auto",
-  borderCollapse: "collapse"
+  borderCollapse: "collapse",
 };
 
 const cellStyles = {
   padding: "4px",
   border: "1px solid #ddd",
-  verticalAlign: "top"
+  verticalAlign: "top",
 };
 
 function BugLink({ bug }) {
   if (bug) {
     return <a href={`https://bugzilla.mozilla.org/show_bug.cgi?id=${bug}`}>{bug}</a>;
   }
-  return <p></p>;
+  return <p />;
 }
 
 function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
@@ -26,7 +26,7 @@ function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
     const { id, url, releases, ...rest } = note;
     const copy = {
       ...rest,
-      releases: [releaseApiUrl]
+      releases: [releaseApiUrl],
     };
     const body = JSON.stringify(copy);
 
@@ -44,13 +44,23 @@ function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
 function NoteRow({ note, removeNote, releaseApiUrl, converter }) {
   return (
     <tr>
-      <td style={cellStyles}><a href={`/admin/rna/note/${note.id}/`}>Edit</a></td>
-      <td style={cellStyles}>{note.is_known_issue && note.is_known_issue !== releaseApiUrl ? "Known issue" : note.tag}</td>
+      <td style={cellStyles}>
+        <a href={`/admin/rna/note/${note.id}/`}>Edit</a>
+      </td>
+      <td style={cellStyles}>
+        {note.is_known_issue && note.is_known_issue !== releaseApiUrl ? "Known issue" : note.tag}
+      </td>
       <td style={cellStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(note.note) }} />
-      <td style={cellStyles}><BugLink bug={note.bug} /></td>
+      <td style={cellStyles}>
+        <BugLink bug={note.bug} />
+      </td>
       <td style={cellStyles}>{note.sort_num}</td>
-      <td style={cellStyles}><ReleaseSpecific note={note} removeNote={removeNote} releaseApiUrl={releaseApiUrl} /></td>
-      <td style={cellStyles}><input type="button" value="Remove" onClick={() => removeNote(note)} /></td>
+      <td style={cellStyles}>
+        <ReleaseSpecific note={note} removeNote={removeNote} releaseApiUrl={releaseApiUrl} />
+      </td>
+      <td style={cellStyles}>
+        <input type="button" value="Remove" onClick={() => removeNote(note)} />
+      </td>
     </tr>
   );
 }
@@ -76,7 +86,9 @@ function NoteHeader({ data }) {
     <thead>
       <tr>
         {data.map((header, index) => (
-          <th key={index} style={cellStyles}>{header}</th>
+          <th key={index} style={cellStyles}>
+            {header}
+          </th>
         ))}
       </tr>
     </thead>
@@ -104,7 +116,9 @@ function NoteTable({ url, releaseApiUrl, converter }) {
       })
       .then((note) => {
         const releases = JSON.stringify({ releases: [...note.releases, releaseApiUrl] });
-        authPost(note.url, releases, true).then(getNotes).catch(err => alert(err.message));
+        authPost(note.url, releases, true)
+          .then(getNotes)
+          .catch((err) => alert(err.message));
       })
       .catch((err) => alert(`Unable to add note: ${err.message}`));
   };
@@ -113,7 +127,9 @@ function NoteTable({ url, releaseApiUrl, converter }) {
     const releases = JSON.stringify({
       releases: note.releases.filter((url) => url !== releaseApiUrl),
     });
-    authPost(note.url, releases, true).then(getNotes).catch(err => alert(err.message));
+    authPost(note.url, releases, true)
+      .then(getNotes)
+      .catch((err) => alert(err.message));
   };
 
   useEffect(() => {
@@ -132,7 +148,15 @@ function NoteTable({ url, releaseApiUrl, converter }) {
     };
   }, []);
 
-  const headers = ["Edit", "Tag/Known issue", "Note", "Bug", "Sort num", "Release-specific", "Remove"];
+  const headers = [
+    "Edit",
+    "Tag/Known issue",
+    "Note",
+    "Bug",
+    "Sort num",
+    "Release-specific",
+    "Remove",
+  ];
 
   return (
     <div style={{ width: "100%", overflowX: "auto" }}>
