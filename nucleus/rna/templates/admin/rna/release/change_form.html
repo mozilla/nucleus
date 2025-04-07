@@ -1,8 +1,14 @@
 {% extends "admin/change_form.html" %}
 {% load static %}
 
+{% block extrahead %}
+    {{ block.super }}
+    <script type="module" src="{% static 'js/release-notes.js' %}"></script>
+{% endblock %}
+
 {% block after_related_objects %}
 {% if original %}
+{% comment %}
 <h2>Notes</h2>
 <div id="note-table" data-releaseid="{{original.id}}"></div>
 <p>
@@ -14,7 +20,10 @@
 <script type="text/javascript" src="{% static 'js/mori/mori.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/react.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/releasenotes.js' %}"></script>
+{% endcomment %}
 {% endif %}
+
+  <div id="note-table" data-releaseid="{{ original.id }}"></div>
 {% endblock %}
 
 {% comment %}
