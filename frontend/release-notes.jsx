@@ -145,8 +145,8 @@ function NoteTable({ url, releaseApiUrl, converter }) {
       origLookup(win, chosenId);
     };
 
-    const origAddAnother = window.dismissAddAnotherPopup;
-    window.dismissAddAnotherPopup = (win, newId, newRepr) => {
+    const origAddAnother = window.dismissAddRelatedObjectPopup;
+    window.dismissAddRelatedObjectPopup = (win, newId, newRepr) => {
       addNote(newId);
       origAddAnother(win, newId, newRepr);
     };
