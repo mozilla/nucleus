@@ -31,7 +31,7 @@ function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
     const body = JSON.stringify(copy);
 
     authPost("/rna/notes/", body)
-      .then(() => removeNote())
+      .then(() => removeNote(note))
       .catch((err) => alert(err.message));
   };
 
