@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { authPost } from "./utils";
+import { authPatch, authPost } from "./utils";
 
 const tableStyles = {
   width: "100%",
@@ -118,7 +118,7 @@ function NoteTable({ url, releaseApiUrl, converter }) {
         })
         .then((note) => {
           const releases = JSON.stringify({ releases: [...note.releases, releaseApiUrl] });
-          authPost(note.url, releases, true)
+          authPatch(note.url, releases)
             .then(getNotes)
             .catch((err) => alert(err.message));
         })
@@ -131,7 +131,7 @@ function NoteTable({ url, releaseApiUrl, converter }) {
     const releases = JSON.stringify({
       releases: note.releases.filter((url) => url !== releaseApiUrl),
     });
-    authPost(note.url, releases, true)
+    authPatch(note.url, releases)
       .then(getNotes)
       .catch((err) => alert(err.message));
   };

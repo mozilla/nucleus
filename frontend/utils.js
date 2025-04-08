@@ -47,3 +47,7 @@ export async function authPost(url, data, isPatch = false) {
 
   return res;
 }
+
+export async function authPatch(url, data) {
+  return authPost(url, data, true);
+}
