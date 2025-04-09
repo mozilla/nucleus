@@ -24,6 +24,10 @@ class NoteAdminForm(forms.ModelForm):
         widget=AdminPagedownWidget(),
         help_text=pagedown_widget_help_text,
     )
+    bug = forms.IntegerField(
+        widget=forms.NumberInput(attrs={"style": "width: 12em;"}),
+        required=False,
+    )
 
     class Meta:
         model = models.Note
@@ -75,6 +79,9 @@ class ReleaseAdmin(admin.ModelAdmin):
     list_filter = ("product", "channel", "is_public")
     ordering = ("-release_date",)
     search_fields = ("version", "text")
+
+    class Media:
+        js = ["js/release-notes.js"]
 
     def url(self, obj):
         base_url_staging = "https://www-dev.allizom.org/en-US"

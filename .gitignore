@@ -13,3 +13,4 @@ json_export
 .make.*
 /git-repos
 .vscode
+node_modules

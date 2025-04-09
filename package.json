@@ -1,0 +1,26 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "lint": "eslint frontend/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "React component for managing release notes in the Django admin.",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "vite": "^6.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint": "^9.24.0",
+    "globals": "^16.0.0"
+  }
+}
