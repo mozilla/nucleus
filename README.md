@@ -121,6 +121,7 @@ Files of interest:
 - Compiled output: `nucleus/rna/static/js/release-notes.js`
 - Mount point: `note-table` div in `nucleus/rna/templates/admin/rna/release/change_form.html`
 
+The file can be linted by running `npm run lint` to check for errors using ESLint.
 
 Heroku
 ------
