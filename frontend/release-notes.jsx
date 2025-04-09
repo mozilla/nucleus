@@ -23,6 +23,8 @@ function BugLink({ bug }) {
 
 function ReleaseSpecific({ note, removeNote, releaseApiUrl }) {
   const makeReleaseSpecific = () => {
+    // intentionally discarding id, url, and releases
+    // eslint-disable-next-line no-unused-vars
     const { id, url, releases, ...rest } = note;
     const copy = {
       ...rest,
@@ -69,7 +71,7 @@ function NoteRow({ note, removeNote, releaseApiUrl, converter }) {
 function NoteRows({ data, removeNote, releaseApiUrl, converter }) {
   return (
     <tbody>
-      {data.map((note, index) => (
+      {data.map((note) => (
         <NoteRow
           key={note.id}
           note={note}
