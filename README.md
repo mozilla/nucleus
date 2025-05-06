@@ -131,17 +131,6 @@ Heroku
    DATABASE_URL gets populated by heroku once you setup a database.
 3. git push heroku master
 
-NewRelic Monitoring
--------------------
-
-A newrelic.ini file is already included. To enable NewRelic monitoring
-add two environment variables:
-
-- NEW_RELIC_LICENSE_KEY
-- NEW_RELIC_APP_NAME
-
-See the [full list of supported environment variables](https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables).
-
 ## Kubernetes
 
 <https://github.com/mozmeao/nucleus-config/> has public examples of deployments in k8s clusters in AWS & GCP.

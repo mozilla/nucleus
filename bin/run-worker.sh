@@ -1,4 +1,4 @@
 #!/bin/sh
 
 urlwait
-exec newrelic-admin run-program python manage.py spinach --threads 1
+exec python manage.py spinach --threads 1

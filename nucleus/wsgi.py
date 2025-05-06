@@ -1,10 +1,4 @@
 # flake8: noqa
-# newrelic.agent must be imported and initialized first
-# https://docs.newrelic.com/docs/agents/python-agent/installation/python-agent-advanced-integration#manual-integration
-import newrelic.agent
-
-newrelic.agent.initialize("newrelic.ini")
-
 import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nucleus.settings")  # NOQA
@@ -27,7 +21,3 @@ class WSGIHTTPSRequest(WSGIRequest):
 
 application = get_wsgi_application()
 application.request_class = WSGIHTTPSRequest
-
-newrelic_license_key = config("NEW_RELIC_LICENSE_KEY", default=None)
-if newrelic_license_key:
-    application = newrelic.agent.WSGIApplicationWrapper(application)
