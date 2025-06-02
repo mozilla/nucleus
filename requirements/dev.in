@@ -2,5 +2,5 @@
 
 ruff==0.9.7
 Markdown==3.7  # is this definitely needed on the Python side?
-pytest-datadir==1.6.1
+pytest-datadir==1.7.1
 pytest-django==4.10.0
