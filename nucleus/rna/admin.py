@@ -85,7 +85,7 @@ class ReleaseAdmin(admin.ModelAdmin):
 
     def url(self, obj):
         base_url_staging = "https://www-dev.springfield.moz.works/en-US"
-        base_url_prod = "https://www.mozilla.com/en-US"
+        base_url_prod = "https://www.firefox.com/en-US"
         product = ""
 
         if obj.product == "Firefox for Android":
