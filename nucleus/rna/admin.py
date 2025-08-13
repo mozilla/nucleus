@@ -84,7 +84,7 @@ class ReleaseAdmin(admin.ModelAdmin):
         js = ["js/release-notes.js"]
 
     def url(self, obj):
-        base_url_staging = "https://www-dev.allizom.org/en-US"
+        base_url_staging = "https://www-dev.springfield.moz.works/en-US"
         base_url_prod = "https://www.mozilla.com/en-US"
         product = ""
 
