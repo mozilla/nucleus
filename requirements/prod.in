@@ -16,7 +16,7 @@ Django==4.2.22
 djangorestframework==3.15.2
 entrypoints==0.4
 Jinja2==3.1.6
-more-itertools==10.6.0
+more-itertools==10.8.0
 mozilla-django-oidc==4.0.1
 Pillow==11.1.0
 psycopg2-binary==2.9.10
