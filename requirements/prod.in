@@ -30,4 +30,4 @@ spinach==0.0.25
 sqlparse==0.5.3
 urlwait==1.0
 uwsgi==2.0.28
-whitenoise==6.9.0
+whitenoise==6.10.0
