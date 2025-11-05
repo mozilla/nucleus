@@ -22,7 +22,7 @@ Pillow==11.3.0
 psycopg2-binary==2.9.10
 PyGithub==2.8.1
 python-decouple==3.8
-redis==5.2.1
+redis==7.0.1
 requests>=2.32.5  # force security bump
 sentry-sdk==2.37.1
 sentry-processor==0.0.1
