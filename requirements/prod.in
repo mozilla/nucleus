@@ -19,7 +19,7 @@ Jinja2==3.1.6
 more-itertools==10.6.0
 mozilla-django-oidc==4.0.1
 Pillow==11.3.0
-psycopg2-binary==2.9.10
+psycopg2-binary==2.9.11
 PyGithub==2.8.1
 python-decouple==3.8
 redis==5.2.1
