@@ -14,3 +14,4 @@ json_export
 /git-repos
 .vscode
 node_modules
+.claude
