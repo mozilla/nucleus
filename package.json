@@ -12,8 +12,8 @@
   "license": "ISC",
   "description": "React component for managing release notes in the Django admin.",
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.2",
+    "react-dom": "^19.1.2",
     "vite": "^6.2.5"
   },
   "devDependencies": {
