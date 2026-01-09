@@ -773,9 +773,9 @@ spinach==0.0.25 \
     --hash=sha256:13e0730a535f16dbded708bf67e543a9ea0de948205931c4f849a6e8e3704b1c \
     --hash=sha256:727fa4b4fbd22e34aae79d60a86d82cf48106dd7e8df64e4e74fa98d2d45585e
     # via -r prod.in
-sqlparse==0.5.3 \
-    --hash=sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272 \
-    --hash=sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca
+sqlparse==0.5.5 \
+    --hash=sha256:12a08b3bf3eec877c519589833aed092e2444e68240a3577e8e26148acc7b1ba \
+    --hash=sha256:e20d4a9b0b8585fdf63b10d30066c7c94c5d7a7ec47c889a2d83a3caa93ff28e
     # via
     #   -r prod.in
     #   django
