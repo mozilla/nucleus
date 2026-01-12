@@ -765,9 +765,9 @@ ruff==0.13.0 \
 sentry-processor==0.0.1 \
     --hash=sha256:fd7a30fb57aaf05c01cd04cf7d949c628376b2b55d7a0aaa222efe58a8f122bc
     # via -r prod.in
-sentry-sdk==2.37.1 \
-    --hash=sha256:531751da91aa62a909b42a7be155b41f6bb0de9df6ae98441d23b95de2f98475 \
-    --hash=sha256:baaaea6608ed3a639766a69ded06b254b106d32ad9d180bdbe58f3db9364592b
+sentry-sdk==2.49.0 \
+    --hash=sha256:6ea78499133874445a20fe9c826c9e960070abeb7ae0cdf930314ab16bb97aa0 \
+    --hash=sha256:c1878599cde410d481c04ef50ee3aedd4f600e4d0d253f4763041e468b332c30
     # via -r prod.in
 spinach==0.0.25 \
     --hash=sha256:13e0730a535f16dbded708bf67e543a9ea0de948205931c4f849a6e8e3704b1c \
