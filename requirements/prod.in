@@ -17,17 +17,17 @@ djangorestframework==3.16.1
 entrypoints==0.4
 Jinja2==3.1.6
 more-itertools==10.6.0
-mozilla-django-oidc==4.0.1
+mozilla-django-oidc==5.0.2
 Pillow==11.3.0
 psycopg2-binary==2.9.10
 PyGithub==2.8.1
 python-decouple==3.8
 redis==5.2.1
 requests>=2.32.5  # force security bump
-sentry-sdk==2.37.1
+sentry-sdk==2.49.0
 sentry-processor==0.0.1
 spinach==0.0.25
-sqlparse==0.5.3
+sqlparse==0.5.5
 urlwait==1.0
-uwsgi==2.0.28
-whitenoise==6.10.0
+uwsgi==2.0.31
+whitenoise==6.11.0
