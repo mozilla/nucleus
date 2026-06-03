@@ -1,6 +1,5 @@
 -r prod.in
 
-ruff==0.13.0
-Markdown==3.9  # is this definitely needed on the Python side?
+ruff==0.15.15
 pytest-datadir==1.8.0
-pytest-django==4.11.1
+pytest-django==4.12.0
