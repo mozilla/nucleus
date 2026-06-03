@@ -230,6 +230,7 @@ CSP_IMG_SRC = (
     "https://*.mozilla.net",
     "http://*.mozilla.org",
     "https://*.mozilla.org",
+    "https://www.firefox.com",
 )
 CSP_SCRIPT_SRC = (
     "'self'",
