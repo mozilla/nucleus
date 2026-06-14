@@ -14,10 +14,10 @@
   "dependencies": {
     "react": "^19.1.2",
     "react-dom": "^19.1.2",
-    "vite": "^6.4.2"
+    "vite": "^8.0.16"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^6.0.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint": "^9.24.0",
