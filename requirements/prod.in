@@ -8,10 +8,10 @@ django-jinja==2.11.0
 django-pagedown==2.2.1
 django-watchman==1.5.0
 Django==4.2.30
-djangorestframework==3.17.1
+djangorestframework==3.17.2
 Jinja2==3.1.6
 mozilla-django-oidc==5.0.2
-Pillow==12.2.0
+Pillow==12.3.0
 psycopg2-binary==2.9.12
 PyGithub==2.9.1
 python-decouple==3.8
