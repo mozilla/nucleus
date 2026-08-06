@@ -2,4 +2,4 @@
 
 ruff==0.16.1
 pytest-datadir==1.8.0
-pytest-django==4.13.0
+pytest-django==4.12.0
