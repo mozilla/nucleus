@@ -29,7 +29,7 @@ class ReleaseManager(models.Manager):
 
 class Release(SaveToGithubModel):
     CHANNELS = ("Nightly", "Beta", "Release", "ESR")
-    PRODUCTS = ("Firefox", "Firefox for Android", "Firefox for iOS", "Firefox Extended Support Release", "Thunderbird")
+    PRODUCTS = ("Firefox", "Firefox Enterprise", "Firefox Extended Support Release", "Firefox for Android", "Firefox for iOS", "Thunderbird")
 
     product = models.CharField(max_length=255, choices=[(p, p) for p in PRODUCTS])
     channel = models.CharField(max_length=255, choices=[(c, c) for c in CHANNELS])
