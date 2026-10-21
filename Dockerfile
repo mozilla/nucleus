@@ -18,7 +18,6 @@ COPY requirements/* /app/requirements/
 
 # TODO: split out a separate dev image from the prod image and only install scoped deps
 # RUN pip install --require-hashes --no-cache-dir -r requirements/prod.txt
-RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --require-hashes --no-cache-dir -r requirements/dev.txt
 
 COPY . /app
