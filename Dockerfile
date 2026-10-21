@@ -12,7 +12,7 @@ RUN python -m venv /venv
 
 # Add apt script
 COPY docker/bin/apt-install /usr/local/bin/
-RUN apt-install build-essential gettext libxslt1.1 libxml2 libxml2-dev libxslt1-dev
+RUN apt-install ca-certificates build-essential gettext libxslt1.1 libxml2 libxml2-dev libxslt1-dev
 
 COPY requirements/* /app/requirements/
 
@@ -39,7 +39,7 @@ CMD ["bin/run-prod.sh"]
 WORKDIR /app
 
 COPY docker/bin/apt-install /usr/local/bin/
-RUN apt-install libxslt1.1 libxml2 postgresql-client
+RUN apt-install ca-certificates libxslt1.1 libxml2 postgresql-client
 
 # add non-priviledged user
 RUN adduser --uid 1000 --disabled-password --gecos '' --no-create-home webdev
