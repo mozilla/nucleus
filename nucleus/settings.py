@@ -2,10 +2,10 @@
 Django settings for nucleus project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/5.2/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
@@ -41,7 +41,7 @@ def git_repo_path(*args):
 WHITENOISE_ROOT = path("root_files")
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
@@ -134,15 +134,13 @@ CACHES = {
 }
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = config("LANGUAGE_CODE", default="en-us")
 
 TIME_ZONE = config("TIME_ZONE", default="UTC")
 
 USE_I18N = config("USE_I18N", default=True, cast=bool)
-
-USE_L10N = config("USE_L10N", default=True, cast=bool)
 
 USE_TZ = config("USE_TZ", default=True, cast=bool)
 
